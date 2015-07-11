@@ -10,17 +10,12 @@ class StocksController < ApplicationController
   def index
     uri = URI.parse('http://qiita.com/api/v2/users/takayuki-ochiai/stocks')
     response = Net::HTTP.get(uri)
-    json = JSON.parse(response)
-    #result = response.body
+    @stocks = JSON.parse(response)
 
-    #テストなのでJSONの最初のデータからいろいろとってみる
-    #タイトルとタグとurlとuser_id
+    #userのjson,tagのjsonも返さなければならない
 
-    url = json[0]["url"]
-    tag = json[0]["tags"][0]
-    user_id = json[0]["user"]["id"]
-    #render
-    render text: "#{url} + #{tag} + #{user_id}"
-    #binding.pry
+    render json: @stocks
+
+    #冷静に考えるとjson返せばあとはReactがどうにかしてくれるんだった。
   end
 end
