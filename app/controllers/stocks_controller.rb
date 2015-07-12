@@ -9,7 +9,7 @@ class StocksController < ApplicationController
     uri = URI.parse('http://qiita.com/api/v2/')
     Net::HTTP.version_1_2
     Net::HTTP.start(uri.host, uri.port) do |http|
-      @stocks = JSON.parse(http.get("#{uri.request_uri}users/takayuki-ochiai/stocks").body)
+      @stocks = JSON.parse(http.get("#{uri.request_uri}users/takayuki-ochiai/stocks?page=1&per_page=100").body)
       @followees = JSON.parse(http.get("#{uri.request_uri}users/takayuki-ochiai/followees").body)
       @following_tags = JSON.parse(http.get("#{uri.request_uri}users/takayuki-ochiai/following_tags").body)
     end
