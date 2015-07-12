@@ -7,6 +7,7 @@ var RouteHandler = Router.RouteHandler;
 //ストックした記事一覧
 var StockIndex = require('./stock_index.jsx');
 var Followees  = require('./followees.jsx');
+var FollowTags  = require('./follow_tag.jsx');
 
 var Root = React.createClass({
   render: function() {
@@ -34,6 +35,7 @@ var AppRoutes = (
     <DefaultRoute handler={PathA}/>
     <Route name="stockIndex" path="/" handler={StockIndex} />
     <Route name="followees" path="/followees" handler={Followees} />
+    <Route name="following_tags" path="/following_tags" handler={FollowTags} />
   </Route>
 );
 
