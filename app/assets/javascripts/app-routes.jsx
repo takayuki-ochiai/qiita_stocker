@@ -4,6 +4,10 @@ var DefaultRoute = Router.DefaultRoute;
 var Route = Router.Route;
 var RouteHandler = Router.RouteHandler;
 
+//ストックした記事一覧
+var StockIndex = require('./stock_index.jsx');
+var Followees  = require('./followees.jsx');
+
 var Root = React.createClass({
   render: function() {
     return (
@@ -28,8 +32,8 @@ var PathB = React.createClass({
 var AppRoutes = (
   <Route name="app" path="/" handler={Root}>
     <DefaultRoute handler={PathA}/>
-    <Route name="path-a" path="/path-a" handler={PathA} />
-    <Route name="path-b" path="/path-b" handler={PathB} />
+    <Route name="stockIndex" path="/" handler={StockIndex} />
+    <Route name="followees" path="/followees" handler={Followees} />
   </Route>
 );
 
