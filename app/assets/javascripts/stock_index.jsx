@@ -16,7 +16,7 @@ var StockIndex = React.createClass({
     }
   },
   componentDidMount() {
-    this.fetchStocks()
+    this.fetchStocks();
   },
   render() {
     var rows = [];
