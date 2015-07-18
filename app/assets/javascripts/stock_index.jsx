@@ -21,12 +21,24 @@ var StockIndex = React.createClass({
   render() {
     var rows = [];
     this.state.stocks.forEach(function(stock) {
+      var tags = [];
+      stock.tags.forEach(function(tag) {
+        tags.push(
+          <div className="tag-list__item-wrap"><div className="left-arrow"></div><div key={tag.name} className="tag-list__item">{tag.name}</div></div>
+        )
+      });
+
+      stock.created_at = stock.created_at.substr(0,10).replace( /-/g , "/" );
       rows.push(
         <div key={stock.id} className="stock-item">
-          <div className="stock-item__title">{stock.title}</div>
-          <div className="stock-item__user-profile-image"> <img src={stock.user.profile_image_url} /></div>
-          <div className="stock-item__user">{stock.user.id}</div>
-          <div className="stock-item__post-date">{stock.created_at}</div>
+            <div className="hoge">
+                <div className="stock-item__user-profile-image"> <img src={stock.user.profile_image_url} /></div>
+                <div className="stock-item__right">
+                    <div className="stock-item__user"><a href="">{stock.user.id}</a>が{stock.created_at}に投稿</div>
+                    <div className="stock-item__title">{stock.title}</div>
+                    <div className="tag-list">{tags}</div>
+                </div>
+            </div>
         </div>
       )
     }.bind(this));
