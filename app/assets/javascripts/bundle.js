@@ -127,7 +127,7 @@ var Followees = React.createClass({displayName: "Followees",
     var rows = [];
     this.state.followees.forEach(function(followee) {
       rows.push(
-        React.createElement("div", {className: "followee-item"}, 
+        React.createElement("div", {key: followee.id, className: "followee-item"}, 
           React.createElement("div", {className: "followee-item__userID"}, followee.id), 
           React.createElement("div", {className: "followee-item__userID"}, React.createElement("img", {src: followee.profile_image_url}))
         )
@@ -168,7 +168,7 @@ var StockIndex = React.createClass({displayName: "StockIndex",
     var rows = [];
     this.state.stocks.forEach(function(stock) {
       rows.push(
-        React.createElement("div", {className: "stock-item"}, 
+        React.createElement("div", {key: stock.id, className: "stock-item"}, 
           React.createElement("div", {className: "stock-item__title"}, stock.title), 
           React.createElement("div", {className: "stock-item__user-profile-image"}, " ", React.createElement("img", {src: stock.user.profile_image_url})), 
           React.createElement("div", {className: "stock-item__user"}, stock.user.id), 

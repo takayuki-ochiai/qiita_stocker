@@ -22,7 +22,7 @@ var StockIndex = React.createClass({
     var rows = [];
     this.state.stocks.forEach(function(stock) {
       rows.push(
-        <div className="stock-item">
+        <div key={stock.id} className="stock-item">
           <div className="stock-item__title">{stock.title}</div>
           <div className="stock-item__user-profile-image"> <img src={stock.user.profile_image_url} /></div>
           <div className="stock-item__user">{stock.user.id}</div>

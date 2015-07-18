@@ -21,7 +21,7 @@ var Followees = React.createClass({
     var rows = [];
     this.state.followees.forEach(function(followee) {
       rows.push(
-        <div className="followee-item">
+        <div key={followee.id} className="followee-item">
           <div className="followee-item__userID">{followee.id}</div>
           <div className="followee-item__userID"><img src={followee.profile_image_url} /></div>
         </div>
