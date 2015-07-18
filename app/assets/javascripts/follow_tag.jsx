@@ -22,7 +22,7 @@ var FollowTags = React.createClass({
     var rows = [];
     this.state.following_tags.forEach(function(tag) {
       rows.push(
-        <div className="following-tags-item">
+        <div key={tag.id} className="following-tags-item">
           <div className="following-tags-item__id">{tag.id}</div>
           <div className="following-tags-item__icon"><img src={tag.icon_url} /></div>
         </div>

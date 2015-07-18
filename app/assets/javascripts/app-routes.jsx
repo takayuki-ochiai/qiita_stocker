@@ -8,6 +8,7 @@ var RouteHandler = Router.RouteHandler;
 var StockIndex = require('./stock_index.jsx');
 var Followees  = require('./followees.jsx');
 var FollowTags  = require('./follow_tag.jsx');
+var StockTags = require('./stock_tags_index.jsx');
 
 var Root = React.createClass({
   render: function() {
@@ -36,6 +37,7 @@ var AppRoutes = (
     <Route name="stockIndex" path="/" handler={StockIndex} />
     <Route name="followees" path="/followees" handler={Followees} />
     <Route name="following_tags" path="/following_tags" handler={FollowTags} />
+    <Route name="stock_tags" path="/stock_tags" handler={StockTags} />
   </Route>
 );
 
