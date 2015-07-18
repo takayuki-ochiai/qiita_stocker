@@ -108,20 +108,18 @@ var StockIndex = React.createClass({displayName: "StockIndex",
       var tags = [];
       stock.tags.forEach(function(tag) {
         tags.push(
-          React.createElement("div", {className: "tag-list__item-wrap"}, React.createElement("div", {className: "left-arrow"}), React.createElement("div", {key: tag.name, className: "tag-list__item"}, tag.name))
+          React.createElement("div", {key: tag.name, className: "tag-list__item-wrap"}, React.createElement("div", {className: "left-arrow"}), React.createElement("div", {key: tag.name, className: "tag-list__item"}, tag.name))
         )
       });
 
       stock.created_at = stock.created_at.substr(0,10).replace( /-/g , "/" );
       rows.push(
         React.createElement("div", {key: stock.id, className: "stock-item"}, 
-            React.createElement("div", {className: "hoge"}, 
-                React.createElement("div", {className: "stock-item__user-profile-image"}, " ", React.createElement("img", {src: stock.user.profile_image_url})), 
-                React.createElement("div", {className: "stock-item__right"}, 
-                    React.createElement("div", {className: "stock-item__user"}, React.createElement("a", {href: ""}, stock.user.id), "が", stock.created_at, "に投稿"), 
-                    React.createElement("div", {className: "stock-item__title"}, stock.title), 
-                    React.createElement("div", {className: "tag-list"}, tags)
-                )
+            React.createElement("div", {className: "stock-item__user-profile-image"}, " ", React.createElement("img", {src: stock.user.profile_image_url})), 
+            React.createElement("div", {className: "stock-item__right"}, 
+                React.createElement("div", {className: "stock-item__user"}, React.createElement("a", {href: ""}, stock.user.id), "が", stock.created_at, "に投稿"), 
+                React.createElement("div", {className: "stock-item__title"}, React.createElement("a", {href: stock.url}, stock.title)), 
+                React.createElement("div", {className: "tag-list"}, tags)
             )
         )
       )

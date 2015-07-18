@@ -1,6 +1,17 @@
 body {
-  margin: 0;
-  padding: 0px;
+  //font-family: "Meiryo","メイリオ","Hiragino Kaku Gothic Pro","ヒラギノ角ゴ Pro W3","Osaka","MS PGothic",arial,helvetica,sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, Arial, 'Droid Sans', 'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ Pro W3', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', sans-serif;
   height: 100%;
+  margin: 0;
   max-height: 100%;
+  padding: 0px;
+}
+
+a {
+  color: #0077cc;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }

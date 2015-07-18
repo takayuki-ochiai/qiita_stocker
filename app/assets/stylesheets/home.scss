@@ -30,16 +30,19 @@
   margin: 0 auto;
   min-height: 70px;
   width: 100%;
-
+  padding-top: 10px;
   position: relative;
-  border: 1px blue solid;
+  border-bottom: 2px lightgray solid;
 }
 
 .stock-item__user-profile-image {
   position: absolute;
   img {
-    height: 60px;
-    width: 60px;
+    box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.4);
+    display: block;
+    height: 40px;
+    width:  40px;
+    margin-left: 10px;
   }
 }
 
@@ -61,6 +64,7 @@
 
 .stock-item__title {
   font-size: 16px;
+  font-weight: bold;
 }
 
 
@@ -71,7 +75,7 @@
   height: 0px;
   border-top: 6px solid transparent;
   border-bottom: 6px solid transparent;
-  border-right: 10px solid gray;
+  border-right: 10px solid lightgray;
 }
 
 .tag-list__item-wrap {
@@ -80,7 +84,7 @@
 }
 
 .tag-list__item {
-  background-color: gray;
+  background-color: lightgray;
   line-height: 1;
   padding: 0px 7px 0px 2px;
 }
