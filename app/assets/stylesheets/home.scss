@@ -92,6 +92,21 @@
   padding: 0px 7px 0px 2px;
 }
 
+//検索フィルター全体
+.stock-filter-index {
+  width: 80%;
+  margin: 0 auto;
+  h5 {
+    border-bottom: 1px #ddd solid;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 11px 0px;
+    width: 90%;
+    margin: 0 auto;
+
+  }
+}
+
 //フォローしたタグリスト
 
 .following-tags-filter-category {
@@ -99,8 +114,14 @@
   border-radius: 3px;
 }
 
+.following-tags-item-wrapper {
+  width: 90%;
+}
+
 .following-tags-item {
+  width: 90%;
   position: relative;
+  margin-left: 15%;
   min-height: 20px;
   padding-bottom: 10px;
 }
@@ -112,17 +133,17 @@
 
 .following-tags-item__icon {
   position: absolute;
-  width: 10%;
+  width: 13%;
   img {
     width:   100%;
   }
 }
 
 .following-tags-item__id {
-  font-size: 13px;
+  font-size: 14px;
   padding: 0px 0px 0px 5px;
   position: relative;
-  margin-left: 10%;
+  margin-left: 13%;
   line-height: 26px;
 }
 

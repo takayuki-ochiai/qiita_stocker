@@ -1,5 +1,4 @@
 body {
-  //font-family: "Meiryo","メイリオ","Hiragino Kaku Gothic Pro","ヒラギノ角ゴ Pro W3","Osaka","MS PGothic",arial,helvetica,sans-serif;
   font-family: "Helvetica Neue",Helvetica,"ヒラギノ角ゴ ProN W3","Hiragino Kaku Gothic ProN","メイリオ",Meiryo,sans-serif;
   height: 100%;
   margin: 0;
@@ -18,6 +17,10 @@ a:hover {
 
 a:visited {
   color: #685987;
+}
+
+ul {
+  padding: 0px;
 }
 
 ul li {

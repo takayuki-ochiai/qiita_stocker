@@ -4,18 +4,19 @@ var Navigation = Router.Navigation;
 
 //ストックした投稿のリスト
 var StockIndex = require('./stock_index.jsx');
-//フォローしているタグのリスト
-var FollowTags  = require('./follow_tag.jsx');
+
+//ストックしたフィルターのリスト
+var StockIndexFilter  = require('./stock_index_filter.jsx');
 
 var Index = React.createClass({
   render() {
     return(
       <div id="container" className="">
-        <div className="c-side"><FollowTags /></div>
+        <div className="c-side"><StockIndexFilter /></div>
         <div className="c-main"><StockIndex /></div>
       </div>
     );
   }
 })
 
-module.exports= Index;
+module.exports = Index;
