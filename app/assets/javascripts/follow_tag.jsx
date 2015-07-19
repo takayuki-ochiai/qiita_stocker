@@ -3,37 +3,22 @@ var Link = Router.Link;
 var Navigation = Router.Navigation;
 
 var FollowTags = React.createClass({
-  fetchFollowTags() {
-    $.get('/stocks.json', function(res) {
-      if (this.isMounted()) {
-        this.setState({ following_tags: res.following_tags});
-      }
-    }.bind(this));
-  },
-  getInitialState() {
-    return {
-      following_tags: []
-    }
-  },
-  componentDidMount() {
-    this.fetchFollowTags();
-  },
   render() {
     var rows = [];
-    this.state.following_tags.forEach(function(tag) {
+    this.props.following_tags.forEach(function(tag) {
       rows.push(
-        <div key={tag.id} className="following-tags-item-wrapper">
-            <li className="following-tags-item ui-checkbox">
-              <div className="following-tags-item__icon"><img src={tag.icon_url} /></div>
-              <div className="following-tags-item__id">{tag.id}</div>
-              <input id={tag.id + "-occupation"} type="checkbox" />
-            </li>
-        </div>
+        <li key={tag.id} className="stock-index-filter-option__item-wrapper">
+            <div className="stock-index-filter-option__item ui-checkbox">
+              <div className="stock-index-filter-option__icon"><img src={tag.icon_url} /></div>
+              <div className="stock-index-filter-option__label">{tag.id}</div>
+              <input id={tag.id + "-following-tag"} type="checkbox" />
+            </div>
+        </li>
       )
     }.bind(this));
 
     return(
-      <div className="following-tags-filter-category">
+      <div className="stock-index-filter-option">
           <h5>フォロー中のタグ</h5>
           <ul className="following-tags-list">
               {rows}

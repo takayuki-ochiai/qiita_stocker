@@ -107,31 +107,20 @@
   }
 }
 
-//フォローしたタグリスト
-
-.following-tags-filter-category {
+.stock-index-filter-option {
   border: 1px solid #ddd;
   border-radius: 3px;
 }
 
-.following-tags-item-wrapper {
+.stock-index-filter-option__item-wrapper {
   width: 90%;
 }
 
-.following-tags-item {
-  width: 90%;
-  position: relative;
-  margin-left: 15%;
-  min-height: 20px;
-  padding-bottom: 10px;
+.ui-checkbox input {
+  display: none;
 }
 
-.following-tags-item__id:hover {
-  background-color: lightgray;
-  cursor: pointer;
-}
-
-.following-tags-item__icon {
+.stock-index-filter-option__icon {
   position: absolute;
   width: 13%;
   img {
@@ -139,7 +128,12 @@
   }
 }
 
-.following-tags-item__id {
+.stock-index-filter-option__label:hover {
+  background-color: lightgray;
+  cursor: pointer;
+}
+
+.stock-index-filter-option__label {
   font-size: 14px;
   padding: 0px 0px 0px 5px;
   position: relative;
@@ -147,6 +141,10 @@
   line-height: 26px;
 }
 
-.ui-checkbox input {
-  display: none;
+.stock-index-filter-option__item {
+  width: 90%;
+  position: relative;
+  margin-left: 15%;
+  min-height: 20px;
+  padding-bottom: 10px;
 }

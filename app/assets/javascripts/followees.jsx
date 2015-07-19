@@ -2,34 +2,26 @@ var Router = require('react-router');
 var Link = Router.Link;
 var Navigation = Router.Navigation;
 var Followees = React.createClass({
-  fetchFollowees() {
-    $.get('/stocks.json', function(res) {
-      if (this.isMounted()) {
-        this.setState({ followees: res.followees});
-      }
-    }.bind(this));
-  },
-  getInitialState() {
-    return {
-      followees: []
-    }
-  },
-  componentDidMount() {
-    this.fetchFollowees();
-  },
   render() {
     var rows = [];
-    this.state.followees.forEach(function(followee) {
+    this.props.followees.forEach(function(followee) {
       rows.push(
-        <div key={followee.id} className="followee-item">
-          <div className="followee-item__userID">{followee.id}</div>
-          <div className="followee-item__userID"><img src={followee.profile_image_url} /></div>
-        </div>
+        <li key={followee.id} className="stock-index-filter-option__item-wrapper">
+            <div className="stock-index-filter-option__item ui-checkbox">
+                <div className="stock-index-filter-option__icon"><img src={followee.profile_image_url} /></div>
+                <div className="stock-index-filter-option__label">{followee.id}</div>
+                <input id={followee.id + "-user"} type="checkbox" />
+            </div>
+        </li>
       )
     }.bind(this));
+
     return(
-      <div className="followee-list">
-        {rows}
+      <div className="stock-index-filter-option">
+          <h5>フォロー中のユーザー</h5>
+          <ul className="followee-list">
+            {rows}
+          </ul>
       </div>
     );
   }

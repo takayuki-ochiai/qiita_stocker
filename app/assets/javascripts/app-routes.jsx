@@ -4,10 +4,6 @@ var DefaultRoute = Router.DefaultRoute;
 var Route = Router.Route;
 var RouteHandler = Router.RouteHandler;
 
-//ストックした記事一覧
-// var StockIndex = require('./stock_index.jsx');
-// var Followees  = require('./followees.jsx');
-// var FollowTags  = require('./follow_tag.jsx');
 // var StockTags = require('./stock_tags_index.jsx');
 var Index = require('./index.jsx');
 
