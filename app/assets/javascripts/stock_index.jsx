@@ -33,7 +33,7 @@ var StockIndex = React.createClass({
         <div key={stock.id} className="stock-item">
             <div className="stock-item__user-profile-image"> <img src={stock.user.profile_image_url} /></div>
             <div className="stock-item__right">
-                <div className="stock-item__user"><a href="">{stock.user.id}</a>が{stock.created_at}に投稿</div>
+                <div className="stock-item__user"><a href="">{stock.user.id}</a> が{stock.created_at}に投稿</div>
                 <div className="stock-item__title"><a href={stock.url}>{stock.title}</a></div>
                 <div className="tag-list">{tags}</div>
             </div>

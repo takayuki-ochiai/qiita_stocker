@@ -22,16 +22,22 @@ var FollowTags = React.createClass({
     var rows = [];
     this.state.following_tags.forEach(function(tag) {
       rows.push(
-        <div key={tag.id} className="following-tags-item">
-          <div className="following-tags-item__id">{tag.id}</div>
+        <li key={tag.id} className="following-tags-item ui-checkbox">
           <div className="following-tags-item__icon"><img src={tag.icon_url} /></div>
-        </div>
+          <div className="following-tags-item__id">{tag.id}</div>
+          <input id={tag.id + "-occupation"} type="checkbox" />
+        </li>
       )
     }.bind(this));
     return(
-      <div className="following-tags-list">
-        {rows}
-      </div>
+      <form action="" method="get">
+          <div className="following-tags-filter-category">
+              <h5>フォロー中のタグ</h5>
+              <ul className="following-tags-list">
+                  {rows}
+              </ul>
+          </div>
+      </form>
     );
   }
 });
