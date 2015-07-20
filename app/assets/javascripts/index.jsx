@@ -8,6 +8,9 @@ var StockIndex = require('./stock_index.jsx');
 //ストックしたフィルターのリスト
 var StockIndexFilter  = require('./stock_index_filter.jsx');
 
+//検索フィールド
+var StockSearchField = require('./stock_search_field.jsx');
+
 //Flux用
 var AppDispatcher = require('./dispatcher.js');
 
@@ -62,11 +65,15 @@ var Index = React.createClass({
     });
     //ここから下でクエリ発行する。
   },
+  updateKeywordQuery(keywordQuery) {
+    ActionCreator.storeKeywordQuery(keywordQuery);
+  },
   render() {
     return(
       <div id="container">
           <div className="c-side"><StockIndexFilter following_tags={this.state.following_tags} followees={this.state.followees} /></div>
           <div className="c-main">
+              <StockSearchField updateKeywordQuery={this.updateKeywordQuery}/>
               <StockIndex stocks={this.state.stocks} />
           </div>
       </div>

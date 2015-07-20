@@ -14,8 +14,8 @@ var ActionCreator = {
   },
 
   //クエリ用のアクション
-  storeQuery(query) {
-      AppDispatcher.handleViewAction(Constants.INITIALIZE_STOCKS, query);
+  storeKeywordQuery(query) {
+      AppDispatcher.handleViewAction(Constants.STORE_KEYWORD_QUERY, query);
   }
 //まだ先の話だった
   // /**

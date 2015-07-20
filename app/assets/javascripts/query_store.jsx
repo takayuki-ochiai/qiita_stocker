@@ -32,10 +32,9 @@ var QueryStore = assign({}, EventEmitter.prototype, {
 });
 
 QueryStore.dispatchToken = AppDispatcher.register(function(payload) {
-  //入力されたクエリをStoreに保存する
-  if(payload.actionType === Constants.STORE_QUERY) {
-    query.keywordQuery = payload.action.keywordQuery;
-    query.filterOptionQuery = payload.action.filterOptionQuery;
+  //入力されたキーワードクエリをStoreに保存する
+  if(payload.actionType === Constants.STORE_KEYWORD_QUERY) {
+    query.keywordQuery = payload.action;
     QueryStore.emitChange();
   }
 });
