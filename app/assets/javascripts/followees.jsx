@@ -1,19 +1,14 @@
 var Router = require('react-router');
 var Link = Router.Link;
 var Navigation = Router.Navigation;
+var FilterOptionListItem = require('./filter_option_list_item.jsx');
 
 var Followees = React.createClass({
   render() {
     var rows = [];
     this.props.followees.forEach(function(followee) {
       rows.push(
-        <li key={followee.id} className="stock-index-filter-option__item-wrapper">
-            <div className="stock-index-filter-option__item ui-checkbox">
-                <div className="stock-index-filter-option__icon"><img src={followee.profile_image_url} /></div>
-                <div className="stock-index-filter-option__label">{followee.id}</div>
-                <input id={followee.id + "-user"} type="checkbox" />
-            </div>
-        </li>
+        <FilterOptionListItem key={followee.id} id={followee.id} image_url={followee.profile_image_url} filter_category={followee.id + "-user"} />
       )
     }.bind(this));
 
