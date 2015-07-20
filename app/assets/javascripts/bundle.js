@@ -273,22 +273,15 @@ var Link = Router.Link;
 var Navigation = Router.Navigation;
 
 var StockListItem = require('./stock_list_item.jsx');
-var TagListItem = require('./tag_list_item.jsx');
 
 var StockIndex = React.createClass({displayName: "StockIndex",
   render() {
     var rows = [];
     this.props.stocks.forEach(function(stock) {
-      var tags = [];
-      stock.tags.forEach(function(tag) {
-        tags.push(
-          React.createElement(TagListItem, {tag: tag})
-        )
-      });
 
       stock.created_at = stock.created_at.substr(0,10).replace( /-/g , "/" );
       rows.push(
-        React.createElement(StockListItem, {stock: stock, tags: tags})
+        React.createElement(StockListItem, {key: stock.id, stock: stock})
       )
     }.bind(this));
 
@@ -302,7 +295,7 @@ var StockIndex = React.createClass({displayName: "StockIndex",
 
 module.exports = StockIndex;
 
-},{"./stock_list_item.jsx":12,"./tag_list_item.jsx":14,"react-router":45}],11:[function(require,module,exports){
+},{"./stock_list_item.jsx":12,"react-router":45}],11:[function(require,module,exports){
 var Router = require('react-router');
 var Link = Router.Link;
 var Navigation = Router.Navigation;
@@ -326,15 +319,23 @@ var StockIndexFilter = React.createClass({displayName: "StockIndexFilter",
 module.exports = StockIndexFilter;
 
 },{"./follow_tag.jsx":7,"./followees.jsx":8,"react-router":45}],12:[function(require,module,exports){
+var TagListItem = require('./tag_list_item.jsx');
+
 var StockListItem = React.createClass({displayName: "StockListItem",
   render() {
+    var tags = [];
+    this.props.stock.tags.forEach(function(tag) {
+      tags.push(
+        React.createElement(TagListItem, {key: tag.name, tag: tag})
+      )
+    });
     return (
         React.createElement("article", {key: this.props.stock.id, className: "stock-item"}, 
             React.createElement("div", {className: "stock-item__user-profile-image"}, " ", React.createElement("img", {src: this.props.stock.user.profile_image_url})), 
             React.createElement("div", {className: "stock-item__right"}, 
                 React.createElement("div", {className: "stock-item__user"}, React.createElement("a", {href: ""}, this.props.stock.user.id), " が", this.props.stock.created_at, "に投稿"), 
                 React.createElement("div", {className: "stock-item__title"}, React.createElement("a", {href: this.props.stock.url}, this.props.stock.title)), 
-                React.createElement("div", {className: "tag-list"}, this.props.tags)
+                React.createElement("div", {className: "tag-list"}, tags)
             )
         )
     )
@@ -343,7 +344,7 @@ var StockListItem = React.createClass({displayName: "StockListItem",
 
 module.exports = StockListItem;
 
-},{}],13:[function(require,module,exports){
+},{"./tag_list_item.jsx":14}],13:[function(require,module,exports){
 var assign           = require('object-assign'),
       EventEmitter = require('events').EventEmitter,
       AppDispatcher = require('./dispatcher.js'),
@@ -386,9 +387,9 @@ module.exports = StockStore;
 var TagListItem = React.createClass({displayName: "TagListItem",
   render() {
     return(
-      React.createElement("div", {key: this.props.tag.name, className: "tag-list__item-wrap"}, 
+      React.createElement("div", {className: "tag-list__item-wrap"}, 
           React.createElement("div", {className: "left-arrow"}), 
-          React.createElement("div", {key: this.props.tag.name, className: "tag-list__item"}, this.props.tag.name)
+          React.createElement("div", {className: "tag-list__item"}, this.props.tag.name)
       )
     )
   }
