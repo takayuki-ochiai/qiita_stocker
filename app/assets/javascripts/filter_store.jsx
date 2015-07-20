@@ -1,26 +1,26 @@
 var assign           = require('object-assign'),
       EventEmitter = require('events').EventEmitter,
-      AppDispatcher = require('./dispatcher.js');
+      AppDispatcher = require('./dispatcher.js'),
+      Constants    = require('./app_constants.js')
 ;
 
-var CHANGE_EVENT = 'change';
 var filters = [];
 
 var FilterStore = assign({}, EventEmitter.prototype, {
   emitChange() {
-    this.emit(CHANGE_EVENT);
+    this.emit(Constants.CHANGE_EVENT);
   },
   /**
    * @param {function} callback
    */
   addChangeListener(callback) {
-    this.on(CHANGE_EVENT, callback);
+    this.on(Constants.CHANGE_EVENT, callback);
   },
   /**
    * @param {function} callback
    */
   removeChangeListener(callback) {
-    this.removeListener(CHANGE_EVENT, callback);
+    this.removeListener(Constants.CHANGE_EVENT, callback);
   },
 
   getAll() {
@@ -29,7 +29,7 @@ var FilterStore = assign({}, EventEmitter.prototype, {
 });
 
 FilterStore.dispatchToken = AppDispatcher.register(function(payload) {
-  if(payload.actionType === 'initialize-filters') {
+  if(payload.actionType === Constants.INITIALIZE_FILTERS) {
     filters = payload.action;
     FilterStore.emitChange();
   }

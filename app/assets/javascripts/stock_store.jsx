@@ -1,26 +1,26 @@
 var assign           = require('object-assign'),
       EventEmitter = require('events').EventEmitter,
-      AppDispatcher = require('./dispatcher.js');
+      AppDispatcher = require('./dispatcher.js'),
+      Constants    = require('./app_constants.js')
 ;
 
-var CHANGE_EVENT = 'change';
 var stocks = [];
 
 var StockStore = assign({}, EventEmitter.prototype, {
   emitChange() {
-    this.emit(CHANGE_EVENT);
+    this.emit(Constants.CHANGE_EVENT);
   },
   /**
    * @param {function} callback
    */
   addChangeListener(callback) {
-    this.on(CHANGE_EVENT, callback);
+    this.on(Constants.CHANGE_EVENT, callback);
   },
   /**
    * @param {function} callback
    */
   removeChangeListener(callback) {
-    this.removeListener(CHANGE_EVENT, callback);
+    this.removeListener(Constants.CHANGE_EVENT, callback);
   },
   getAll() {
     return stocks;
@@ -28,7 +28,7 @@ var StockStore = assign({}, EventEmitter.prototype, {
 });
 
 StockStore.dispatchToken = AppDispatcher.register(function(payload) {
-  if(payload.actionType === 'initialize-stocks') {
+  if(payload.actionType === Constants.INITIALIZE_STOCKS) {
     stocks = payload.action;
     StockStore.emitChange();
   }
