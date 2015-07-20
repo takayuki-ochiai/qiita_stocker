@@ -15,20 +15,27 @@ var ActionCreator = {
   },
 
   //クエリ用のアクション
+  //キーワードクエリを貯蔵する
   storeKeywordQuery(query) {
       AppDispatcher.handleViewAction(Constants.STORE_KEYWORD_QUERY, query);
+  },
+  /**
+  * 検索条件がかかった時のストック検索で使います。
+  * @param keywordQuery 検索フィールドに入力されたキーワードです
+  * @param filterOptionQuery フォロイーやフォロー中のタグによるフィルターの選択情報です
+  */
+
+  //このメンバ関数は未完成です！
+  //今後やりたいこと
+  //一致した本文の部分については太字で何文字か表示する
+  //複数語句のOR検索
+  //大小文字を問わない
+  //できるならタグ名も検索かける
+  searchStocks(keywordQuery, filterOptionQuery) {
+    $.get('/stocks.json/?keyword=' + keywordQuery, function(res) {
+      AppDispatcher.handleViewAction(Constants.EMIT_QUERY, res);
+    }.bind(this));
   }
-//まだ先の話だった
-  // /**
-  // * 検索条件がかかった時のストック検索で使います。
-  // * @param query クエリ情報を入れたオブジェクト
-  // */
-  // searchStocks(query) {
-  //   //さしあたってスタブとして全部ストックをとりなおす
-  //   $.get('/stocks.json', function(res) {
-  //     AppDispatcher.handleViewAction(Constants.EMIT_QUERY, res);
-  //   }.bind(this));
-  // }
 }
 
 module.exports = ActionCreator;
@@ -301,6 +308,7 @@ var Index = React.createClass({displayName: "Index",
       filterOptionQuery: filterOptionQuery
     });
     //ここから下でクエリ発行する。
+    ActionCreator.searchStocks(keywordQuery, filterOptionQuery);
   },
   updateKeywordQuery(keywordQuery) {
     ActionCreator.storeKeywordQuery(keywordQuery);
@@ -503,6 +511,11 @@ var StockStore = assign({}, EventEmitter.prototype, {
 
 StockStore.dispatchToken = AppDispatcher.register(function(payload) {
   if(payload.actionType === Constants.INITIALIZE_STOCKS) {
+    stocks = payload.action;
+    StockStore.emitChange();
+  }
+
+  if(payload.actionType === Constants.EMIT_QUERY) {
     stocks = payload.action;
     StockStore.emitChange();
   }

@@ -12,6 +12,10 @@ class StocksController < ApplicationController
       @stocks = JSON.parse(http.get("#{uri.request_uri}users/takayuki-ochiai/stocks?page=1&per_page=100", header = {'Authorization' => 'Bearer 9cd5f03035b0446c6f7f8f261b91faf9400f31b5'}, dest = nil).body)
     end
 
+    if params[:keyword].present?
+      @stocks.select!{ |stock| stock["body"].include?(params[:keyword]) || stock["title"].include?(params[:keyword])}
+    end
+
     #stockの持つタグを集計する
     #TODO: なんかやぼったい書き方しているのどうにかしたい
     @stock_tags = @stocks.reduce([]) { |result, stock|

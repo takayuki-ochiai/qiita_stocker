@@ -64,6 +64,7 @@ var Index = React.createClass({
       filterOptionQuery: filterOptionQuery
     });
     //ここから下でクエリ発行する。
+    ActionCreator.searchStocks(keywordQuery, filterOptionQuery);
   },
   updateKeywordQuery(keywordQuery) {
     ActionCreator.storeKeywordQuery(keywordQuery);
