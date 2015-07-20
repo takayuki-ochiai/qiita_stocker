@@ -6,7 +6,6 @@ var RouteHandler = Router.RouteHandler;
 
 // var StockTags = require('./stock_tags_index.jsx');
 var Index = require('./index.jsx');
-
 var Root = React.createClass({
   render: function() {
     return (

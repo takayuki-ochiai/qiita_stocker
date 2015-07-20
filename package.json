@@ -24,9 +24,11 @@
     "watchify": "^3.2.2"
   },
   "dependencies": {
+    "object-assign": "^3.0.0",
     "react": "^0.13.3",
     "react-router": "^0.13.3",
-    "react-tap-event-plugin": "^0.1.7"
+    "react-tap-event-plugin": "^0.1.7",
+    "superagent": "^1.2.0"
   },
   "bugs": {
     "url": "https://github.com/takayuki-ochiai/qiita_stocker/issues"

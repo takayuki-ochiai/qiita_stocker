@@ -1,6 +1,7 @@
 var Router = require('react-router');
 var Link = Router.Link;
 var Navigation = Router.Navigation;
+
 var Followees = React.createClass({
   render() {
     var rows = [];
