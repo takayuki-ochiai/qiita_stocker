@@ -4,7 +4,7 @@ var React            = require('react'),
 ;
 
 var AppDispatcher = assign(new Dispatcher(), {
-  handleViewAction: function(type, action) {
+  handleViewAction(type, action) {
     this.dispatch({
       actionType: type,
       action: action
