@@ -5,7 +5,11 @@ var url = 'http://localhost:3000/stocks/filter_data';
 var ActionCreator = {
   fetchAll: function() {
     $.get('/stocks/filter_data.json', function(res) {
-      AppDispatcher.handleViewAction(res);
+      AppDispatcher.handleViewAction('initialize-filters', res);
+    }.bind(this));
+
+    $.get('/stocks.json', function(res) {
+      AppDispatcher.handleViewAction('initialize-stocks', res);
     }.bind(this));
   }
 }
@@ -76,9 +80,9 @@ var React            = require('react'),
 ;
 
 var AppDispatcher = assign(new Dispatcher(), {
-  handleViewAction: function(action) {
+  handleViewAction: function(type, action) {
     this.dispatch({
-      actionType: 'initialize-filters',
+      actionType: type,
       action: action
     });
   }
@@ -217,27 +221,34 @@ var ActionCreator = require('./action_creator.js');
 var Index = React.createClass({displayName: "Index",
   getInitialState() {
     return {
-      following_tags: FilterStore.getAll(),
-      followees: []
+      following_tags: [],
+      followees: [],
+      stocks: []
     }
   },
   componentDidMount() {
-    FilterStore.addChangeListener(this._onChange);
+    FilterStore.addChangeListener(this._onFilterChange);
+    StockStore.addChangeListener(this._onStockChange);
     ActionCreator.fetchAll();
   },
   componentWillUnmount() {
-    FilterStore.removeChangeListener(this._onChange);
+    FilterStore.removeChangeListener(this._onFilterChange);
+    StockStore.addChangeListener(this._onStockChange);
   },
-  _onChange() {
+  _onFilterChange() {
     var following_tags = FilterStore.getAll().following_tags;
     var followees = FilterStore.getAll().followees;
     this.setState({ following_tags: following_tags, followees: followees });
+  },
+  _onStockChange() {
+    var stocks = StockStore.getAll().stocks;
+    this.setState({ stocks: stocks });
   },
   render() {
     return(
       React.createElement("div", {id: "container", className: ""}, 
         React.createElement("div", {className: "c-side"}, React.createElement(StockIndexFilter, {following_tags: this.state.following_tags, followees: this.state.followees})), 
-        React.createElement("div", {className: "c-main"}, React.createElement(StockIndex, null))
+        React.createElement("div", {className: "c-main"}, React.createElement(StockIndex, {stocks: this.state.stocks}))
       )
     );
   }
@@ -251,27 +262,9 @@ var Link = Router.Link;
 var Navigation = Router.Navigation;
 
 var StockIndex = React.createClass({displayName: "StockIndex",
-  fetchStocks() {
-    $.get('/stocks.json', function(res) {
-      if (this.isMounted()) {
-        this.setState({stocks: res.stocks});
-      }
-    }.bind(this));
-  },
-
-  getInitialState() {
-    return {
-      stocks: []
-    }
-  },
-
-  componentDidMount() {
-    this.fetchStocks();
-  },
-
   render() {
     var rows = [];
-    this.state.stocks.forEach(function(stock) {
+    this.props.stocks.forEach(function(stock) {
       var tags = [];
       stock.tags.forEach(function(tag) {
         tags.push(
@@ -331,19 +324,13 @@ module.exports = StockIndexFilter;
 },{"./follow_tag.jsx":6,"./followees.jsx":7,"react-router":42}],11:[function(require,module,exports){
 var assign           = require('object-assign'),
       EventEmitter = require('events').EventEmitter,
-      Dispatcher    = require('flux').Dispatcher,
-      dispather      = new Dispatcher()
+      AppDispatcher = require('./dispatcher.js');
 ;
 
 var CHANGE_EVENT = 'change';
+var stocks = [];
 
 var StockStore = assign({}, EventEmitter.prototype, {
-  recordStock: function(stocks) {
-    this.stocks = stocks;
-  },
-  getStocks: function() {
-    return this.stocks;
-  },
   emitChange: function() {
     this.emit(CHANGE_EVENT);
   },
@@ -359,20 +346,21 @@ var StockStore = assign({}, EventEmitter.prototype, {
   removeChangeListener: function(callback) {
     this.removeListener(CHANGE_EVENT, callback);
   },
+  getAll: function() {
+    return stocks;
+  }
+});
 
-  dispatcherIndex: dispather.register(function(payload) {
-      if(payload.actionType === 'initialize-stocks') {
-        StockStore.recordStock(payload.results);
-        StockStore.emitChange();
-      }
-
-      return true;
-    })
+StockStore.dispatchToken = AppDispatcher.register(function(payload) {
+  if(payload.actionType === 'initialize-stocks') {
+    stocks = payload.action;
+    StockStore.emitChange();
+  }
 });
 
 module.exports = StockStore;
 
-},{"events":12,"flux":14,"object-assign":17}],12:[function(require,module,exports){
+},{"./dispatcher.js":4,"events":12,"object-assign":17}],12:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a

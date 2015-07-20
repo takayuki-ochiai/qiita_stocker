@@ -4,9 +4,9 @@ var React            = require('react'),
 ;
 
 var AppDispatcher = assign(new Dispatcher(), {
-  handleViewAction: function(action) {
+  handleViewAction: function(type, action) {
     this.dispatch({
-      actionType: 'initialize-filters',
+      actionType: type,
       action: action
     });
   }

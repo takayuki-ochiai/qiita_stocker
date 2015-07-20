@@ -1,18 +1,12 @@
 var assign           = require('object-assign'),
       EventEmitter = require('events').EventEmitter,
-      Dispatcher    = require('flux').Dispatcher,
-      dispather      = new Dispatcher()
+      AppDispatcher = require('./dispatcher.js');
 ;
 
 var CHANGE_EVENT = 'change';
+var stocks = [];
 
 var StockStore = assign({}, EventEmitter.prototype, {
-  recordStock: function(stocks) {
-    this.stocks = stocks;
-  },
-  getStocks: function() {
-    return this.stocks;
-  },
   emitChange: function() {
     this.emit(CHANGE_EVENT);
   },
@@ -28,15 +22,16 @@ var StockStore = assign({}, EventEmitter.prototype, {
   removeChangeListener: function(callback) {
     this.removeListener(CHANGE_EVENT, callback);
   },
+  getAll: function() {
+    return stocks;
+  }
+});
 
-  dispatcherIndex: dispather.register(function(payload) {
-      if(payload.actionType === 'initialize-stocks') {
-        StockStore.recordStock(payload.results);
-        StockStore.emitChange();
-      }
-
-      return true;
-    })
+StockStore.dispatchToken = AppDispatcher.register(function(payload) {
+  if(payload.actionType === 'initialize-stocks') {
+    stocks = payload.action;
+    StockStore.emitChange();
+  }
 });
 
 module.exports = StockStore;

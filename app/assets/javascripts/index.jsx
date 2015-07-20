@@ -21,27 +21,34 @@ var ActionCreator = require('./action_creator.js');
 var Index = React.createClass({
   getInitialState() {
     return {
-      following_tags: FilterStore.getAll(),
-      followees: []
+      following_tags: [],
+      followees: [],
+      stocks: []
     }
   },
   componentDidMount() {
-    FilterStore.addChangeListener(this._onChange);
+    FilterStore.addChangeListener(this._onFilterChange);
+    StockStore.addChangeListener(this._onStockChange);
     ActionCreator.fetchAll();
   },
   componentWillUnmount() {
-    FilterStore.removeChangeListener(this._onChange);
+    FilterStore.removeChangeListener(this._onFilterChange);
+    StockStore.addChangeListener(this._onStockChange);
   },
-  _onChange() {
+  _onFilterChange() {
     var following_tags = FilterStore.getAll().following_tags;
     var followees = FilterStore.getAll().followees;
     this.setState({ following_tags: following_tags, followees: followees });
+  },
+  _onStockChange() {
+    var stocks = StockStore.getAll().stocks;
+    this.setState({ stocks: stocks });
   },
   render() {
     return(
       <div id="container" className="">
         <div className="c-side"><StockIndexFilter following_tags={this.state.following_tags} followees={this.state.followees} /></div>
-        <div className="c-main"><StockIndex /></div>
+        <div className="c-main"><StockIndex stocks={this.state.stocks} /></div>
       </div>
     );
   }

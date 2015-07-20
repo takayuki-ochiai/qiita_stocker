@@ -3,27 +3,9 @@ var Link = Router.Link;
 var Navigation = Router.Navigation;
 
 var StockIndex = React.createClass({
-  fetchStocks() {
-    $.get('/stocks.json', function(res) {
-      if (this.isMounted()) {
-        this.setState({stocks: res.stocks});
-      }
-    }.bind(this));
-  },
-
-  getInitialState() {
-    return {
-      stocks: []
-    }
-  },
-
-  componentDidMount() {
-    this.fetchStocks();
-  },
-
   render() {
     var rows = [];
-    this.state.stocks.forEach(function(stock) {
+    this.props.stocks.forEach(function(stock) {
       var tags = [];
       stock.tags.forEach(function(tag) {
         tags.push(
