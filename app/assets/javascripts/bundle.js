@@ -143,9 +143,9 @@ var FilterOptionListItem = React.createClass({displayName: "FilterOptionListItem
     return(
       React.createElement("li", {className: "stock-index-filter-option__item-wrapper"}, 
           React.createElement("div", {className: "stock-index-filter-option__item ui-checkbox"}, 
-              React.createElement(FontAwesome, {className: "stock-index-filter-option__check-icon", name: "check", size: "lg"}), 
               React.createElement("div", {className: "stock-index-filter-option__image"}, React.createElement("img", {src: this.props.image_url})), 
               React.createElement("div", {className: "stock-index-filter-option__label"}, this.props.id), 
+              React.createElement(FontAwesome, {className: "stock-index-filter-option__check-icon", name: "check", size: "lg"}), 
               React.createElement("input", {id: this.props.filter_category, type: "checkbox"})
           )
       )
