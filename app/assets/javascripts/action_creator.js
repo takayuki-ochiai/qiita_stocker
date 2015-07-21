@@ -5,6 +5,13 @@ var AppDispatcher = require('./dispatcher.js'),
 var ActionCreator = {
   fetchAll() {
     $.get('/stocks/filter_data.json', function(res) {
+      res.followees.forEach(function(followee){
+        followee.checked = false;
+      });
+
+      res.following_tags.forEach(function(tag){
+        tag.checked = false;
+      });
       AppDispatcher.handleViewAction(Constants.INITIALIZE_FILTERS, res);
     }.bind(this));
 

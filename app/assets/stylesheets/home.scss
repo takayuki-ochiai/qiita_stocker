@@ -120,12 +120,32 @@
   display: none;
 }
 
-.stock-index-filter-option__icon {
+.stock-index-filter-option__check-icon {
   position: absolute;
+  top: 15%;
+  display: inline-block;
+  width: 13%;
+}
+
+.stock-index-filter-option__image {
+  position: relative;
+  left: 10%;
+  display: inline-block;
   width: 13%;
   img {
     width:   100%;
   }
+}
+
+.stock-index-filter-option__label {
+  position: absolute;
+  left: 45px;
+  top: 0;
+  display: inline-block;
+  width: 60%;
+  font-size: 14px;
+  padding: 0px 0px 0px 5px;
+  line-height: 26px;
 }
 
 .stock-index-filter-option__label:hover {
@@ -133,17 +153,11 @@
   cursor: pointer;
 }
 
-.stock-index-filter-option__label {
-  font-size: 14px;
-  padding: 0px 0px 0px 5px;
-  position: relative;
-  margin-left: 13%;
-  line-height: 26px;
-}
+
 
 .stock-index-filter-option__item {
-  width: 90%;
   position: relative;
+  width: 90%;
   margin-left: 15%;
   min-height: 20px;
   padding-bottom: 10px;
