@@ -46,14 +46,13 @@ var Index = React.createClass({
     QueryStore.removeChangeListener(this._onQueryChange);
   },
   _onFilterChange() {
-    var following_tags = FilterStore.getAll().following_tags;
-    var followees = FilterStore.getAll().followees;
+    var filterOptions = FilterStore.getAll();
+
     this.setState({
-      filterOptions: {
-        following_tags: following_tags,
-        followees: followees,
-      }
+      filterOptions: filterOptions
     });
+
+    ActionCreator.searchStocks(this.state.keywordQuery, filterOptions);
   },
   _onStockChange() {
     var stocks = StockStore.getAll().stocks;

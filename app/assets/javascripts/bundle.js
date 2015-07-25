@@ -45,10 +45,25 @@ var ActionCreator = {
   //大小文字を問わない
   //できるならタグ名も検索かける
   searchStocks(keywordQuery, filterOptions) {
+    following_tags = filterOptions.following_tags
+      .filter(
+        function(filter) {
+          return filter.hasChecked === true
+        }
+      )
+
+    followees = filterOptions.followees
+      .filter(
+        function(filter) {
+          return filter.hasChecked === true
+        }
+      )
+
     $.post('/stocks.json',
       {
         keyword: keywordQuery,
-        filterOptions: filterOptions
+        following_tags: following_tags,
+        followees: followees
       },
       function(res) {
         AppDispatcher.handleViewAction(Constants.EMIT_QUERY, res);
@@ -360,14 +375,13 @@ var Index = React.createClass({displayName: "Index",
     QueryStore.removeChangeListener(this._onQueryChange);
   },
   _onFilterChange() {
-    var following_tags = FilterStore.getAll().following_tags;
-    var followees = FilterStore.getAll().followees;
+    var filterOptions = FilterStore.getAll();
+
     this.setState({
-      filterOptions: {
-        following_tags: following_tags,
-        followees: followees,
-      }
+      filterOptions: filterOptions
     });
+
+    ActionCreator.searchStocks(this.state.keywordQuery, filterOptions);
   },
   _onStockChange() {
     var stocks = StockStore.getAll().stocks;

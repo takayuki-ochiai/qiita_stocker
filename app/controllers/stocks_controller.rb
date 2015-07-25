@@ -16,13 +16,19 @@ class StocksController < ApplicationController
       @stocks.select!{ |stock| stock["body"].include?(params[:keyword]) || stock["title"].include?(params[:keyword])}
     end
 
+    #いずれかのfilterOptionが存在する時に入る。
+    #検索条件はORで
+    if params[:following_tags].present? || params[:followees].present?
+
+    end
+
     #stockの持つタグを集計する
     #TODO: なんかやぼったい書き方しているのどうにかしたい
     @stock_tags = @stocks.reduce([]) { |result, stock|
       result.push(stock["tags"])
     }.flatten
-    .map{ |tag| {name: tag["name"]} }
-    .uniq
+      .map{ |tag| {name: tag["name"]} }
+      .uniq
 
     render json: { stocks: @stocks , stock_tags: @stock_tags }
   end
