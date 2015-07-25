@@ -182,11 +182,19 @@ var FilterOptionListItem = React.createClass({displayName: "FilterOptionListItem
     ActionCreator.toggleFilterOption(this.props);
   },
 
-  getIconVisibility() {
+  setIconVisibility() {
     if (this.props.hasChecked === true) {
       return ''
     } else {
       return 'invisible'
+    }
+  },
+
+  setTextColor() {
+    if (this.props.hasChecked === true) {
+      return 'checked'
+    } else {
+      return ''
     }
   },
 
@@ -204,11 +212,11 @@ var FilterOptionListItem = React.createClass({displayName: "FilterOptionListItem
 
   render() {
     return(
-      React.createElement("li", {className: "stock-index-filter-option__item-wrapper"}, 
+      React.createElement("li", {className: "stock-index-filter-option__item-wrapper " + this.setTextColor()}, 
           React.createElement("div", {className: "stock-index-filter-option__item ui-checkbox", onClick: this.toggleFilterOption, onMouseOver: this.toggleIconStyle, onMouseOut: this.toggleIconStyle}, 
               React.createElement("div", {className: "stock-index-filter-option__image"}, React.createElement("img", {src: this.props.image_url})), 
               React.createElement("div", {className: "stock-index-filter-option__label"}, this.props.id), 
-              React.createElement(FontAwesome, {className: "stock-index-filter-option__check-icon " + this.getIconVisibility(), name: this.getIconStyle(), size: "lg"}), 
+              React.createElement(FontAwesome, {className: "stock-index-filter-option__check-icon " + this.setIconVisibility(), name: this.getIconStyle(), size: "lg"}), 
               React.createElement("input", {id: this.props.filter_category, type: "checkbox"})
           )
       )

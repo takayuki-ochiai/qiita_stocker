@@ -139,6 +139,7 @@
 }
 
 .stock-index-filter-option__label {
+  border-radius: 3px;
   position: absolute;
   left: 40px;
   top: 0;
@@ -167,4 +168,12 @@
 
 .invisible {
   visibility: hidden;
+}
+
+.checked {
+  color: #00a4bb;
+}
+
+.fa-times-circle {
+  color: gray;
 }
