@@ -157,11 +157,14 @@
   background-color: lightgray;
 }
 
-
 .stock-index-filter-option__item {
   position: relative;
   width: 90%;
   margin-left: 8%;
   min-height: 20px;
   padding-bottom: 10px;
+}
+
+.invisible {
+  visibility: hidden;
 }

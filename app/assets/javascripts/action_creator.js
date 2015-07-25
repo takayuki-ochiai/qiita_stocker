@@ -6,11 +6,11 @@ var ActionCreator = {
   fetchAll() {
     $.get('/stocks/filter_data.json', function(res) {
       res.followees.forEach(function(followee){
-        followee.checked = false;
+        followee.hasChecked = false;
       });
 
       res.following_tags.forEach(function(tag){
-        tag.checked = false;
+        tag.hasChecked = false;
       });
       AppDispatcher.handleViewAction(Constants.INITIALIZE_FILTERS, res);
     }.bind(this));
@@ -24,6 +24,12 @@ var ActionCreator = {
   //キーワードクエリを貯蔵する
   storeKeywordQuery(query) {
       AppDispatcher.handleViewAction(Constants.STORE_KEYWORD_QUERY, query);
+  },
+
+  //フィルタークエリ用のアクション
+  //クリックされたときにcheckedをtoggleするためのアクションを発行する
+  toggleFilterOption(fiiterOption) {
+    AppDispatcher.handleViewAction(Constants.TOGGLE_FILTER_OPTION_QUERY, fiiterOption);
   },
   /**
   * 検索条件がかかった時のストック検索で使います。

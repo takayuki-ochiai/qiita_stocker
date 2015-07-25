@@ -4,8 +4,12 @@ var Constants = {
   INITIALIZE_STOCKS: 'initialize-stocks',
   INITIALIZE_FILTERS: 'initialize-filters',
   STORE_KEYWORD_QUERY: 'store-keyword-query',
-  STORE_FILTER_OPTION_QUERY: 'store-filter-option-query',
-  EMIT_QUERY: 'emit-query'
+  TOGGLE_FILTER_OPTION_QUERY: 'toggle-filter-option-query',
+  EMIT_QUERY: 'emit-query',
+
+  //filter-optionの種類を表す定数
+  FOLLOWEE_FILTER: 'followee-filter',
+  FOLLOWING_TAG_FILTER: 'following-tag-filter'
 };
 
 module.exports = Constants;

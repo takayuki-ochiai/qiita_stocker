@@ -7,11 +7,11 @@ var ActionCreator = {
   fetchAll() {
     $.get('/stocks/filter_data.json', function(res) {
       res.followees.forEach(function(followee){
-        followee.checked = false;
+        followee.hasChecked = false;
       });
 
       res.following_tags.forEach(function(tag){
-        tag.checked = false;
+        tag.hasChecked = false;
       });
       AppDispatcher.handleViewAction(Constants.INITIALIZE_FILTERS, res);
     }.bind(this));
@@ -25,6 +25,12 @@ var ActionCreator = {
   //キーワードクエリを貯蔵する
   storeKeywordQuery(query) {
       AppDispatcher.handleViewAction(Constants.STORE_KEYWORD_QUERY, query);
+  },
+
+  //フィルタークエリ用のアクション
+  //クリックされたときにcheckedをtoggleするためのアクションを発行する
+  toggleFilterOption(fiiterOption) {
+    AppDispatcher.handleViewAction(Constants.TOGGLE_FILTER_OPTION_QUERY, fiiterOption);
   },
   /**
   * 検索条件がかかった時のストック検索で使います。
@@ -111,8 +117,12 @@ var Constants = {
   INITIALIZE_STOCKS: 'initialize-stocks',
   INITIALIZE_FILTERS: 'initialize-filters',
   STORE_KEYWORD_QUERY: 'store-keyword-query',
-  STORE_FILTER_OPTION_QUERY: 'store-filter-option-query',
-  EMIT_QUERY: 'emit-query'
+  TOGGLE_FILTER_OPTION_QUERY: 'toggle-filter-option-query',
+  EMIT_QUERY: 'emit-query',
+
+  //filter-optionの種類を表す定数
+  FOLLOWEE_FILTER: 'followee-filter',
+  FOLLOWING_TAG_FILTER: 'following-tag-filter'
 };
 
 module.exports = Constants;
@@ -137,15 +147,26 @@ module.exports = AppDispatcher;
 
 },{"flux":20,"object-assign":23,"react":223}],6:[function(require,module,exports){
 var FontAwesome = require('react-fontawesome');
+ var ActionCreator = require('./action_creator.js');
 
 var FilterOptionListItem = React.createClass({displayName: "FilterOptionListItem",
+  toggleFilterOption() {
+    ActionCreator.toggleFilterOption(this.props);
+  },
+  toggleIconVisibility() {
+    if (this.props.hasChecked === true) {
+      return ''
+    } else {
+      return 'invisible'
+    }
+  },
   render() {
     return(
       React.createElement("li", {className: "stock-index-filter-option__item-wrapper"}, 
-          React.createElement("div", {className: "stock-index-filter-option__item ui-checkbox"}, 
+          React.createElement("div", {className: "stock-index-filter-option__item ui-checkbox", onClick: this.toggleFilterOption}, 
               React.createElement("div", {className: "stock-index-filter-option__image"}, React.createElement("img", {src: this.props.image_url})), 
               React.createElement("div", {className: "stock-index-filter-option__label"}, this.props.id), 
-              React.createElement(FontAwesome, {className: "stock-index-filter-option__check-icon", name: "check", size: "lg"}), 
+              React.createElement(FontAwesome, {className: "stock-index-filter-option__check-icon " + this.toggleIconVisibility(), name: "check", size: "lg"}), 
               React.createElement("input", {id: this.props.filter_category, type: "checkbox"})
           )
       )
@@ -155,7 +176,7 @@ var FilterOptionListItem = React.createClass({displayName: "FilterOptionListItem
 
 module.exports =FilterOptionListItem;
 
-},{"react-fontawesome":24}],7:[function(require,module,exports){
+},{"./action_creator.js":1,"react-fontawesome":24}],7:[function(require,module,exports){
 var assign           = require('object-assign'),
       EventEmitter = require('events').EventEmitter,
       AppDispatcher = require('./dispatcher.js'),
@@ -191,6 +212,17 @@ FilterStore.dispatchToken = AppDispatcher.register(function(payload) {
     filters = payload.action;
     FilterStore.emitChange();
   }
+
+  if (payload.actionType === Constants.TOGGLE_FILTER_OPTION_QUERY) {
+    filters.following_tags
+      .filter(function(filter) {
+        return filter.id === payload.action.id;
+      })
+      .map(function(filter){
+        return filter.hasChecked = !filter.hasChecked;
+      })
+    FilterStore.emitChange();
+  }
 });
 
 module.exports = FilterStore;
@@ -200,13 +232,14 @@ var Router = require('react-router');
 var Link = Router.Link;
 var Navigation = Router.Navigation;
 var FilterOptionListItem = require('./filter_option_list_item.jsx');
+var Constants = require('./app_constants.js');
 
 var FollowTags = React.createClass({displayName: "FollowTags",
   render() {
     var rows = [];
     this.props.following_tags.forEach(function(tag) {
       rows.push(
-        React.createElement(FilterOptionListItem, {key: tag.id, id: tag.id, image_url: tag.icon_url, filter_category: tag.id + "-following-tag"})
+        React.createElement(FilterOptionListItem, {key: tag.id, id: tag.id, image_url: tag.icon_url, filter_category: Constants.FOLLOWING_TAG_FILTER, hasChecked: tag.hasChecked})
       )
     }.bind(this));
 
@@ -223,18 +256,19 @@ var FollowTags = React.createClass({displayName: "FollowTags",
 
 module.exports = FollowTags;
 
-},{"./filter_option_list_item.jsx":6,"react-router":50}],9:[function(require,module,exports){
+},{"./app_constants.js":4,"./filter_option_list_item.jsx":6,"react-router":50}],9:[function(require,module,exports){
 var Router = require('react-router');
 var Link = Router.Link;
 var Navigation = Router.Navigation;
 var FilterOptionListItem = require('./filter_option_list_item.jsx');
+var Constants = require('./app_constants.js');
 
 var Followees = React.createClass({displayName: "Followees",
   render() {
     var rows = [];
     this.props.followees.forEach(function(followee) {
       rows.push(
-        React.createElement(FilterOptionListItem, {key: followee.id, id: followee.id, image_url: followee.profile_image_url, filter_category: followee.id + "-user"})
+        React.createElement(FilterOptionListItem, {key: followee.id, id: followee.id, image_url: followee.profile_image_url, filter_category: Constants.FOLLOWING_TAG_FILTER, hasChecked: followee.hasChecked})
       )
     }.bind(this));
 
@@ -251,7 +285,7 @@ var Followees = React.createClass({displayName: "Followees",
 
 module.exports = Followees;
 
-},{"./filter_option_list_item.jsx":6,"react-router":50}],10:[function(require,module,exports){
+},{"./app_constants.js":4,"./filter_option_list_item.jsx":6,"react-router":50}],10:[function(require,module,exports){
 var Router = require('react-router');
 var Link = Router.Link;
 var Navigation = Router.Navigation;

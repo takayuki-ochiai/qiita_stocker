@@ -33,6 +33,17 @@ FilterStore.dispatchToken = AppDispatcher.register(function(payload) {
     filters = payload.action;
     FilterStore.emitChange();
   }
+
+  if (payload.actionType === Constants.TOGGLE_FILTER_OPTION_QUERY) {
+    filters.following_tags
+      .filter(function(filter) {
+        return filter.id === payload.action.id;
+      })
+      .map(function(filter){
+        return filter.hasChecked = !filter.hasChecked;
+      })
+    FilterStore.emitChange();
+  }
 });
 
 module.exports = FilterStore;
