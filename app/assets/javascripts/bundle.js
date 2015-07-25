@@ -58,7 +58,6 @@ var ActionCreator = {
           return filter.hasChecked === true
         }
       )
-
     $.post('/stocks.json',
       {
         keyword: keywordQuery,
@@ -262,6 +261,14 @@ FilterStore.dispatchToken = AppDispatcher.register(function(payload) {
       .map(function(filter){
         return filter.hasChecked = !filter.hasChecked;
       })
+
+    filters.followees
+      .filter(function(filter) {
+        return filter.id === payload.action.id;
+      })
+      .map(function(filter){
+        return filter.hasChecked = !filter.hasChecked;
+      })
     FilterStore.emitChange();
   }
 });
@@ -309,7 +316,7 @@ var Followees = React.createClass({displayName: "Followees",
     var rows = [];
     this.props.followees.forEach(function(followee) {
       rows.push(
-        React.createElement(FilterOptionListItem, {key: followee.id, id: followee.id, image_url: followee.profile_image_url, filter_category: Constants.FOLLOWING_TAG_FILTER, hasChecked: followee.hasChecked})
+        React.createElement(FilterOptionListItem, {key: followee.id, id: followee.id, image_url: followee.profile_image_url, filter_category: Constants.FOLLOWEE_FILTER, hasChecked: followee.hasChecked})
       )
     }.bind(this));
 

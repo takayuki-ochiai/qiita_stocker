@@ -57,7 +57,6 @@ var ActionCreator = {
           return filter.hasChecked === true
         }
       )
-
     $.post('/stocks.json',
       {
         keyword: keywordQuery,

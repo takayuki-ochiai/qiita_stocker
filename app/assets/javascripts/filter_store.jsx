@@ -42,6 +42,14 @@ FilterStore.dispatchToken = AppDispatcher.register(function(payload) {
       .map(function(filter){
         return filter.hasChecked = !filter.hasChecked;
       })
+
+    filters.followees
+      .filter(function(filter) {
+        return filter.id === payload.action.id;
+      })
+      .map(function(filter){
+        return filter.hasChecked = !filter.hasChecked;
+      })
     FilterStore.emitChange();
   }
 });
