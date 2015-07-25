@@ -5,7 +5,7 @@ var AppDispatcher = require('./dispatcher.js'),
 
 var ActionCreator = {
   fetchAll() {
-    $.get('/stocks/filter_data.json', function(res) {
+    $.post('/stocks/filter_data.json', function(res) {
       res.followees.forEach(function(followee){
         followee.hasChecked = false;
       });
@@ -16,7 +16,7 @@ var ActionCreator = {
       AppDispatcher.handleViewAction(Constants.INITIALIZE_FILTERS, res);
     }.bind(this));
 
-    $.get('/stocks.json', function(res) {
+    $.post('/stocks.json', function(res) {
       AppDispatcher.handleViewAction(Constants.INITIALIZE_STOCKS, res);
     }.bind(this));
   },
@@ -44,10 +44,15 @@ var ActionCreator = {
   //複数語句のOR検索
   //大小文字を問わない
   //できるならタグ名も検索かける
-  searchStocks(keywordQuery, filterOptionQuery) {
-    $.get('/stocks.json/?keyword=' + keywordQuery, function(res) {
-      AppDispatcher.handleViewAction(Constants.EMIT_QUERY, res);
-    }.bind(this));
+  searchStocks(keywordQuery, filterOptions) {
+    $.post('/stocks.json',
+      {
+        keyword: keywordQuery,
+        filterOptions: filterOptions
+      },
+      function(res) {
+        AppDispatcher.handleViewAction(Constants.EMIT_QUERY, res);
+      }.bind(this));
   }
 }
 
@@ -334,12 +339,13 @@ var ActionCreator = require('./action_creator.js');
 var Index = React.createClass({displayName: "Index",
   getInitialState() {
     return {
-      following_tags: [],
-      followees: [],
+      filterOptions: {
+        following_tags: [],
+        followees: [],
+      },
       stocks: [],
       //検索用クエリ
-      keywordQuery : '',
-      filterOptionQuery: []
+      keywordQuery : ''
     }
   },
   componentDidMount() {
@@ -357,8 +363,10 @@ var Index = React.createClass({displayName: "Index",
     var following_tags = FilterStore.getAll().following_tags;
     var followees = FilterStore.getAll().followees;
     this.setState({
-      following_tags: following_tags,
-      followees: followees
+      filterOptions: {
+        following_tags: following_tags,
+        followees: followees,
+      }
     });
   },
   _onStockChange() {
@@ -371,7 +379,7 @@ var Index = React.createClass({displayName: "Index",
       keywordQuery : keywordQuery,
     });
     //ここから下でクエリ発行する。
-    ActionCreator.searchStocks(keywordQuery, this.state.filterOptionQuery);
+    ActionCreator.searchStocks(keywordQuery, this.state.filterOptions);
   },
   updateKeywordQuery(keywordQuery) {
     ActionCreator.storeKeywordQuery(keywordQuery);
@@ -379,7 +387,7 @@ var Index = React.createClass({displayName: "Index",
   render() {
     return(
       React.createElement("div", {id: "container"}, 
-          React.createElement("div", {className: "c-side"}, React.createElement(StockIndexFilter, {following_tags: this.state.following_tags, followees: this.state.followees})), 
+          React.createElement("div", {className: "c-side"}, React.createElement(StockIndexFilter, {following_tags: this.state.filterOptions.following_tags, followees: this.state.filterOptions.followees})), 
           React.createElement("div", {className: "c-main"}, 
               React.createElement(StockSearchField, {updateKeywordQuery: this.updateKeywordQuery}), 
               React.createElement(StockIndex, {stocks: this.state.stocks})

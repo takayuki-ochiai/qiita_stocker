@@ -25,12 +25,13 @@ var ActionCreator = require('./action_creator.js');
 var Index = React.createClass({
   getInitialState() {
     return {
-      following_tags: [],
-      followees: [],
+      filterOptions: {
+        following_tags: [],
+        followees: [],
+      },
       stocks: [],
       //検索用クエリ
-      keywordQuery : '',
-      filterOptionQuery: []
+      keywordQuery : ''
     }
   },
   componentDidMount() {
@@ -48,8 +49,10 @@ var Index = React.createClass({
     var following_tags = FilterStore.getAll().following_tags;
     var followees = FilterStore.getAll().followees;
     this.setState({
-      following_tags: following_tags,
-      followees: followees
+      filterOptions: {
+        following_tags: following_tags,
+        followees: followees,
+      }
     });
   },
   _onStockChange() {
@@ -62,7 +65,7 @@ var Index = React.createClass({
       keywordQuery : keywordQuery,
     });
     //ここから下でクエリ発行する。
-    ActionCreator.searchStocks(keywordQuery, this.state.filterOptionQuery);
+    ActionCreator.searchStocks(keywordQuery, this.state.filterOptions);
   },
   updateKeywordQuery(keywordQuery) {
     ActionCreator.storeKeywordQuery(keywordQuery);
@@ -70,7 +73,7 @@ var Index = React.createClass({
   render() {
     return(
       <div id="container">
-          <div className="c-side"><StockIndexFilter following_tags={this.state.following_tags} followees={this.state.followees} /></div>
+          <div className="c-side"><StockIndexFilter following_tags={this.state.filterOptions.following_tags} followees={this.state.filterOptions.followees} /></div>
           <div className="c-main">
               <StockSearchField updateKeywordQuery={this.updateKeywordQuery}/>
               <StockIndex stocks={this.state.stocks} />
