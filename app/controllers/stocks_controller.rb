@@ -22,17 +22,25 @@ class StocksController < ApplicationController
     #フォロイーで指定されたいずれかの人物が書いた記事である
     #タグとフォロイーの条件はAND条件である
     #オプションに何も入力されていない時は・・・考えていなかった
-    #すべて　オプションをつける他ない
-    if params[:following_tags].present? || params[:followees].present?
-      following_tags_criteria = Array(params[:following_tags].try(:map) {|key, value| value["id"]})
+    #なにも付いていない場合は全部もらってくればいいじゃん？
+    if params[:following_tags].present?
+      following_tags_criteria = Array(
+        params[:following_tags].try(:map) do |key, value|
+          value["id"]
+        end
+      )
+
+      @stocks.select! do |stock|
+        (stock["tags"].map{ |tag| tag["name"] } & following_tags_criteria).count != 0
+      end
+    end
+
+    if params[:followees].present?
       followees_criteria = Array(params[:followees].try(:map) {|key, value| value["id"]})
 
       @stocks.select! do |stock|
-          followees_criteria.include?(stock["user"]["id"])
-        end
-        .select! do |stock|
-          (stock["tags"].map{ |tag| tag["name"] } & following_tags_criteria).count != 0
-        end
+        followees_criteria.include?(stock["user"]["id"])
+      end
     end
 
     #stockの持つタグを集計する

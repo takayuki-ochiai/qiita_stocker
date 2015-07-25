@@ -44,19 +44,22 @@ var ActionCreator = {
   //大小文字を問わない
   //できるならタグ名も検索かける
   searchStocks(keywordQuery, filterOptions) {
+
     following_tags = filterOptions.following_tags
       .filter(
         function(filter) {
           return filter.hasChecked === true
         }
-      )
+      );
+
 
     followees = filterOptions.followees
       .filter(
         function(filter) {
           return filter.hasChecked === true
         }
-      )
+      );
+
     $.post('/stocks.json',
       {
         keyword: keywordQuery,
