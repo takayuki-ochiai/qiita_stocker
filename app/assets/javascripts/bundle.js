@@ -150,28 +150,49 @@ var FontAwesome = require('react-fontawesome');
  var ActionCreator = require('./action_creator.js');
 
 var FilterOptionListItem = React.createClass({displayName: "FilterOptionListItem",
+  getInitialState() {
+    return {
+      isMouseOver: false
+    }
+  },
+
   toggleFilterOption() {
     ActionCreator.toggleFilterOption(this.props);
   },
-  toggleIconVisibility() {
+
+  getIconVisibility() {
     if (this.props.hasChecked === true) {
       return ''
     } else {
       return 'invisible'
     }
   },
+
+  toggleIconStyle() {
+    this.setState({ isMouseOver: !this.state.isMouseOver})
+  },
+
+  getIconStyle() {
+    if (this.state.isMouseOver === true) {
+      return 'times-circle';
+    } else {
+      return 'check';
+    }
+  },
+
   render() {
     return(
       React.createElement("li", {className: "stock-index-filter-option__item-wrapper"}, 
-          React.createElement("div", {className: "stock-index-filter-option__item ui-checkbox", onClick: this.toggleFilterOption}, 
+          React.createElement("div", {className: "stock-index-filter-option__item ui-checkbox", onClick: this.toggleFilterOption, onMouseOver: this.toggleIconStyle, onMouseOut: this.toggleIconStyle}, 
               React.createElement("div", {className: "stock-index-filter-option__image"}, React.createElement("img", {src: this.props.image_url})), 
               React.createElement("div", {className: "stock-index-filter-option__label"}, this.props.id), 
-              React.createElement(FontAwesome, {className: "stock-index-filter-option__check-icon " + this.toggleIconVisibility(), name: "check", size: "lg"}), 
+              React.createElement(FontAwesome, {className: "stock-index-filter-option__check-icon " + this.getIconVisibility(), name: this.getIconStyle(), size: "lg"}), 
               React.createElement("input", {id: this.props.filter_category, type: "checkbox"})
           )
       )
     )
   }
+
 });
 
 module.exports =FilterOptionListItem;

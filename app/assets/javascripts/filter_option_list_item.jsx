@@ -2,28 +2,49 @@ var FontAwesome = require('react-fontawesome');
  var ActionCreator = require('./action_creator.js');
 
 var FilterOptionListItem = React.createClass({
+  getInitialState() {
+    return {
+      isMouseOver: false
+    }
+  },
+
   toggleFilterOption() {
     ActionCreator.toggleFilterOption(this.props);
   },
-  toggleIconVisibility() {
+
+  getIconVisibility() {
     if (this.props.hasChecked === true) {
       return ''
     } else {
       return 'invisible'
     }
   },
+
+  toggleIconStyle() {
+    this.setState({ isMouseOver: !this.state.isMouseOver})
+  },
+
+  getIconStyle() {
+    if (this.state.isMouseOver === true) {
+      return 'times-circle';
+    } else {
+      return 'check';
+    }
+  },
+
   render() {
     return(
       <li className="stock-index-filter-option__item-wrapper">
-          <div className="stock-index-filter-option__item ui-checkbox" onClick={this.toggleFilterOption} >
+          <div className="stock-index-filter-option__item ui-checkbox" onClick={this.toggleFilterOption} onMouseOver={this.toggleIconStyle} onMouseOut={this.toggleIconStyle} >
               <div className="stock-index-filter-option__image"><img src={this.props.image_url} /></div>
               <div className="stock-index-filter-option__label">{this.props.id}</div>
-              <FontAwesome className={"stock-index-filter-option__check-icon " + this.toggleIconVisibility() } name='check' size='lg' />
+              <FontAwesome className={"stock-index-filter-option__check-icon " + this.getIconVisibility() } name={this.getIconStyle()} size='lg' />
               <input id={this.props.filter_category} type="checkbox" />
           </div>
       </li>
     )
   }
+
 });
 
 module.exports =FilterOptionListItem;
