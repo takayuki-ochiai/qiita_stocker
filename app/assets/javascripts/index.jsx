@@ -29,7 +29,7 @@ var Index = React.createClass({
       followees: [],
       stocks: [],
       //検索用クエリ
-      keywordQuery : null,
+      keywordQuery : '',
       filterOptionQuery: []
     }
   },
@@ -58,13 +58,11 @@ var Index = React.createClass({
   },
   _onQueryChange() {
     var keywordQuery = QueryStore.getAll().keywordQuery;
-    var filterOptionQuery = QueryStore.getAll().filterOptionQuery;
     this.setState({
       keywordQuery : keywordQuery,
-      filterOptionQuery: filterOptionQuery
     });
     //ここから下でクエリ発行する。
-    ActionCreator.searchStocks(keywordQuery, filterOptionQuery);
+    ActionCreator.searchStocks(keywordQuery, this.state.filterOptionQuery);
   },
   updateKeywordQuery(keywordQuery) {
     ActionCreator.storeKeywordQuery(keywordQuery);

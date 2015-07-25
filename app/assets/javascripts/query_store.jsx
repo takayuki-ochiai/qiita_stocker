@@ -5,8 +5,7 @@ var assign           = require('object-assign'),
 ;
 
 var query = {
-        keywordQuery : null,
-        filterOptionQuery : []
+        keywordQuery : '',
 };
 
 var QueryStore = assign({}, EventEmitter.prototype, {

@@ -338,7 +338,7 @@ var Index = React.createClass({displayName: "Index",
       followees: [],
       stocks: [],
       //検索用クエリ
-      keywordQuery : null,
+      keywordQuery : '',
       filterOptionQuery: []
     }
   },
@@ -367,13 +367,11 @@ var Index = React.createClass({displayName: "Index",
   },
   _onQueryChange() {
     var keywordQuery = QueryStore.getAll().keywordQuery;
-    var filterOptionQuery = QueryStore.getAll().filterOptionQuery;
     this.setState({
       keywordQuery : keywordQuery,
-      filterOptionQuery: filterOptionQuery
     });
     //ここから下でクエリ発行する。
-    ActionCreator.searchStocks(keywordQuery, filterOptionQuery);
+    ActionCreator.searchStocks(keywordQuery, this.state.filterOptionQuery);
   },
   updateKeywordQuery(keywordQuery) {
     ActionCreator.storeKeywordQuery(keywordQuery);
@@ -401,8 +399,7 @@ var assign           = require('object-assign'),
 ;
 
 var query = {
-        keywordQuery : null,
-        filterOptionQuery : []
+        keywordQuery : '',
 };
 
 var QueryStore = assign({}, EventEmitter.prototype, {
