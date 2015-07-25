@@ -149,11 +149,13 @@
   line-height: 26px;
 }
 
-.stock-index-filter-option__label:hover {
-  background-color: lightgray;
+.stock-index-filter-option__item:hover {
   cursor: pointer;
 }
 
+.stock-index-filter-option__item:hover > .stock-index-filter-option__label {
+  background-color: lightgray;
+}
 
 
 .stock-index-filter-option__item {
