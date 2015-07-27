@@ -8,7 +8,7 @@ var FontAwesome = require('react-fontawesome');
 var Followees = React.createClass({
   getInitialState() {
     return {
-      isRevealed: false
+      isRevealed: true
     }
   },
   toggleFilterOption(){
@@ -26,7 +26,7 @@ var Followees = React.createClass({
 
     return(
       <div className="stock-index-filter-option">
-          <h5>フォロー中のユーザー<FontAwesome name="chevron-down" rotate={ this.state.isRevealed ? '' : "180" } size='lg' onClick={this.toggleFilterOption} /></h5>
+          <h5 onClick={this.toggleFilterOption}>フォロー中のユーザー<FontAwesome name="chevron-down" rotate={ this.state.isRevealed ? "180" : null } size='lg'  /></h5>
           <ul className={"followee-list " + (this.state.isRevealed ? 'revealed' : '')}>
             {rows}
           </ul>

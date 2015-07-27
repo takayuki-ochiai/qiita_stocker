@@ -297,7 +297,7 @@ var FontAwesome = require('react-fontawesome');
 var FollowTags = React.createClass({displayName: "FollowTags",
   getInitialState() {
     return {
-      isRevealed: false
+      isRevealed: true
     }
   },
   toggleFilterOption(){
@@ -315,7 +315,7 @@ var FollowTags = React.createClass({displayName: "FollowTags",
 
     return(
       React.createElement("div", {className: "stock-index-filter-option"}, 
-          React.createElement("h5", null, "フォロー中のタグ", React.createElement(FontAwesome, {name: "chevron-down", rotate:  this.state.isRevealed ? '' : "180", size: "lg", onClick: this.toggleFilterOption})), 
+          React.createElement("h5", {onClick: this.toggleFilterOption}, "フォロー中のタグ", React.createElement(FontAwesome, {name: "chevron-down", rotate:  this.state.isRevealed ? "180" : null, size: "lg"})), 
           React.createElement("ul", {className:  "following-tags-list " + (this.state.isRevealed ? 'revealed' : '') }, 
               rows
           )
@@ -337,7 +337,7 @@ var FontAwesome = require('react-fontawesome');
 var Followees = React.createClass({displayName: "Followees",
   getInitialState() {
     return {
-      isRevealed: false
+      isRevealed: true
     }
   },
   toggleFilterOption(){
@@ -355,7 +355,7 @@ var Followees = React.createClass({displayName: "Followees",
 
     return(
       React.createElement("div", {className: "stock-index-filter-option"}, 
-          React.createElement("h5", null, "フォロー中のユーザー", React.createElement(FontAwesome, {name: "chevron-down", rotate:  this.state.isRevealed ? '' : "180", size: "lg", onClick: this.toggleFilterOption})), 
+          React.createElement("h5", {onClick: this.toggleFilterOption}, "フォロー中のユーザー", React.createElement(FontAwesome, {name: "chevron-down", rotate:  this.state.isRevealed ? "180" : null, size: "lg"})), 
           React.createElement("ul", {className: "followee-list " + (this.state.isRevealed ? 'revealed' : '')}, 
             rows
           )

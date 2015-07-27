@@ -103,7 +103,12 @@
     padding: 11px 0px;
     width: 90%;
     margin: 0px auto -1px auto;
-
+  }
+  h5:hover{
+    cursor: pointer;
+  }
+  h5:hover > .fa-chevron-down {
+    color: #00a4bb;
   }
 }
 
@@ -184,10 +189,6 @@
 
 .stock-index-filter-option ul {
   display: none;
-}
-
-.stock-index-filter-option .fa-chevron-down:hover {
-  cursor: pointer;
 }
 
 .revealed {
