@@ -3,8 +3,19 @@ var Link = Router.Link;
 var Navigation = Router.Navigation;
 var FilterOptionListItem = require('./filter_option_list_item.jsx');
 var Constants = require('./app_constants.js');
+var FontAwesome = require('react-fontawesome');
 
 var Followees = React.createClass({
+  getInitialState() {
+    return {
+      isRevealed: false
+    }
+  },
+  toggleFilterOption(){
+    this.setState({
+      isRevealed: !this.state.isRevealed
+    });
+  },
   render() {
     var rows = [];
     this.props.followees.forEach(function(followee) {
@@ -15,8 +26,8 @@ var Followees = React.createClass({
 
     return(
       <div className="stock-index-filter-option">
-          <h5>フォロー中のユーザー</h5>
-          <ul className="followee-list">
+          <h5>フォロー中のユーザー<FontAwesome name="chevron-down" rotate={ this.state.isRevealed ? '' : "180" } size='lg' onClick={this.toggleFilterOption} /></h5>
+          <ul className={"followee-list " + (this.state.isRevealed ? 'revealed' : '')}>
             {rows}
           </ul>
       </div>

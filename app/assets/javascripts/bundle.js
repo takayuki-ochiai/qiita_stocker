@@ -169,7 +169,7 @@ module.exports = AppDispatcher;
 
 },{"flux":20,"object-assign":23,"react":223}],6:[function(require,module,exports){
 var FontAwesome = require('react-fontawesome');
- var ActionCreator = require('./action_creator.js');
+var ActionCreator = require('./action_creator.js');
 
 var FilterOptionListItem = React.createClass({displayName: "FilterOptionListItem",
   getInitialState() {
@@ -292,8 +292,19 @@ var Link = Router.Link;
 var Navigation = Router.Navigation;
 var FilterOptionListItem = require('./filter_option_list_item.jsx');
 var Constants = require('./app_constants.js');
+var FontAwesome = require('react-fontawesome');
 
 var FollowTags = React.createClass({displayName: "FollowTags",
+  getInitialState() {
+    return {
+      isRevealed: false
+    }
+  },
+  toggleFilterOption(){
+    this.setState({
+      isRevealed: !this.state.isRevealed
+    });
+  },
   render() {
     var rows = [];
     this.props.following_tags.forEach(function(tag) {
@@ -304,8 +315,8 @@ var FollowTags = React.createClass({displayName: "FollowTags",
 
     return(
       React.createElement("div", {className: "stock-index-filter-option"}, 
-          React.createElement("h5", null, "フォロー中のタグ"), 
-          React.createElement("ul", {className: "following-tags-list"}, 
+          React.createElement("h5", null, "フォロー中のタグ", React.createElement(FontAwesome, {name: "chevron-down", rotate:  this.state.isRevealed ? '' : "180", size: "lg", onClick: this.toggleFilterOption})), 
+          React.createElement("ul", {className:  "following-tags-list " + (this.state.isRevealed ? 'revealed' : '') }, 
               rows
           )
       )
@@ -315,14 +326,25 @@ var FollowTags = React.createClass({displayName: "FollowTags",
 
 module.exports = FollowTags;
 
-},{"./app_constants.js":4,"./filter_option_list_item.jsx":6,"react-router":50}],9:[function(require,module,exports){
+},{"./app_constants.js":4,"./filter_option_list_item.jsx":6,"react-fontawesome":24,"react-router":50}],9:[function(require,module,exports){
 var Router = require('react-router');
 var Link = Router.Link;
 var Navigation = Router.Navigation;
 var FilterOptionListItem = require('./filter_option_list_item.jsx');
 var Constants = require('./app_constants.js');
+var FontAwesome = require('react-fontawesome');
 
 var Followees = React.createClass({displayName: "Followees",
+  getInitialState() {
+    return {
+      isRevealed: false
+    }
+  },
+  toggleFilterOption(){
+    this.setState({
+      isRevealed: !this.state.isRevealed
+    });
+  },
   render() {
     var rows = [];
     this.props.followees.forEach(function(followee) {
@@ -333,8 +355,8 @@ var Followees = React.createClass({displayName: "Followees",
 
     return(
       React.createElement("div", {className: "stock-index-filter-option"}, 
-          React.createElement("h5", null, "フォロー中のユーザー"), 
-          React.createElement("ul", {className: "followee-list"}, 
+          React.createElement("h5", null, "フォロー中のユーザー", React.createElement(FontAwesome, {name: "chevron-down", rotate:  this.state.isRevealed ? '' : "180", size: "lg", onClick: this.toggleFilterOption})), 
+          React.createElement("ul", {className: "followee-list " + (this.state.isRevealed ? 'revealed' : '')}, 
             rows
           )
       )
@@ -344,7 +366,7 @@ var Followees = React.createClass({displayName: "Followees",
 
 module.exports = Followees;
 
-},{"./app_constants.js":4,"./filter_option_list_item.jsx":6,"react-router":50}],10:[function(require,module,exports){
+},{"./app_constants.js":4,"./filter_option_list_item.jsx":6,"react-fontawesome":24,"react-router":50}],10:[function(require,module,exports){
 var Router = require('react-router');
 var Link = Router.Link;
 var Navigation = Router.Navigation;

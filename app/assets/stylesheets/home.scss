@@ -102,7 +102,7 @@
     font-weight: bold;
     padding: 11px 0px;
     width: 90%;
-    margin: 0 auto;
+    margin: 0px auto -1px auto;
 
   }
 }
@@ -176,4 +176,20 @@
 
 .fa-times-circle {
   color: gray;
+}
+
+.stock-index-filter-option .fa-chevron-down {
+  float: right;
+}
+
+.stock-index-filter-option ul {
+  display: none;
+}
+
+.stock-index-filter-option .fa-chevron-down:hover {
+  cursor: pointer;
+}
+
+.revealed {
+  display: block !important;
 }
