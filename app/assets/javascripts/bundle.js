@@ -562,8 +562,8 @@ var StockListItem = React.createClass({displayName: "StockListItem",
         React.createElement("article", {key: this.props.stock.id, className: "stock-item"}, 
             React.createElement("div", {className: "stock-item__user-profile-image"}, " ", React.createElement("img", {src: this.props.stock.user.profile_image_url})), 
             React.createElement("div", {className: "stock-item__right"}, 
-                React.createElement("div", {className: "stock-item__user"}, React.createElement("a", {href: ""}, this.props.stock.user.id), " が", this.props.stock.created_at, "に投稿"), 
-                React.createElement("div", {className: "stock-item__title"}, React.createElement("a", {href: this.props.stock.url}, this.props.stock.title)), 
+                React.createElement("div", {className: "stock-item__user"}, React.createElement("a", {href: "http://qiita.com/" + this.props.stock.user.id, target: "_blank"}, this.props.stock.user.id), " が", this.props.stock.created_at, "に投稿"), 
+                React.createElement("div", {className: "stock-item__title"}, React.createElement("a", {href: this.props.stock.url, target: "_blank"}, this.props.stock.title)), 
                 React.createElement("div", {className: "tag-list"}, tags)
             )
         )
