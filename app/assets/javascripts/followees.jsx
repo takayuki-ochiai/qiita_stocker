@@ -4,18 +4,10 @@ var Navigation = Router.Navigation;
 var FilterOptionListItem = require('./filter_option_list_item.jsx');
 var Constants = require('./app_constants.js');
 var FontAwesome = require('react-fontawesome');
+var ToggleFilterOption = require('./mixins/toggle_filter_option_mixin.jsx');
 
 var Followees = React.createClass({
-  getInitialState() {
-    return {
-      isRevealed: true
-    }
-  },
-  toggleFilterOption(){
-    this.setState({
-      isRevealed: !this.state.isRevealed
-    });
-  },
+  mixins: [ToggleFilterOption],
   render() {
     var rows = [];
     this.props.followees.forEach(function(followee) {
