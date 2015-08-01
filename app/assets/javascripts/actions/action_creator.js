@@ -1,6 +1,5 @@
-var AppDispatcher = require('./dispatcher.js'),
-      Constants    = require('./app_constants.js')
-;
+var AppDispatcher = require('../dispatcher/dispatcher.js'),
+      Constants    = require('../constants/app_constants.js');
 
 var ActionCreator = {
   fetchAll() {

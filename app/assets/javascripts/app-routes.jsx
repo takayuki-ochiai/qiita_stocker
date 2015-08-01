@@ -1,11 +1,10 @@
-var React = require('react');
-var Router = require('react-router');
-var DefaultRoute = Router.DefaultRoute;
-var Route = Router.Route;
-var RouteHandler = Router.RouteHandler;
+var React = require('react'),
+      Router = require('react-router'),
+      DefaultRoute = Router.DefaultRoute,
+      Route = Router.Route,
+      RouteHandler = Router.RouteHandler,
+      Index = require('./components/index.jsx');
 
-// var StockTags = require('./stock_tags_index.jsx');
-var Index = require('./index.jsx');
 var Root = React.createClass({
   render: function() {
     return (

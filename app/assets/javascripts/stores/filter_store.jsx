@@ -1,10 +1,8 @@
 var assign           = require('object-assign'),
       EventEmitter = require('events').EventEmitter,
-      AppDispatcher = require('./dispatcher.js'),
-      Constants    = require('./app_constants.js')
-;
-
-var filters = [];
+      AppDispatcher = require('../dispatcher/dispatcher.js'),
+      Constants    = require('../constants/app_constants.js'),
+      filters = [];
 
 var FilterStore = assign({}, EventEmitter.prototype, {
   emitChange() {

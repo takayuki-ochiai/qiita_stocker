@@ -1,6 +1,6 @@
-var Router = require('react-router');
-var Link = Router.Link;
-var Navigation = Router.Navigation;
+var Router = require('react-router'),
+      Link = Router.Link,
+      Navigation = Router.Navigation;
 
 var StockTags= React.createClass({
   fetchStockTags() {

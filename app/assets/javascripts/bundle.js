@@ -1,7 +1,6 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-var AppDispatcher = require('./dispatcher.js'),
-      Constants    = require('./app_constants.js')
-;
+var AppDispatcher = require('../dispatcher/dispatcher.js'),
+      Constants    = require('../constants/app_constants.js');
 
 var ActionCreator = {
   fetchAll() {
@@ -75,15 +74,14 @@ var ActionCreator = {
 
 module.exports = ActionCreator;
 
-},{"./app_constants.js":4,"./dispatcher.js":5}],2:[function(require,module,exports){
-var React = require('react');
-var Router = require('react-router');
-var DefaultRoute = Router.DefaultRoute;
-var Route = Router.Route;
-var RouteHandler = Router.RouteHandler;
+},{"../constants/app_constants.js":13,"../dispatcher/dispatcher.js":14}],2:[function(require,module,exports){
+var React = require('react'),
+      Router = require('react-router'),
+      DefaultRoute = Router.DefaultRoute,
+      Route = Router.Route,
+      RouteHandler = Router.RouteHandler,
+      Index = require('./components/index.jsx');
 
-// var StockTags = require('./stock_tags_index.jsx');
-var Index = require('./index.jsx');
 var Root = React.createClass({displayName: "Root",
   render: function() {
     return (
@@ -114,7 +112,7 @@ var AppRoutes = (
 
 module.exports = AppRoutes;
 
-},{"./index.jsx":10,"react":224,"react-router":51}],3:[function(require,module,exports){
+},{"./components/index.jsx":8,"react":224,"react-router":51}],3:[function(require,module,exports){
 (function() {
   var React = require('react');
   window.React = React; // Reactオブジェクトだけは外に出しておく
@@ -133,43 +131,8 @@ module.exports = AppRoutes;
 }) ();
 
 },{"./app-routes.jsx":2,"react":224,"react-router":51,"react-tap-event-plugin":69}],4:[function(require,module,exports){
-var Constants = {
-  ERROR: "error",
-  CHANGE_EVENT: 'change',
-  INITIALIZE_STOCKS: 'initialize-stocks',
-  INITIALIZE_FILTERS: 'initialize-filters',
-  STORE_KEYWORD_QUERY: 'store-keyword-query',
-  TOGGLE_FILTER_OPTION_QUERY: 'toggle-filter-option-query',
-  EMIT_QUERY: 'emit-query',
-
-  //filter-optionの種類を表す定数
-  FOLLOWEE_FILTER: 'followee-filter',
-  FOLLOWING_TAG_FILTER: 'following-tag-filter'
-};
-
-module.exports = Constants;
-
-},{}],5:[function(require,module,exports){
-var React            = require('react'),
-      Dispatcher    = require('flux').Dispatcher,
-      assign = require('object-assign')
-;
-
-var AppDispatcher = assign(new Dispatcher(), {
-  handleViewAction(type, action) {
-    this.dispatch({
-      actionType: type,
-      action: action
-    });
-  }
-});
-
-
-module.exports = AppDispatcher;
-
-},{"flux":21,"object-assign":24,"react":224}],6:[function(require,module,exports){
 var FontAwesome = require('react-fontawesome');
-var ActionCreator = require('./action_creator.js');
+var ActionCreator = require('../../actions/action_creator.js');
 
 var FilterOptionListItem = React.createClass({displayName: "FilterOptionListItem",
   getInitialState() {
@@ -227,73 +190,14 @@ var FilterOptionListItem = React.createClass({displayName: "FilterOptionListItem
 
 module.exports =FilterOptionListItem;
 
-},{"./action_creator.js":1,"react-fontawesome":25}],7:[function(require,module,exports){
-var assign           = require('object-assign'),
-      EventEmitter = require('events').EventEmitter,
-      AppDispatcher = require('./dispatcher.js'),
-      Constants    = require('./app_constants.js')
-;
-
-var filters = [];
-
-var FilterStore = assign({}, EventEmitter.prototype, {
-  emitChange() {
-    this.emit(Constants.CHANGE_EVENT);
-  },
-  /**
-   * @param {function} callback
-   */
-  addChangeListener(callback) {
-    this.on(Constants.CHANGE_EVENT, callback);
-  },
-  /**
-   * @param {function} callback
-   */
-  removeChangeListener(callback) {
-    this.removeListener(Constants.CHANGE_EVENT, callback);
-  },
-
-  getAll() {
-    return filters;
-  }
-});
-
-FilterStore.dispatchToken = AppDispatcher.register(function(payload) {
-  if(payload.actionType === Constants.INITIALIZE_FILTERS) {
-    filters = payload.action;
-    FilterStore.emitChange();
-  }
-
-  if (payload.actionType === Constants.TOGGLE_FILTER_OPTION_QUERY) {
-    filters.following_tags
-      .filter(function(filter) {
-        return filter.id === payload.action.id;
-      })
-      .map(function(filter){
-        return filter.hasChecked = !filter.hasChecked;
-      })
-
-    filters.followees
-      .filter(function(filter) {
-        return filter.id === payload.action.id;
-      })
-      .map(function(filter){
-        return filter.hasChecked = !filter.hasChecked;
-      })
-    FilterStore.emitChange();
-  }
-});
-
-module.exports = FilterStore;
-
-},{"./app_constants.js":4,"./dispatcher.js":5,"events":19,"object-assign":24}],8:[function(require,module,exports){
+},{"../../actions/action_creator.js":1,"react-fontawesome":25}],5:[function(require,module,exports){
 var Router = require('react-router');
 var Link = Router.Link;
 var Navigation = Router.Navigation;
 var FilterOptionListItem = require('./filter_option_list_item.jsx');
-var Constants = require('./app_constants.js');
+var Constants = require('../../constants/app_constants.js');
 var FontAwesome = require('react-fontawesome');
-var ToggleFilterOption = require('./mixins/toggle_filter_option_mixin.jsx');
+var ToggleFilterOption = require('../../mixins/toggle_filter_option_mixin.jsx');
 
 var FollowTags = React.createClass({displayName: "FollowTags",
   mixins: [ToggleFilterOption],
@@ -318,14 +222,14 @@ var FollowTags = React.createClass({displayName: "FollowTags",
 
 module.exports = FollowTags;
 
-},{"./app_constants.js":4,"./filter_option_list_item.jsx":6,"./mixins/toggle_filter_option_mixin.jsx":11,"react-fontawesome":25,"react-router":51}],9:[function(require,module,exports){
-var Router = require('react-router');
-var Link = Router.Link;
-var Navigation = Router.Navigation;
-var FilterOptionListItem = require('./filter_option_list_item.jsx');
-var Constants = require('./app_constants.js');
-var FontAwesome = require('react-fontawesome');
-var ToggleFilterOption = require('./mixins/toggle_filter_option_mixin.jsx');
+},{"../../constants/app_constants.js":13,"../../mixins/toggle_filter_option_mixin.jsx":15,"./filter_option_list_item.jsx":4,"react-fontawesome":25,"react-router":51}],6:[function(require,module,exports){
+var Router = require('react-router'),
+      Link = Router.Link,
+      Navigation = Router.Navigation,
+      FilterOptionListItem = require('./filter_option_list_item.jsx'),
+      Constants = require('../../constants/app_constants.js'),
+      FontAwesome = require('react-fontawesome'),
+      ToggleFilterOption = require('../../mixins/toggle_filter_option_mixin.jsx');
 
 var Followees = React.createClass({displayName: "Followees",
   mixins: [ToggleFilterOption],
@@ -350,30 +254,46 @@ var Followees = React.createClass({displayName: "Followees",
 
 module.exports = Followees;
 
-},{"./app_constants.js":4,"./filter_option_list_item.jsx":6,"./mixins/toggle_filter_option_mixin.jsx":11,"react-fontawesome":25,"react-router":51}],10:[function(require,module,exports){
-var Router = require('react-router');
-var Link = Router.Link;
-var Navigation = Router.Navigation;
+},{"../../constants/app_constants.js":13,"../../mixins/toggle_filter_option_mixin.jsx":15,"./filter_option_list_item.jsx":4,"react-fontawesome":25,"react-router":51}],7:[function(require,module,exports){
+var Router = require('react-router'),
+      Link = Router.Link,
+      Navigation = Router.Navigation,
+      FollowTags  = require('./follow_tag.jsx'),
+      Followees  = require('./followees.jsx');
 
-//ストックした投稿のリスト
-var StockIndex = require('./stock_index.jsx');
+var StockIndexFilter = React.createClass({displayName: "StockIndexFilter",
+  render() {
+    return (
+        React.createElement("div", {className: "stock-filter-index"}, 
+            React.createElement("form", {action: "", method: "get"}, 
+                React.createElement(FollowTags, {following_tags: this.props.following_tags}), 
+                React.createElement(Followees, {followees: this.props.followees})
+            )
+        )
+    )
+  }
+});
 
-//ストックしたフィルターのリスト
-var StockIndexFilter  = require('./stock_index_filter.jsx');
+module.exports = StockIndexFilter;
 
-//検索フィールド
-var StockSearchField = require('./stock_search_field.jsx');
-
-//Flux用
-var AppDispatcher = require('./dispatcher.js');
-
-//Store
-var FilterStore = require('./filter_store.jsx');
-var StockStore = require('./stock_store.jsx');
-var QueryStore = require('./query_store.jsx');
-
-//ActionCreator
-var ActionCreator = require('./action_creator.js');
+},{"./follow_tag.jsx":5,"./followees.jsx":6,"react-router":51}],8:[function(require,module,exports){
+var Router = require('react-router'),
+      Link = Router.Link,
+      Navigation = Router.Navigation,
+      //ストックした投稿のリスト
+      StockIndex = require('./stocks/stock_index.jsx'),
+      //ストックしたフィルターのリスト
+      StockIndexFilter  = require('./filters/stock_index_filter.jsx'),
+      //検索フィールド
+      StockSearchField = require('./stocks/stock_search_field.jsx'),
+      //Flux用
+      AppDispatcher = require('../dispatcher/dispatcher.js'),
+      //Store
+      FilterStore = require('../stores/filter_store.jsx'),
+      StockStore = require('../stores/stock_store.jsx'),
+      QueryStore = require('../stores/query_store.jsx'),
+      //ActionCreator
+      ActionCreator = require('../actions/action_creator.js');
 
 var Index = React.createClass({displayName: "Index",
   getInitialState() {
@@ -437,7 +357,138 @@ var Index = React.createClass({displayName: "Index",
 
 module.exports = Index;
 
-},{"./action_creator.js":1,"./dispatcher.js":5,"./filter_store.jsx":7,"./query_store.jsx":12,"./stock_index.jsx":13,"./stock_index_filter.jsx":14,"./stock_search_field.jsx":16,"./stock_store.jsx":17,"react-router":51}],11:[function(require,module,exports){
+},{"../actions/action_creator.js":1,"../dispatcher/dispatcher.js":14,"../stores/filter_store.jsx":16,"../stores/query_store.jsx":17,"../stores/stock_store.jsx":18,"./filters/stock_index_filter.jsx":7,"./stocks/stock_index.jsx":9,"./stocks/stock_search_field.jsx":11,"react-router":51}],9:[function(require,module,exports){
+var Router = require('react-router'),
+      Link = Router.Link,
+      Navigation = Router.Navigation,
+      StockListItem = require('./stock_list_item.jsx');
+
+var StockIndex = React.createClass({displayName: "StockIndex",
+  render() {
+    var rows = [];
+    this.props.stocks.forEach(function(stock) {
+
+      stock.created_at = stock.created_at.substr(0,10).replace( /-/g , "/" );
+      rows.push(
+        React.createElement(StockListItem, {key: stock.id, stock: stock})
+      )
+    }.bind(this));
+
+    return (
+      React.createElement("div", {className: "stock-list"}, 
+        rows
+      )
+    );
+  }
+});
+
+module.exports = StockIndex;
+
+},{"./stock_list_item.jsx":10,"react-router":51}],10:[function(require,module,exports){
+var TagListItem = require('./tag_list_item.jsx');
+
+var StockListItem = React.createClass({displayName: "StockListItem",
+  render() {
+    var tags = [];
+    this.props.stock.tags.forEach(function(tag) {
+      tags.push(
+        React.createElement(TagListItem, {key: tag.name, tag: tag})
+      )
+    });
+    return (
+        React.createElement("article", {key: this.props.stock.id, className: "stock-item"}, 
+            React.createElement("div", {className: "stock-item__user-profile-image"}, " ", React.createElement("img", {src: this.props.stock.user.profile_image_url})), 
+            React.createElement("div", {className: "stock-item__right"}, 
+                React.createElement("div", {className: "stock-item__user"}, React.createElement("a", {href: "http://qiita.com/" + this.props.stock.user.id, target: "_blank"}, this.props.stock.user.id), " が", this.props.stock.created_at, "に投稿"), 
+                React.createElement("div", {className: "stock-item__title"}, React.createElement("a", {href: this.props.stock.url, target: "_blank"}, this.props.stock.title)), 
+                React.createElement("div", {className: "tag-list"}, tags)
+            )
+        )
+    )
+  }
+})
+
+module.exports = StockListItem;
+
+},{"./tag_list_item.jsx":12}],11:[function(require,module,exports){
+var StockSearchField = React.createClass({displayName: "StockSearchField",
+  getInitialState() {
+    return {
+      keywordQuery : null
+    }
+  },
+  handleTextChange(event) {
+    this.setState({ keywordQuery: event.target.value });
+  },
+  handleSubmit(event) {
+    event.preventDefault();
+    this.props.updateKeywordQuery(this.state.keywordQuery);
+    //上層のCtrl-Viewのqueryのデータを更新までここでやる
+    //実際のクエリの発行は更新後のCtrl-Viewに任せる
+  },
+  render() {
+    return(
+      React.createElement("div", null, 
+        React.createElement("form", {className: "stock-search-field", onSubmit: this.handleSubmit}, 
+          React.createElement("div", null, React.createElement("input", {placeholder: "ストックした投稿を検索", type: "text", ref: "keywordQuery", value: this.state.keywordQuery, onChange: this.handleTextChange})), 
+          React.createElement("input", {type: "submit", value: "検索する"})
+        )
+      )
+    )
+  }
+});
+
+module.exports = StockSearchField;
+
+},{}],12:[function(require,module,exports){
+var TagListItem = React.createClass({displayName: "TagListItem",
+  render() {
+    return(
+      React.createElement("div", {className: "tag-list__item-wrap"}, 
+          React.createElement("div", {className: "left-arrow"}), 
+          React.createElement("div", {className: "tag-list__item"}, this.props.tag.name)
+      )
+    )
+  }
+});
+
+module.exports = TagListItem;
+
+},{}],13:[function(require,module,exports){
+var Constants = {
+  ERROR: "error",
+  CHANGE_EVENT: 'change',
+  INITIALIZE_STOCKS: 'initialize-stocks',
+  INITIALIZE_FILTERS: 'initialize-filters',
+  STORE_KEYWORD_QUERY: 'store-keyword-query',
+  TOGGLE_FILTER_OPTION_QUERY: 'toggle-filter-option-query',
+  EMIT_QUERY: 'emit-query',
+
+  //filter-optionの種類を表す定数
+  FOLLOWEE_FILTER: 'followee-filter',
+  FOLLOWING_TAG_FILTER: 'following-tag-filter'
+};
+
+module.exports = Constants;
+
+},{}],14:[function(require,module,exports){
+var React            = require('react'),
+      Dispatcher    = require('flux').Dispatcher,
+      assign = require('object-assign');
+
+var AppDispatcher = assign(new Dispatcher(), {
+  handleViewAction(type, action) {
+    this.dispatch({
+      actionType: type,
+      action: action
+    });
+  }
+});
+
+
+module.exports = AppDispatcher;
+
+},{"flux":21,"object-assign":24,"react":224}],15:[function(require,module,exports){
 var ToggleFilterOption = {
   getInitialState() {
     return {
@@ -453,16 +504,69 @@ var ToggleFilterOption = {
 
 module.exports = ToggleFilterOption;
 
-},{}],12:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 var assign           = require('object-assign'),
       EventEmitter = require('events').EventEmitter,
-      AppDispatcher = require('./dispatcher.js'),
-      Constants    = require('./app_constants.js')
-;
+      AppDispatcher = require('../dispatcher/dispatcher.js'),
+      Constants    = require('../constants/app_constants.js'),
+      filters = [];
 
-var query = {
-        keywordQuery : '',
-};
+var FilterStore = assign({}, EventEmitter.prototype, {
+  emitChange() {
+    this.emit(Constants.CHANGE_EVENT);
+  },
+  /**
+   * @param {function} callback
+   */
+  addChangeListener(callback) {
+    this.on(Constants.CHANGE_EVENT, callback);
+  },
+  /**
+   * @param {function} callback
+   */
+  removeChangeListener(callback) {
+    this.removeListener(Constants.CHANGE_EVENT, callback);
+  },
+
+  getAll() {
+    return filters;
+  }
+});
+
+FilterStore.dispatchToken = AppDispatcher.register(function(payload) {
+  if(payload.actionType === Constants.INITIALIZE_FILTERS) {
+    filters = payload.action;
+    FilterStore.emitChange();
+  }
+
+  if (payload.actionType === Constants.TOGGLE_FILTER_OPTION_QUERY) {
+    filters.following_tags
+      .filter(function(filter) {
+        return filter.id === payload.action.id;
+      })
+      .map(function(filter){
+        return filter.hasChecked = !filter.hasChecked;
+      })
+
+    filters.followees
+      .filter(function(filter) {
+        return filter.id === payload.action.id;
+      })
+      .map(function(filter){
+        return filter.hasChecked = !filter.hasChecked;
+      })
+    FilterStore.emitChange();
+  }
+});
+
+module.exports = FilterStore;
+
+},{"../constants/app_constants.js":13,"../dispatcher/dispatcher.js":14,"events":19,"object-assign":24}],17:[function(require,module,exports){
+var assign           = require('object-assign'),
+      EventEmitter = require('events').EventEmitter,
+      AppDispatcher = require('../dispatcher/dispatcher.js'),
+      Constants    = require('../constants/app_constants.js')
+      query = { keywordQuery : '' };
 
 var QueryStore = assign({}, EventEmitter.prototype, {
   emitChange() {
@@ -496,121 +600,12 @@ QueryStore.dispatchToken = AppDispatcher.register(function(payload) {
 
 module.exports = QueryStore;
 
-},{"./app_constants.js":4,"./dispatcher.js":5,"events":19,"object-assign":24}],13:[function(require,module,exports){
-var Router = require('react-router');
-var Link = Router.Link;
-var Navigation = Router.Navigation;
-
-var StockListItem = require('./stock_list_item.jsx');
-
-var StockIndex = React.createClass({displayName: "StockIndex",
-  render() {
-    var rows = [];
-    this.props.stocks.forEach(function(stock) {
-
-      stock.created_at = stock.created_at.substr(0,10).replace( /-/g , "/" );
-      rows.push(
-        React.createElement(StockListItem, {key: stock.id, stock: stock})
-      )
-    }.bind(this));
-
-    return (
-      React.createElement("div", {className: "stock-list"}, 
-        rows
-      )
-    );
-  }
-});
-
-module.exports = StockIndex;
-
-},{"./stock_list_item.jsx":15,"react-router":51}],14:[function(require,module,exports){
-var Router = require('react-router');
-var Link = Router.Link;
-var Navigation = Router.Navigation;
-
-var FollowTags  = require('./follow_tag.jsx');
-var Followees  = require('./followees.jsx');
-
-var StockIndexFilter = React.createClass({displayName: "StockIndexFilter",
-  render() {
-    return (
-        React.createElement("div", {className: "stock-filter-index"}, 
-            React.createElement("form", {action: "", method: "get"}, 
-                React.createElement(FollowTags, {following_tags: this.props.following_tags}), 
-                React.createElement(Followees, {followees: this.props.followees})
-            )
-        )
-    )
-  }
-});
-
-module.exports = StockIndexFilter;
-
-},{"./follow_tag.jsx":8,"./followees.jsx":9,"react-router":51}],15:[function(require,module,exports){
-var TagListItem = require('./tag_list_item.jsx');
-
-var StockListItem = React.createClass({displayName: "StockListItem",
-  render() {
-    var tags = [];
-    this.props.stock.tags.forEach(function(tag) {
-      tags.push(
-        React.createElement(TagListItem, {key: tag.name, tag: tag})
-      )
-    });
-    return (
-        React.createElement("article", {key: this.props.stock.id, className: "stock-item"}, 
-            React.createElement("div", {className: "stock-item__user-profile-image"}, " ", React.createElement("img", {src: this.props.stock.user.profile_image_url})), 
-            React.createElement("div", {className: "stock-item__right"}, 
-                React.createElement("div", {className: "stock-item__user"}, React.createElement("a", {href: "http://qiita.com/" + this.props.stock.user.id, target: "_blank"}, this.props.stock.user.id), " が", this.props.stock.created_at, "に投稿"), 
-                React.createElement("div", {className: "stock-item__title"}, React.createElement("a", {href: this.props.stock.url, target: "_blank"}, this.props.stock.title)), 
-                React.createElement("div", {className: "tag-list"}, tags)
-            )
-        )
-    )
-  }
-})
-
-module.exports = StockListItem;
-
-},{"./tag_list_item.jsx":18}],16:[function(require,module,exports){
-var StockSearchField = React.createClass({displayName: "StockSearchField",
-  getInitialState() {
-    return {
-      keywordQuery : null
-    }
-  },
-  handleTextChange(event) {
-    this.setState({ keywordQuery: event.target.value });
-  },
-  handleSubmit(event) {
-    event.preventDefault();
-    this.props.updateKeywordQuery(this.state.keywordQuery);
-    //上層のCtrl-Viewのqueryのデータを更新までここでやる
-    //実際のクエリの発行は更新後のCtrl-Viewに任せる
-  },
-  render() {
-    return(
-      React.createElement("div", null, 
-        React.createElement("form", {className: "stock-search-field", onSubmit: this.handleSubmit}, 
-          React.createElement("div", null, React.createElement("input", {placeholder: "ストックした投稿を検索", type: "text", ref: "keywordQuery", value: this.state.keywordQuery, onChange: this.handleTextChange})), 
-          React.createElement("input", {type: "submit", value: "検索する"})
-        )
-      )
-    )
-  }
-});
-
-module.exports = StockSearchField;
-
-},{}],17:[function(require,module,exports){
+},{"../constants/app_constants.js":13,"../dispatcher/dispatcher.js":14,"events":19,"object-assign":24}],18:[function(require,module,exports){
 var assign           = require('object-assign'),
       EventEmitter = require('events').EventEmitter,
-      AppDispatcher = require('./dispatcher.js'),
-      Constants    = require('./app_constants.js')
-;
-
-var stocks = [];
+      AppDispatcher = require('../dispatcher/dispatcher.js'),
+      Constants    = require('../constants/app_constants.js'),
+      stocks = [];
 
 var StockStore = assign({}, EventEmitter.prototype, {
   emitChange() {
@@ -647,21 +642,7 @@ StockStore.dispatchToken = AppDispatcher.register(function(payload) {
 
 module.exports = StockStore;
 
-},{"./app_constants.js":4,"./dispatcher.js":5,"events":19,"object-assign":24}],18:[function(require,module,exports){
-var TagListItem = React.createClass({displayName: "TagListItem",
-  render() {
-    return(
-      React.createElement("div", {className: "tag-list__item-wrap"}, 
-          React.createElement("div", {className: "left-arrow"}), 
-          React.createElement("div", {className: "tag-list__item"}, this.props.tag.name)
-      )
-    )
-  }
-});
-
-module.exports = TagListItem;
-
-},{}],19:[function(require,module,exports){
+},{"../constants/app_constants.js":13,"../dispatcher/dispatcher.js":14,"events":19,"object-assign":24}],19:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a

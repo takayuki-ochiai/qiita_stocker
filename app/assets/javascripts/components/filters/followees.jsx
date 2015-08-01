@@ -1,10 +1,10 @@
-var Router = require('react-router');
-var Link = Router.Link;
-var Navigation = Router.Navigation;
-var FilterOptionListItem = require('./filter_option_list_item.jsx');
-var Constants = require('./app_constants.js');
-var FontAwesome = require('react-fontawesome');
-var ToggleFilterOption = require('./mixins/toggle_filter_option_mixin.jsx');
+var Router = require('react-router'),
+      Link = Router.Link,
+      Navigation = Router.Navigation,
+      FilterOptionListItem = require('./filter_option_list_item.jsx'),
+      Constants = require('../../constants/app_constants.js'),
+      FontAwesome = require('react-fontawesome'),
+      ToggleFilterOption = require('../../mixins/toggle_filter_option_mixin.jsx');
 
 var Followees = React.createClass({
   mixins: [ToggleFilterOption],

@@ -1,9 +1,8 @@
-var Router = require('react-router');
-var Link = Router.Link;
-var Navigation = Router.Navigation;
-
-var FollowTags  = require('./follow_tag.jsx');
-var Followees  = require('./followees.jsx');
+var Router = require('react-router'),
+      Link = Router.Link,
+      Navigation = Router.Navigation,
+      FollowTags  = require('./follow_tag.jsx'),
+      Followees  = require('./followees.jsx');
 
 var StockIndexFilter = React.createClass({
   render() {

@@ -1,26 +1,20 @@
-var Router = require('react-router');
-var Link = Router.Link;
-var Navigation = Router.Navigation;
-
-//ストックした投稿のリスト
-var StockIndex = require('./stock_index.jsx');
-
-//ストックしたフィルターのリスト
-var StockIndexFilter  = require('./stock_index_filter.jsx');
-
-//検索フィールド
-var StockSearchField = require('./stock_search_field.jsx');
-
-//Flux用
-var AppDispatcher = require('./dispatcher.js');
-
-//Store
-var FilterStore = require('./filter_store.jsx');
-var StockStore = require('./stock_store.jsx');
-var QueryStore = require('./query_store.jsx');
-
-//ActionCreator
-var ActionCreator = require('./action_creator.js');
+var Router = require('react-router'),
+      Link = Router.Link,
+      Navigation = Router.Navigation,
+      //ストックした投稿のリスト
+      StockIndex = require('./stocks/stock_index.jsx'),
+      //ストックしたフィルターのリスト
+      StockIndexFilter  = require('./filters/stock_index_filter.jsx'),
+      //検索フィールド
+      StockSearchField = require('./stocks/stock_search_field.jsx'),
+      //Flux用
+      AppDispatcher = require('../dispatcher/dispatcher.js'),
+      //Store
+      FilterStore = require('../stores/filter_store.jsx'),
+      StockStore = require('../stores/stock_store.jsx'),
+      QueryStore = require('../stores/query_store.jsx'),
+      //ActionCreator
+      ActionCreator = require('../actions/action_creator.js');
 
 var Index = React.createClass({
   getInitialState() {
