@@ -4,7 +4,9 @@ var gulp = require('gulp'),
       source = require('vinyl-source-stream'),
       browserify = require('browserify'),
       babelify = require('babelify'),
-      watchify = require('watchify');
+      watchify = require('watchify'),
+      concat = require('gulp-concat'),
+      sass = require('gulp-sass');
 
 var browserSync = require('browser-sync');
 // BrowserSync & Server
@@ -46,15 +48,29 @@ function compile(watch) {
 }
 
 gulp.task('watch', function() { return watch(); });
+
+gulp.task('reload', function() {
+
+});
+
 /**
  * Watch
  */
-// gulp.task('watch', function() {
-//   //第一引数に指定された対象ファイルについて第二引数で指定したタスクを実行する
-//   gulp.watch(
-//     ['./app/assets/javascripts/**/*.jsx', './app/assets/javascripts/**/*.js'],
-//     ['build:bundle.js']);
-// });
+gulp.task('watch:css', function() {
+  //第一引数に指定された対象ファイルについて第二引数で指定したタスクを実行する
+  gulp.watch(
+    './app/assets/stylesheets/**/*.scss',
+    ['bundle:css']).on('change', browserSync.reload);
+});
+
+
+
+gulp.task('bundle:css', function() {
+  gulp.src('./app/assets/stylesheets/**/*.scss')
+         .pipe(sass())
+         .pipe(concat('bundle.css'))
+         .pipe(gulp.dest('./app/assets/stylesheets'))
+});
 
 function watch() {
   return compile(true);
@@ -62,4 +78,4 @@ function watch() {
 
 gulp.task('watch', function() { return watch(); });
 
-gulp.task('default', ['watch', 'bs']);
+gulp.task('default', ['bundle:css', 'watch', 'watch:css','bs']);

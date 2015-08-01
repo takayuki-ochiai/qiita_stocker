@@ -1,0 +1,188 @@
+@charset "UTF-8";
+body {
+  font-family: "Helvetica Neue",Helvetica,"ヒラギノ角ゴ ProN W3","Hiragino Kaku Gothic ProN","メイリオ",Meiryo,sans-serif;
+  height: 100%;
+  margin: 0;
+  max-height: 100%;
+  padding: 0px; }
+
+a {
+  color: #337ab7;
+  text-decoration: none; }
+
+a:hover {
+  text-decoration: underline; }
+
+a:visited {
+  color: #685987; }
+
+ul {
+  padding: 0px; }
+
+ul li {
+  list-style: none; }
+
+#container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  width: 1150px;
+  margin: 0 auto;
+  border: 1px solid black; }
+
+.c-main {
+  width: 850px;
+  border: 1px solid blue; }
+
+.c-side {
+  width: 300px;
+  border: 1px solid red; }
+
+.stock-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  margin: 0 auto;
+  min-height: 70px;
+  width: 100%;
+  padding-top: 10px;
+  position: relative;
+  border-bottom: 2px #ddd solid; }
+
+.stock-item__user-profile-image {
+  position: absolute; }
+  .stock-item__user-profile-image img {
+    box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.4);
+    display: block;
+    height: 40px;
+    width: 40px;
+    margin-left: 10px; }
+
+.stock-item__right {
+  position: relative;
+  margin-left: 60px; }
+  .stock-item__right .stock-item__user {
+    padding-left: 10px; }
+  .stock-item__right .stock-item__title {
+    padding-left: 10px; }
+
+.stock-item__user {
+  padding: 0 30;
+  font-size: 12px; }
+
+.stock-item__title {
+  font-size: 16px;
+  font-weight: bold; }
+
+.left-arrow {
+  display: inline-block;
+  width: 0px;
+  height: 0px;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-right: 10px solid #dfdfdf; }
+
+.tag-list__item-wrap {
+  display: inline-flex;
+  margin-left: 5px; }
+
+.tag-list__item {
+  background-color: #dfdfdf;
+  line-height: 1;
+  padding: 0px 7px 0px 2px; }
+
+.stock-filter-index {
+  width: 80%;
+  margin: 0 auto; }
+  .stock-filter-index h5 {
+    border-bottom: 1px #ddd solid;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 11px 0px;
+    width: 90%;
+    margin: 0px auto -1px auto; }
+  .stock-filter-index h5:hover {
+    cursor: pointer; }
+  .stock-filter-index h5:hover > .fa-chevron-down {
+    color: #00a4bb; }
+
+.stock-filter-index__filter-reset-button {
+  float: right;
+  color: #00a4bb; }
+
+.stock-filter-index__filter-reset-button:hover {
+  cursor: pointer;
+  text-decoration: underline; }
+
+.stock-filter-index__filter-reset-button:hover > .fa-repeat {
+  text-decoration: underline; }
+
+.stock-index-filter-option {
+  border: 1px solid #ddd;
+  border-radius: 3px; }
+
+.stock-index-filter-option__item-wrapper {
+  width: 90%; }
+
+.ui-checkbox input {
+  display: none; }
+
+.stock-index-filter-option__check-icon {
+  position: absolute;
+  right: 0%;
+  top: 15%;
+  display: inline-block;
+  width: 13%; }
+
+.stock-index-filter-option__image {
+  position: relative;
+  left: 5%;
+  display: inline-block;
+  width: 13%; }
+  .stock-index-filter-option__image img {
+    width: 100%; }
+
+.stock-index-filter-option__label {
+  border-radius: 3px;
+  position: absolute;
+  left: 40px;
+  top: 0;
+  display: inline-block;
+  width: 80%;
+  font-size: 14px;
+  padding: 0px 0px 0px 5px;
+  line-height: 26px; }
+
+.stock-index-filter-option__item:hover {
+  cursor: pointer; }
+
+.stock-index-filter-option__item:hover > .stock-index-filter-option__label {
+  background-color: lightgray; }
+
+.stock-index-filter-option__item {
+  position: relative;
+  width: 90%;
+  margin-left: 8%;
+  min-height: 20px;
+  padding-bottom: 10px; }
+
+.invisible {
+  visibility: hidden; }
+
+.checked {
+  color: #00a4bb; }
+
+.fa-times-circle {
+  color: gray; }
+
+.stock-index-filter-option .fa-chevron-down {
+  float: right; }
+
+.stock-index-filter-option ul {
+  display: none; }
+
+.revealed {
+  display: block !important; }
+

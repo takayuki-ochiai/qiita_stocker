@@ -1,5 +1,5 @@
-var FontAwesome = require('react-fontawesome');
-var ActionCreator = require('../../actions/action_creator.js');
+var FontAwesome = require('react-fontawesome'),
+      ActionCreator = require('../../actions/action_creator.js');
 
 var FilterOptionListItem = React.createClass({
   getInitialState() {
