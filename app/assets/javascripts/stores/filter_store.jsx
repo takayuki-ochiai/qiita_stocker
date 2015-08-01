@@ -50,6 +50,20 @@ FilterStore.dispatchToken = AppDispatcher.register(function(payload) {
       })
     FilterStore.emitChange();
   }
+
+  if(payload.actionType === Constants.CLEAR_OPTIONS) {
+    filters.following_tags
+      .map(function(filter) {
+        return filter.hasChecked = false;
+      });
+
+    filters.followees
+      .map(function(filter) {
+        return filter.hasChecked = false;
+      });
+
+    FilterStore.emitChange();
+  }
 });
 
 module.exports = FilterStore;

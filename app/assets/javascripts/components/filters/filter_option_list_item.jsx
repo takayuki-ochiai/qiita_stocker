@@ -47,7 +47,6 @@ var FilterOptionListItem = React.createClass({
               <div className="stock-index-filter-option__image"><img src={this.props.image_url} /></div>
               <div className="stock-index-filter-option__label">{this.props.id}</div>
               <FontAwesome className={"stock-index-filter-option__check-icon " + this.setIconVisibility() } name={this.getIconStyle()} size='lg' />
-              <input id={this.props.filter_category} type="checkbox" />
           </div>
       </li>
     )

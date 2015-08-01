@@ -30,6 +30,13 @@ var ActionCreator = {
   toggleFilterOption(fiiterOption) {
     AppDispatcher.handleViewAction(Constants.TOGGLE_FILTER_OPTION_QUERY, fiiterOption);
   },
+
+  /**
+  * フィルターオプションの初期化を行います。このアクションが発行されるとフィルター条件を全て解除します。
+  */
+  initializeFilterOption() {
+    AppDispatcher.handleViewAction(Constants.CLEAR_OPTIONS, null);
+  },
   /**
   * 検索条件がかかった時のストック検索で使います。
   * @param keywordQuery 検索フィールドに入力されたキーワードです

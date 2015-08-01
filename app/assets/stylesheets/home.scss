@@ -112,6 +112,20 @@
   }
 }
 
+.stock-filter-index__filter-reset-button {
+  float: right;
+  color: #00a4bb;
+}
+
+.stock-filter-index__filter-reset-button:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.stock-filter-index__filter-reset-button:hover > .fa-repeat {
+  text-decoration: underline;
+}
+
 .stock-index-filter-option {
   border: 1px solid #ddd;
   border-radius: 3px;

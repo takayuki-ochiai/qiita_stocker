@@ -9,7 +9,9 @@ var Constants = {
 
   //filter-optionの種類を表す定数
   FOLLOWEE_FILTER: 'followee-filter',
-  FOLLOWING_TAG_FILTER: 'following-tag-filter'
+  FOLLOWING_TAG_FILTER: 'following-tag-filter',
+  //filter-optionの初期化を表す定数
+  CLEAR_OPTIONS: 'clear-options'
 };
 
 module.exports = Constants;
