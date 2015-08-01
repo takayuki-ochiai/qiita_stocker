@@ -44,7 +44,7 @@ var ActionCreator = {
   //できるならタグ名も検索かける
   searchStocks(keywordQuery, filterOptions) {
 
-    following_tags = filterOptions.following_tags
+    var following_tags = filterOptions.following_tags
       .filter(
         function(filter) {
           return filter.hasChecked === true
@@ -52,7 +52,7 @@ var ActionCreator = {
       );
 
 
-    followees = filterOptions.followees
+    var followees = filterOptions.followees
       .filter(
         function(filter) {
           return filter.hasChecked === true

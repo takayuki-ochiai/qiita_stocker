@@ -1,7 +1,7 @@
 var assign           = require('object-assign'),
       EventEmitter = require('events').EventEmitter,
       AppDispatcher = require('../dispatcher/dispatcher.js'),
-      Constants    = require('../constants/app_constants.js')
+      Constants    = require('../constants/app_constants.js'),
       query = { keywordQuery : '' };
 
 var QueryStore = assign({}, EventEmitter.prototype, {
