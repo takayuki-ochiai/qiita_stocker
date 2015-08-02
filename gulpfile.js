@@ -6,7 +6,8 @@ var gulp = require('gulp'),
       babelify = require('babelify'),
       watchify = require('watchify'),
       concat = require('gulp-concat'),
-      sass = require('gulp-sass');
+      sass = require('gulp-sass'),
+      plumber = require('gulp-plumber');
 
 var browserSync = require('browser-sync');
 // BrowserSync & Server
@@ -67,6 +68,7 @@ gulp.task('watch:css', function() {
 
 gulp.task('bundle:css', function() {
   gulp.src('./app/assets/stylesheets/**/*.scss')
+         .pipe(plumber())
          .pipe(sass())
          .pipe(concat('bundle.css'))
          .pipe(gulp.dest('./app/assets/stylesheets'))
