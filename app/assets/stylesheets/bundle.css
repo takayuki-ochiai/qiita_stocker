@@ -31,9 +31,29 @@ ul li {
   margin: 0 auto;
   border: 1px solid black; }
 
-header img {
-  height: 21px;
-  width: 21px; }
+.header-container {
+  height: 62px;
+  width: 1150px;
+  margin: 0 auto; }
+  .header-container .header-container__logo {
+    width: 20%;
+    display: inline-block; }
+  .header-container .header-container__menu {
+    height: 100%;
+    width: 7%;
+    float: right;
+    text-align: right; }
+    .header-container .header-container__menu .header-container__image-wrapper {
+      padding-right: 20px;
+      padding-top: 30%;
+      height: 60%; }
+    .header-container .header-container__menu img {
+      box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.4);
+      height: 21px;
+      width: 21px;
+      margin-right: 3px; }
+    .header-container .header-container__menu .fa-sort-desc {
+      float: right; }
 
 .c-main {
   width: 850px;

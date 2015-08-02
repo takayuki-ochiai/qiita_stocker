@@ -5,6 +5,7 @@ var React = require('react'),
       RouteHandler = Router.RouteHandler,
       Index = require('./components/index.jsx'),
       UserStore = require('./stores/user_store.jsx'),
+      FontAwesome = require('react-fontawesome'),
       ActionCreator = require('./actions/action_creator.js');
 
 var Root = React.createClass({
@@ -38,8 +39,15 @@ var Header = React.createClass({
   render() {
     return (
       <header>
-          <h1>QiitaStocker</h1>
-          <img src={this.state.user.profile_image_url} />
+          <div className="header-container">
+              <h1 className="header-container__logo">QiitaStocker</h1>
+              <div className="header-container__menu">
+                  <div className="header-container__image-wrapper">
+                      <img src={this.state.user.profile_image_url} />
+                      <FontAwesome name="sort-desc" />
+                  </div>
+              </div>
+          </div>
       </header>
     )
   }
