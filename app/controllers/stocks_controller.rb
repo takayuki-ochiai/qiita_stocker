@@ -12,14 +12,18 @@ class StocksController < ApplicationController
       @stocks = JSON.parse(http.get("#{uri.request_uri}users/takayuki-ochiai/stocks?page=1&per_page=100", header = {'Authorization' => 'Bearer 9cd5f03035b0446c6f7f8f261b91faf9400f31b5'}, dest = nil).body)
     end
 
+    #投稿にタグ付けされたタグの一部分を含んでいる
+    #投稿者の名前の一部分を含んでいる
+    #全て大文字小文字を問わない
     if params[:keyword].present?
-      @stocks.select!{ |stock| stock["body"].include?(params[:keyword]) || stock["title"].include?(params[:keyword])}
+      @stocks.select! do |stock|
+        stock["body"].include?(params[:keyword]) || stock["title"].include?(params[:keyword]) || stock["user"]["id"].include?(params[:keyword]) || stock["tags"].any?{ |tag| tag["name"] == params[:keyword] }
+      end
     end
 
     #いずれかのfilterOptionが存在する時に入る。
     #検索条件はORで
-    #フォロータグで指定されたいずれかのようそをタグに含んでいる
-    #フォロイーで指定されたいずれかの人物が書いた記事である
+
     #タグとフォロイーの条件はAND条件である
     #オプションに何も入力されていない時は・・・考えていなかった
     #なにも付いていない場合は全部もらってくればいいじゃん？
