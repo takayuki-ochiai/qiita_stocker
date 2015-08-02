@@ -17,7 +17,8 @@ class StocksController < ApplicationController
     #全て大文字小文字を問わない
     if params[:keyword].present?
       @stocks.select! do |stock|
-        stock["body"].include?(params[:keyword]) || stock["title"].include?(params[:keyword]) || stock["user"]["id"].include?(params[:keyword]) || stock["tags"].any?{ |tag| tag["name"] == params[:keyword] }
+        keyword = Regexp.new(params[:keyword], Regexp::IGNORECASE)
+        stock["body"] =~ keyword || stock["title"] =~ keyword || stock["user"]["id"] =~ keyword || stock["tags"].any?{ |tag| tag["name"] =~ keyword }
       end
     end
 
