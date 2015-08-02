@@ -87,7 +87,21 @@ ul li {
 
 .tag-list__item-wrap {
   display: inline-flex;
-  margin-left: 5px; }
+  margin-left: 5px;
+  color: black; }
+
+.tag-list__item-wrap:hover {
+  cursor: pointer;
+  text-decoration: none; }
+
+.tag-list__item-wrap:visited {
+  color: black; }
+
+.tag-list__item-wrap:hover > .tag-list__item {
+  background-color: #acacac; }
+
+.tag-list__item-wrap:hover > .left-arrow {
+  border-right: 10px solid #acacac; }
 
 .tag-list__item {
   background-color: #dfdfdf;
