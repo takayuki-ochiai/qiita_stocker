@@ -12,6 +12,12 @@
   border: 1px solid black;
 }
 
+header {
+  img {
+    height: 21px;
+    width: 21px;
+  }
+}
 
 //レイアウト
 .c-main {
@@ -97,6 +103,9 @@
   font-weight: bold;
 }
 
+.tag-list {
+  margin-bottom: 12px;
+}
 
 //TODO: hoverしたら全体を555にしたい
 .left-arrow {

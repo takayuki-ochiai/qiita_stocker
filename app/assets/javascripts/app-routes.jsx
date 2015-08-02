@@ -3,13 +3,15 @@ var React = require('react'),
       DefaultRoute = Router.DefaultRoute,
       Route = Router.Route,
       RouteHandler = Router.RouteHandler,
-      Index = require('./components/index.jsx');
+      Index = require('./components/index.jsx'),
+      UserStore = require('./stores/user_store.jsx'),
+      ActionCreator = require('./actions/action_creator.js');
 
 var Root = React.createClass({
   render: function() {
     return (
         <div>
-          <p>header</p>
+          <Header />
           <RouteHandler/>
           <p>footer</p>
         </div>
@@ -17,8 +19,30 @@ var Root = React.createClass({
   }
 });
 
-var PathA = React.createClass({
-  render: function() { return <p>path A</p>; }
+var Header = React.createClass({
+  getInitialState() {
+    return {
+      user: {}
+    }
+  },
+  componentDidMount() {
+    UserStore.addChangeListener(this._onUserChange);
+    ActionCreator.fetchUser();
+  },
+  componentWillUnmount() {
+    UserStore.removeChangeListener(this._onUserChange);
+  },
+  _onUserChange() {
+    this.setState({user: UserStore.getAll() })
+  },
+  render() {
+    return (
+      <header>
+          <h1>QiitaStocker</h1>
+          <img src={this.state.user.profile_image_url} />
+      </header>
+    )
+  }
 });
 
 var PathB = React.createClass({
@@ -28,7 +52,6 @@ var PathB = React.createClass({
 
 var AppRoutes = (
   <Route name="app" path="/" handler={Root}>
-    <DefaultRoute handler={PathA}/>
     <Route name="stockIndex" path="/" handler={Index} />
   </Route>
 );

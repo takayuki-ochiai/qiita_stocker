@@ -31,6 +31,10 @@ ul li {
   margin: 0 auto;
   border: 1px solid black; }
 
+header img {
+  height: 21px;
+  width: 21px; }
+
 .c-main {
   width: 850px;
   border: 1px solid blue;
@@ -97,6 +101,9 @@ ul li {
 .stock-item__title {
   font-size: 16px;
   font-weight: bold; }
+
+.tag-list {
+  margin-bottom: 12px; }
 
 .left-arrow {
   display: inline-block;

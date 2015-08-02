@@ -3,6 +3,7 @@ var Constants = {
   CHANGE_EVENT: 'change',
   INITIALIZE_STOCKS: 'initialize-stocks',
   INITIALIZE_FILTERS: 'initialize-filters',
+  INITIALIZE_USER: 'initialize-user',
   STORE_KEYWORD_QUERY: 'store-keyword-query',
   TOGGLE_FILTER_OPTION_QUERY: 'toggle-filter-option-query',
   EMIT_QUERY: 'emit-query',

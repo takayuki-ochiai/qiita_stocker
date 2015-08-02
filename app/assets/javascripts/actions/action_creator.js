@@ -18,7 +18,11 @@ var ActionCreator = {
       AppDispatcher.handleViewAction(Constants.INITIALIZE_STOCKS, res);
     }.bind(this));
   },
-
+  fetchUser() {
+    $.post('stocks/user_data.json', function(res) {
+      AppDispatcher.handleViewAction(Constants.INITIALIZE_USER, res);
+    })
+  },
   //クエリ用のアクション
   //キーワードクエリを貯蔵する
   storeKeywordQuery(query) {
