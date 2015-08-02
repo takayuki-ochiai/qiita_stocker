@@ -14,7 +14,8 @@ var Router = require('react-router'),
       StockStore = require('../stores/stock_store.jsx'),
       QueryStore = require('../stores/query_store.jsx'),
       //ActionCreator
-      ActionCreator = require('../actions/action_creator.js');
+      ActionCreator = require('../actions/action_creator.js'),
+      Loader = require('react-loader');
 
 var Index = React.createClass({
   getInitialState() {
@@ -25,7 +26,8 @@ var Index = React.createClass({
       },
       stocks: [],
       //検索用クエリ
-      keywordQuery : ''
+      keywordQuery : '',
+      isLoaded: false
     }
   },
   componentDidMount() {
@@ -45,18 +47,20 @@ var Index = React.createClass({
     this.setState({
       filterOptions: filterOptions
     });
-
+    this.setState({ isLoaded: false });
     ActionCreator.searchStocks(this.state.keywordQuery, filterOptions);
   },
   _onStockChange() {
     var stocks = StockStore.getAll().stocks;
-    this.setState({ stocks: stocks });
+    this.setState({ stocks: stocks, isLoaded: true });
   },
   _onQueryChange() {
     var keywordQuery = QueryStore.getAll().keywordQuery;
     this.setState({
       keywordQuery : keywordQuery,
     });
+
+    this.setState({ isLoaded: false });
     //ここから下でクエリ発行する。
     ActionCreator.searchStocks(keywordQuery, this.state.filterOptions);
   },
@@ -69,7 +73,9 @@ var Index = React.createClass({
           <div className="c-side"><StockIndexFilter following_tags={this.state.filterOptions.following_tags} followees={this.state.filterOptions.followees} /></div>
           <div className="c-main">
               <StockSearchField updateKeywordQuery={this.updateKeywordQuery}/>
-              <StockIndex stocks={this.state.stocks} />
+              <Loader loaded={this.state.isLoaded} color="#BFBFBF" left="50%" top="20%">
+                <StockIndex stocks={this.state.stocks} />
+              </Loader>
           </div>
       </div>
     );
