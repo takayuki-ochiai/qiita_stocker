@@ -17,6 +17,7 @@
   width: 1150px;
   margin:  0 auto;
   .header-container__logo {
+    font-family: "Lucida Grande";
     width: 20%;
     display: inline-block;
   }
@@ -60,7 +61,7 @@
 }
 
 .stock-search-field__wrap {
-  width: 90%;
+  width: 92%;
   margin-top: 25px;
   margin-right: auto;
   margin-left: auto;
@@ -77,7 +78,7 @@
   margin-top: -1px;
   margin-left: 8px;
   height: 34px;
-  width: 6%;
+  width: 7%;
 }
 
 // ストックした投稿リスト
@@ -88,7 +89,7 @@
   display: flex;
   margin: 0 auto;
   min-height: 70px;
-  width: 100%;
+  width: 92%;
   padding-top: 10px;
   position: relative;
   border-bottom: 2px #ddd solid;
@@ -172,7 +173,7 @@
 //検索フィルター全体
 .stock-filter-index {
   width: 80%;
-  margin: 0 auto;
+  margin: 30px auto 0px;
   h5 {
     border-bottom: 1px #ddd solid;
     font-size: 13px;
@@ -187,6 +188,11 @@
   h5:hover > .fa-chevron-down {
     color: #00a4bb;
   }
+}
+
+.stock-filter-index__header {
+  margin-bottom: 15px;
+  font-size: 12px;
 }
 
 .stock-filter-index__filter-reset-button {
@@ -206,6 +212,7 @@
 .stock-index-filter-option {
   border: 1px solid #ddd;
   border-radius: 3px;
+  margin-bottom: 10px;
 }
 
 .stock-index-filter-option__item-wrapper {

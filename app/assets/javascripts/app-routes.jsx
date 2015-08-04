@@ -14,7 +14,6 @@ var Root = React.createClass({
         <div>
           <Header />
           <RouteHandler/>
-          <p>footer</p>
         </div>
     );
   }
@@ -40,7 +39,7 @@ var Header = React.createClass({
     return (
       <header>
           <div className="header-container">
-              <h1 className="header-container__logo">QiitaStocker</h1>
+              <h1 className="header-container__logo">QiitaSearcher</h1>
               <div className="header-container__menu">
                   <div className="header-container__image-wrapper">
                       <img src={this.state.user.profile_image_url} />
@@ -53,9 +52,6 @@ var Header = React.createClass({
   }
 });
 
-var PathB = React.createClass({
-  render: function() { return <p>path B</p>; }
-});
 
 
 var AppRoutes = (

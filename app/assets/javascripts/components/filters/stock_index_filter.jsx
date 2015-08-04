@@ -9,13 +9,15 @@ var Router = require('react-router'),
 
 var StockIndexFilter = React.createClass({
   initializeOption() {
-    debugger;
     ActionCreator.initializeFilterOption();
   },
   render() {
     return (
         <div className="stock-filter-index">
-            <div onClick={this.initializeOption} >絞り込む<span className='stock-filter-index__filter-reset-button' >初期値に戻す <FontAwesome name='repeat' /></span></div>
+            <div className="stock-filter-index__header" onClick={this.initializeOption} >
+                絞り込む
+                <span className='stock-filter-index__filter-reset-button' >初期値に戻す <FontAwesome name='repeat' /></span>
+            </div>
             <FollowTags following_tags={this.props.following_tags} />
             <Followees followees={this.props.followees} />
         </div>
