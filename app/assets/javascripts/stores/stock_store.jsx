@@ -35,6 +35,10 @@ StockStore.dispatchToken = AppDispatcher.register(function(payload) {
     stocks = payload.action;
     StockStore.emitChange();
   }
+
+  if (payload.actionType === Constants.LOAD_STOCKS) {
+    StockStore.emitChange();
+  }
 });
 
 module.exports = StockStore;

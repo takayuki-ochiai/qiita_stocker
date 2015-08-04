@@ -67,6 +67,10 @@ var Index = React.createClass({
   updateKeywordQuery(keywordQuery) {
     ActionCreator.storeKeywordQuery(keywordQuery);
   },
+  loadStocks(selectedPage) {
+    this.setState({ isLoaded: false });
+    ActionCreator.loadStocksFromServer(this.state.keywordQuery, this.state.filterOptions, selectedPage);
+  },
   render() {
     return(
       <div id="container">
@@ -74,7 +78,7 @@ var Index = React.createClass({
           <div className="c-main">
               <StockSearchField updateKeywordQuery={this.updateKeywordQuery}/>
               <Loader loaded={this.state.isLoaded} color="#BFBFBF" left="50%" top="20%">
-                <StockIndex stocks={this.state.stocks} />
+                <StockIndex stocks={this.state.stocks} loadStocks={this.loadStocks} />
               </Loader>
           </div>
       </div>

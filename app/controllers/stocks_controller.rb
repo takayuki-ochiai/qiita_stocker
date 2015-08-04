@@ -5,11 +5,12 @@ class StocksController < ApplicationController
   require 'json'
 
   def index
+    page_num =  params[:selectedPage] || 1
     #qiitaのapiを叩く
     uri = URI.parse('http://qiita.com/api/v2')
     Net::HTTP.version_1_2
     Net::HTTP.start(uri.host, uri.port) do |http|
-      @stocks = JSON.parse(http.get("#{uri.request_uri}/users/takayuki-ochiai/stocks?page=1&per_page=100", header = {'Authorization' => 'Bearer 9cd5f03035b0446c6f7f8f261b91faf9400f31b5'}, dest = nil).body)
+      @stocks = JSON.parse(http.get("#{uri.request_uri}/users/takayuki-ochiai/stocks?page=#{page_num}&per_page=20", header = {'Authorization' => 'Bearer 9cd5f03035b0446c6f7f8f261b91faf9400f31b5'}, dest = nil).body)
     end
 
     #投稿にタグ付けされたタグの一部分を含んでいる

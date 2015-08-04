@@ -23,6 +23,33 @@ var ActionCreator = {
       AppDispatcher.handleViewAction(Constants.INITIALIZE_USER, res);
     })
   },
+  loadStocksFromServer(keywordQuery, filterOptions, selectedPage) {
+    var following_tags = filterOptions.following_tags
+      .filter(
+        function(filter) {
+          return filter.hasChecked === true
+        }
+      );
+
+
+    var followees = filterOptions.followees
+      .filter(
+        function(filter) {
+          return filter.hasChecked === true
+        }
+      );
+
+    $.post('/stocks.json',
+      {
+        keyword: keywordQuery,
+        following_tags: following_tags,
+        followees: followees,
+        selectedPage: selectedPage
+      },
+      function(res) {
+        AppDispatcher.handleViewAction(Constants.EMIT_QUERY, res);
+      }.bind(this));
+  },
   //クエリ用のアクション
   //キーワードクエリを貯蔵する
   storeKeywordQuery(query) {

@@ -7,6 +7,7 @@ var Constants = {
   STORE_KEYWORD_QUERY: 'store-keyword-query',
   TOGGLE_FILTER_OPTION_QUERY: 'toggle-filter-option-query',
   EMIT_QUERY: 'emit-query',
+  LOAD_STOCKS: 'load-stocks',
 
   //filter-optionの種類を表す定数
   FOLLOWEE_FILTER: 'followee-filter',
