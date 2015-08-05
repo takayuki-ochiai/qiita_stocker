@@ -292,3 +292,46 @@
 .revealed {
   display: block !important;
 }
+
+// ページネーション
+.text-center {
+  text-align: center;
+}
+
+.pagination {
+  margin: 10px auto;
+  display: inline-block;
+  border-radius: 3px;
+  border: 1px solid black;
+  ul {
+    display: inline-block;
+  }
+  li {
+    display: inline-block;
+    a {
+      padding: 6px 12px;
+      display: block;
+    }
+    a:hover {
+      background-color: #eee;
+      text-decoration: none;
+    }
+  }
+}
+
+.pages li {
+  padding: 0;
+  border: 1px solid black;
+  margin-top: -1px;
+  margin-left: -1px;
+  display: inline-block;
+}
+
+.active {
+  background-color: #337ab7;
+}
+
+li.active a:hover {
+  cursor: default;
+  background-color: transparent;
+}

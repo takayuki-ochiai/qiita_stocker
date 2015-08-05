@@ -20,16 +20,18 @@ var StockIndex = React.createClass({
     return (
       <div className="stock-list">
         {rows}
-        <ReactPaginate previousLabel={"<"}
-            nextLabel={">"}
-            breakLabel={<li className="break"><a href="">...</a></li>}
-            pageNum={Math.ceil(100 / 20)}
-            marginPagesDisplayed={2}
-            pageRangeDisplayed={3}
-            clickCallback={this.handlePageClick}
-            containerClassName={"pagination"}
-            subContainerClassName={"pages pagination"}
-            activeClass={"active"} />
+        <div className="text-center">
+            <ReactPaginate previousLabel={"<"}
+                nextLabel={">"}
+                breakLabel={<li className="break"><a href="">...</a></li>}
+                pageNum={Math.ceil(100 / 20)}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={3}
+                clickCallback={this.handlePageClick}
+                containerClassName={"pagination"}
+                subContainerClassName={"pages"}
+                activeClass={"active"} />
+          </div>
       </div>
     );
   }
