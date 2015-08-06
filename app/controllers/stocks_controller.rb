@@ -86,4 +86,22 @@ class StocksController < ApplicationController
 
     render json: { user: @current_user }
   end
+
+  #総ストック数を数える
+  def count
+    #qiitaのapiを叩く
+    @stock_num = 0
+    uri = URI.parse('http://qiita.com/api/v2')
+    Net::HTTP.version_1_2
+    Net::HTTP.start(uri.host, uri.port) do |http|
+      page_num = 1
+      while true do
+        stocks = JSON.parse(http.get("#{uri.request_uri}/users/takayuki-ochiai/stocks?page=#{page_num}&per_page=100", header = {'Authorization' => 'Bearer 9cd5f03035b0446c6f7f8f261b91faf9400f31b5'}, dest = nil).body)
+        @stock_num += stocks.count
+        page_num += 1
+        break if stocks.count < 100
+      end
+    end
+  render json: { stock_num: @stock_num }
+  end
 end

@@ -6,6 +6,7 @@ var Router = require('react-router'),
 
 var StockIndex = React.createClass({
   handlePageClick(e) {
+    $('body, html').scrollTop(0);
     this.props.loadStocks(e.selected + 1);
   },
   render() {
@@ -24,7 +25,7 @@ var StockIndex = React.createClass({
             <ReactPaginate previousLabel={"<"}
                 nextLabel={">"}
                 breakLabel={<li className="break"><a href="">...</a></li>}
-                pageNum={Math.ceil(100 / 20)}
+                pageNum={Math.ceil(this.props.stockNumber / 20)}
                 marginPagesDisplayed={2}
                 pageRangeDisplayed={3}
                 clickCallback={this.handlePageClick}

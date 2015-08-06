@@ -4,6 +4,7 @@ var Constants = {
   INITIALIZE_STOCKS: 'initialize-stocks',
   INITIALIZE_FILTERS: 'initialize-filters',
   INITIALIZE_USER: 'initialize-user',
+  INITIALIZE_STOCK_NUMBER: 'initialize-stock-number',
   STORE_KEYWORD_QUERY: 'store-keyword-query',
   TOGGLE_FILTER_OPTION_QUERY: 'toggle-filter-option-query',
   EMIT_QUERY: 'emit-query',

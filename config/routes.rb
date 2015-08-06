@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   post 'stocks/filter_data' => 'stocks#filter_data'
   post 'stocks/user_data' => 'stocks#user_data'
+  post 'stocks/count' => 'stocks#count'
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 

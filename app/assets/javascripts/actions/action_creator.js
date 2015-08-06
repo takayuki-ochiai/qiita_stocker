@@ -17,6 +17,10 @@ var ActionCreator = {
     $.post('/stocks.json', function(res) {
       AppDispatcher.handleViewAction(Constants.INITIALIZE_STOCKS, res);
     }.bind(this));
+
+    $.post('/stocks/count.json', function(res) {
+      AppDispatcher.handleViewAction(Constants.INITIALIZE_STOCK_NUMBER, res);
+    }.bind(this));
   },
   fetchUser() {
     $.post('stocks/user_data.json', function(res) {

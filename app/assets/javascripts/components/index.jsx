@@ -12,6 +12,7 @@ var Router = require('react-router'),
       //Store
       FilterStore = require('../stores/filter_store.jsx'),
       StockStore = require('../stores/stock_store.jsx'),
+      StockNumStore = require('../stores/stock_num_store.jsx'),
       QueryStore = require('../stores/query_store.jsx'),
       //ActionCreator
       ActionCreator = require('../actions/action_creator.js'),
@@ -24,6 +25,7 @@ var Index = React.createClass({
         following_tags: [],
         followees: [],
       },
+      stockNumber: 0,
       stocks: [],
       //検索用クエリ
       keywordQuery : '',
@@ -32,12 +34,14 @@ var Index = React.createClass({
   },
   componentDidMount() {
     FilterStore.addChangeListener(this._onFilterChange);
+    StockNumStore.addChangeListener(this._onStockNumberChange);
     StockStore.addChangeListener(this._onStockChange);
     QueryStore.addChangeListener(this._onQueryChange);
     ActionCreator.fetchAll();
   },
   componentWillUnmount() {
     FilterStore.removeChangeListener(this._onFilterChange);
+    StockNumStore.removeChangeListener(this._onStockNumberChange);
     StockStore.removeChangeListener(this._onStockChange);
     QueryStore.removeChangeListener(this._onQueryChange);
   },
@@ -49,6 +53,9 @@ var Index = React.createClass({
     });
     this.setState({ isLoaded: false });
     ActionCreator.searchStocks(this.state.keywordQuery, filterOptions);
+  },
+  _onStockNumberChange() {
+    this.setState({ stockNumber: StockNumStore.getAll() });
   },
   _onStockChange() {
     var stocks = StockStore.getAll().stocks;
@@ -78,7 +85,7 @@ var Index = React.createClass({
           <div className="c-main">
               <StockSearchField updateKeywordQuery={this.updateKeywordQuery}/>
               <Loader loaded={this.state.isLoaded} color="#BFBFBF" left="50%" top="20%">
-                <StockIndex stocks={this.state.stocks} loadStocks={this.loadStocks} />
+                <StockIndex stocks={this.state.stocks} loadStocks={this.loadStocks} stockNumber={this.state.stockNumber} />
               </Loader>
           </div>
       </div>
