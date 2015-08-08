@@ -16,7 +16,8 @@ var Router = require('react-router'),
       QueryStore = require('../stores/query_store.jsx'),
       //ActionCreator
       ActionCreator = require('../actions/action_creator.js'),
-      Loader = require('react-loader');
+      Loader = require('react-loader'),
+      ReactPaginate = require('react-paginate');
 
 var Index = React.createClass({
   getInitialState() {
@@ -78,6 +79,10 @@ var Index = React.createClass({
     this.setState({ isLoaded: false });
     ActionCreator.searchStocks(this.state.keywordQuery, this.state.filterOptions, selectedPage);
   },
+  handlePageClick(e) {
+    $('body, html').scrollTop(0);
+    this.loadStocks(e.selected + 1);
+  },
   render() {
     return(
       <div id="container">
@@ -87,6 +92,18 @@ var Index = React.createClass({
               <Loader loaded={this.state.isLoaded} color="#BFBFBF" left="50%" top="20%">
                 <StockIndex stocks={this.state.stocks} loadStocks={this.loadStocks} stockNumber={this.state.stockNumber} />
               </Loader>
+              <div className="text-center">
+                  <ReactPaginate previousLabel={"<"}
+                      nextLabel={">"}
+                      breakLabel={<li className="break"><a href="">...</a></li>}
+                      pageNum={Math.ceil(this.state.stockNumber / 20)}
+                      marginPagesDisplayed={2}
+                      pageRangeDisplayed={3}
+                      clickCallback={this.handlePageClick}
+                      containerClassName={"pagination"}
+                      subContainerClassName={"pages"}
+                      activeClass={"active"} />
+              </div>
           </div>
       </div>
     );

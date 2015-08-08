@@ -1,14 +1,9 @@
 var Router = require('react-router'),
       Link = Router.Link,
       Navigation = Router.Navigation,
-      StockListItem = require('./stock_list_item.jsx'),
-      ReactPaginate = require('react-paginate');
+      StockListItem = require('./stock_list_item.jsx');
 
 var StockIndex = React.createClass({
-  handlePageClick(e) {
-    $('body, html').scrollTop(0);
-    this.props.loadStocks(e.selected + 1);
-  },
   render() {
     var rows = [];
     this.props.stocks.forEach(function(stock) {
@@ -21,18 +16,6 @@ var StockIndex = React.createClass({
     return (
       <div className="stock-list">
         {rows}
-        <div className="text-center">
-            <ReactPaginate previousLabel={"<"}
-                nextLabel={">"}
-                breakLabel={<li className="break"><a href="">...</a></li>}
-                pageNum={Math.ceil(this.props.stockNumber / 20)}
-                marginPagesDisplayed={2}
-                pageRangeDisplayed={3}
-                clickCallback={this.handlePageClick}
-                containerClassName={"pagination"}
-                subContainerClassName={"pages"}
-                activeClass={"active"} />
-          </div>
       </div>
     );
   }
