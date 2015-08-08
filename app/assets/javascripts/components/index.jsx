@@ -76,7 +76,7 @@ var Index = React.createClass({
   },
   loadStocks(selectedPage) {
     this.setState({ isLoaded: false });
-    ActionCreator.loadStocksFromServer(this.state.keywordQuery, this.state.filterOptions, selectedPage);
+    ActionCreator.searchStocks(this.state.keywordQuery, this.state.filterOptions, selectedPage);
   },
   render() {
     return(

@@ -27,33 +27,6 @@ var ActionCreator = {
       AppDispatcher.handleViewAction(Constants.INITIALIZE_USER, res);
     })
   },
-  loadStocksFromServer(keywordQuery, filterOptions, selectedPage) {
-    var following_tags = filterOptions.following_tags
-      .filter(
-        function(filter) {
-          return filter.hasChecked === true
-        }
-      );
-
-
-    var followees = filterOptions.followees
-      .filter(
-        function(filter) {
-          return filter.hasChecked === true
-        }
-      );
-
-    $.post('/stocks.json',
-      {
-        keyword: keywordQuery,
-        following_tags: following_tags,
-        followees: followees,
-        selectedPage: selectedPage
-      },
-      function(res) {
-        AppDispatcher.handleViewAction(Constants.EMIT_QUERY, res);
-      }.bind(this));
-  },
   //クエリ用のアクション
   //キーワードクエリを貯蔵する
   storeKeywordQuery(query) {
@@ -84,7 +57,7 @@ var ActionCreator = {
   //複数語句のOR検索
   //大小文字を問わない
   //できるならタグ名も検索かける
-  searchStocks(keywordQuery, filterOptions) {
+  searchStocks(keywordQuery, filterOptions, selectedPage) {
 
     var following_tags = filterOptions.following_tags
       .filter(
@@ -105,11 +78,13 @@ var ActionCreator = {
       {
         keyword: keywordQuery,
         following_tags: following_tags,
-        followees: followees
+        followees: followees,
+        selectedPage: selectedPage
       },
       function(res) {
         AppDispatcher.handleViewAction(Constants.EMIT_QUERY, res);
-      }.bind(this));
+      }.bind(this)
+    );
   }
 }
 
