@@ -9,6 +9,7 @@ var FilterOptionListItem = React.createClass({
   },
 
   toggleFilterOption() {
+    $('body, html').scrollTop(0);
     ActionCreator.toggleFilterOption(this.props);
   },
 
