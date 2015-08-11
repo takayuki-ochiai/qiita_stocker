@@ -12,7 +12,6 @@ var Router = require('react-router'),
       //Store
       FilterStore = require('../stores/filter_store.jsx'),
       StockStore = require('../stores/stock_store.jsx'),
-      StockNumStore = require('../stores/stock_num_store.jsx'),
       QueryStore = require('../stores/query_store.jsx'),
       //ActionCreator
       ActionCreator = require('../actions/action_creator.js'),
@@ -35,14 +34,12 @@ var Index = React.createClass({
   },
   componentDidMount() {
     FilterStore.addChangeListener(this._onFilterChange);
-    StockNumStore.addChangeListener(this._onStockNumberChange);
     StockStore.addChangeListener(this._onStockChange);
     QueryStore.addChangeListener(this._onQueryChange);
     ActionCreator.fetchAll();
   },
   componentWillUnmount() {
     FilterStore.removeChangeListener(this._onFilterChange);
-    StockNumStore.removeChangeListener(this._onStockNumberChange);
     StockStore.removeChangeListener(this._onStockChange);
     QueryStore.removeChangeListener(this._onQueryChange);
   },
@@ -60,7 +57,11 @@ var Index = React.createClass({
   },
   _onStockChange() {
     var stocks = StockStore.getAll().stocks;
-    this.setState({ stocks: stocks, isLoaded: true });
+    var stockNumber = StockStore.getAll().stock_num;
+    if ( stockNumber > 20 ) {
+      stocks = stocks.slice(0, 20);
+    }
+    this.setState({ stocks: stocks, stockNumber: stockNumber, isLoaded: true });
   },
   _onQueryChange() {
     var keywordQuery = QueryStore.getAll().keywordQuery;
@@ -77,7 +78,7 @@ var Index = React.createClass({
   },
   loadStocks(selectedPage) {
     this.setState({ isLoaded: false });
-    ActionCreator.searchStocks(this.state.keywordQuery, this.state.filterOptions, selectedPage);
+    this.setState({ stocks: StockStore.getStocks().slice((selectedPage - 1) * 20, (selectedPage - 1) * 20 + 20), isLoaded: true });
   },
   handlePageClick(e) {
     $('body, html').scrollTop(0);
@@ -91,19 +92,20 @@ var Index = React.createClass({
               <StockSearchField updateKeywordQuery={this.updateKeywordQuery}/>
               <Loader loaded={this.state.isLoaded} color="#BFBFBF" left="50%" top="20%">
                 <StockIndex stocks={this.state.stocks} loadStocks={this.loadStocks} stockNumber={this.state.stockNumber} />
+
+                <div className="text-center">
+                    <ReactPaginate previousLabel={"<"}
+                        nextLabel={">"}
+                        breakLabel={<li className="break"><a href="">...</a></li>}
+                        pageNum={Math.ceil(this.state.stockNumber / 20)}
+                        marginPagesDisplayed={2}
+                        pageRangeDisplayed={3}
+                        clickCallback={this.handlePageClick}
+                        containerClassName={"pagination"}
+                        subContainerClassName={"pages"}
+                        activeClass={"active"} />
+                </div>
               </Loader>
-              <div className="text-center">
-                  <ReactPaginate previousLabel={"<"}
-                      nextLabel={">"}
-                      breakLabel={<li className="break"><a href="">...</a></li>}
-                      pageNum={Math.ceil(this.state.stockNumber / 20)}
-                      marginPagesDisplayed={2}
-                      pageRangeDisplayed={3}
-                      clickCallback={this.handlePageClick}
-                      containerClassName={"pagination"}
-                      subContainerClassName={"pages"}
-                      activeClass={"active"} />
-              </div>
           </div>
       </div>
     );

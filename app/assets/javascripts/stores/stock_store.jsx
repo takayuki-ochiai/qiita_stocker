@@ -2,7 +2,8 @@ var assign           = require('object-assign'),
       EventEmitter = require('events').EventEmitter,
       AppDispatcher = require('../dispatcher/dispatcher.js'),
       Constants    = require('../constants/app_constants.js'),
-      stocks = [];
+      stocks = [],
+      stockNumber = 0;
 
 var StockStore = assign({}, EventEmitter.prototype, {
   emitChange() {
@@ -22,6 +23,9 @@ var StockStore = assign({}, EventEmitter.prototype, {
   },
   getAll() {
     return stocks;
+  },
+  getStocks() {
+    return stocks.stocks;
   }
 });
 
