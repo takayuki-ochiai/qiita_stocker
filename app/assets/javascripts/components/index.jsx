@@ -18,6 +18,9 @@ var Router = require('react-router'),
       Loader = require('react-loader'),
       ReactPaginate = require('react-paginate');
 
+//ページあたりのストック数の定数
+var PER_PAGE = 20;
+
 var Index = React.createClass({
   getInitialState() {
     return {
@@ -58,8 +61,8 @@ var Index = React.createClass({
   _onStockChange() {
     var stocks = StockStore.getAll().stocks;
     var stockNumber = StockStore.getAll().stock_num;
-    if ( stockNumber > 20 ) {
-      stocks = stocks.slice(0, 20);
+    if ( stockNumber > PER_PAGE ) {
+      stocks = stocks.slice(0, PER_PAGE);
     }
     this.setState({ stocks: stocks, stockNumber: stockNumber, isLoaded: true });
   },
@@ -76,13 +79,16 @@ var Index = React.createClass({
   updateKeywordQuery(keywordQuery) {
     ActionCreator.storeKeywordQuery(keywordQuery);
   },
-  loadStocks(selectedPage) {
+  _loadStocks(selectedPage) {
+    return StockStore.getStocks().slice((selectedPage - 1) * PER_PAGE, (selectedPage - 1) * PER_PAGE + PER_PAGE);
+  },
+  _changePage(selectedPage) {
     this.setState({ isLoaded: false });
-    this.setState({ stocks: StockStore.getStocks().slice((selectedPage - 1) * 20, (selectedPage - 1) * 20 + 20), isLoaded: true });
+    this.setState({ stocks: this._loadStocks(selectedPage), isLoaded: true });
   },
   handlePageClick(e) {
     $('body, html').scrollTop(0);
-    this.loadStocks(e.selected + 1);
+    this._changePage(e.selected + 1);
   },
   render() {
     return(
@@ -97,7 +103,7 @@ var Index = React.createClass({
                     <ReactPaginate previousLabel={"<"}
                         nextLabel={">"}
                         breakLabel={<li className="break"><a href="">...</a></li>}
-                        pageNum={Math.ceil(this.state.stockNumber / 20)}
+                        pageNum={Math.ceil(this.state.stockNumber / PER_PAGE)}
                         marginPagesDisplayed={2}
                         pageRangeDisplayed={3}
                         clickCallback={this.handlePageClick}
