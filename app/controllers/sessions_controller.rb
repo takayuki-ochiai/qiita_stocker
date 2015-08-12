@@ -28,5 +28,6 @@ class SessionsController < ApplicationController
       session[:user_id] = user["id"]
       session[:token] = token
     end
+    redirect_to root_path
   end
 end

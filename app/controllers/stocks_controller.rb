@@ -3,7 +3,6 @@ class StocksController < ApplicationController
   require 'net/http'
   require 'uri'
   require 'json'
-  require 'benchmark'
 
   def index
     page_num =  params[:selectedPage] || 1
