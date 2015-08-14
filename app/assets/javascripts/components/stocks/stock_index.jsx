@@ -1,6 +1,4 @@
 var Router = require('react-router'),
-      Link = Router.Link,
-      Navigation = Router.Navigation,
       StockListItem = require('./stock_list_item.jsx');
 
 var StockIndex = React.createClass({
