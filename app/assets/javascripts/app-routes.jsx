@@ -4,6 +4,7 @@ var React = require('react'),
       Route = Router.Route,
       RouteHandler = Router.RouteHandler,
       Index = require('./components/index.jsx'),
+      Header = require('./components/header.jsx'),
       FontAwesome = require('react-fontawesome'),
 
 var Root = React.createClass({
@@ -17,17 +18,7 @@ var Root = React.createClass({
   }
 });
 
-var Header = React.createClass({
-  render() {
-    return (
-      <header>
-          <div className="header-container">
-              <h1 className="header-container__logo">QiitaSearcher</h1>
-          </div>
-      </header>
-    )
-  }
-});
+
 
 
 
