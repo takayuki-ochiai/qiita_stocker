@@ -21,26 +21,6 @@
     width: 20%;
     display: inline-block;
   }
-  .header-container__menu {
-    height: 100%;
-    width: 7%;
-    float: right;
-    text-align: right;
-    .header-container__image-wrapper {
-      padding-right: 20px;
-      padding-top: 30%;
-      height: 60%;
-    }
-    img {
-      box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.4);
-      height: 21px;
-      width: 21px;
-      margin-right: 3px;
-    }
-    .fa-sort-desc {
-      float: right;
-    }
-  }
 }
 
 //レイアウト
