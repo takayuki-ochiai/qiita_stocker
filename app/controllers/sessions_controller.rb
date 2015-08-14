@@ -39,8 +39,4 @@ class SessionsController < ApplicationController
     end
     redirect_to root_path
   end
-
-  def signin?
-    render json: { UserID: session[:user_id] }
-  end
 end

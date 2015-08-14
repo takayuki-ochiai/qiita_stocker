@@ -3,7 +3,7 @@ var AppDispatcher = require('../dispatcher/dispatcher.js'),
 
 var ActionCreator = {
   fetchAll() {
-    $.post('/stocks/filter_data.json', function(res) {
+    $.post('/api/stocks/filter_data.json', function(res) {
       res.followees.forEach(function(followee){
         followee.hasChecked = false;
       });
@@ -14,15 +14,15 @@ var ActionCreator = {
       AppDispatcher.handleViewAction(Constants.INITIALIZE_FILTERS, res);
     }.bind(this));
 
-    $.post('/stocks.json', function(res) {
+    $.post('/api/stocks.json', function(res) {
       AppDispatcher.handleViewAction(Constants.INITIALIZE_STOCKS, res);
     }.bind(this));
   },
-  fetchUser() {
-    $.post('stocks/user_data.json', function(res) {
-      AppDispatcher.handleViewAction(Constants.INITIALIZE_USER, res);
-    })
-  },
+  // fetchUser() {
+  //   $.post('/api/stocks/user_data.json', function(res) {
+  //     AppDispatcher.handleViewAction(Constants.INITIALIZE_USER, res);
+  //   })
+  // },
   //クエリ用のアクション
   //キーワードクエリを貯蔵する
   storeKeywordQuery(query) {
@@ -70,7 +70,7 @@ var ActionCreator = {
         }
       );
 
-    $.post('/stocks.json',
+    $.post('/api/stocks.json',
       {
         keyword: keywordQuery,
         following_tags: following_tags,
@@ -84,7 +84,7 @@ var ActionCreator = {
   },
 
   confirmSignin() {
-    $.post('sessions/confirm_signin.json', function(res) {
+    $.post('/api/sessions/confirm_signin.json', function(res) {
       AppDispatcher.handleViewAction(Constants.CONFIRM_SIGNIN, res);
     })
   }

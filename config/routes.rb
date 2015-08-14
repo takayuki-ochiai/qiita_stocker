@@ -3,16 +3,17 @@ Rails.application.routes.draw do
   root :to => 'home#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
-  #resources :stocks
-  post 'stocks' => 'stocks#index'
-
-  post 'stocks/filter_data' => 'stocks#filter_data'
-  post 'stocks/user_data' => 'stocks#user_data'
+  namespace :api, {  format: 'json' } do
+    post 'stocks' => 'stocks#index'
+    post 'stocks/filter_data' => 'stocks#filter_data'
+    post 'stocks/user_data' => 'stocks#user_data'
+    post 'sessions/confirm_signin' => 'sessions#signin?'
+  end
 
   resources :sessions, :only => :new
   get 'signout' => 'sessions#delete'
   get 'signin' => 'sessions#create'
-  post 'sessions/confirm_signin' => 'sessions#signin?'
+
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 
