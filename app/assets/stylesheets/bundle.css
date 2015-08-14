@@ -22,7 +22,12 @@ ul {
 ul li {
   list-style: none; }
 
-#container {
+.signin-container {
+  width: 1150px;
+  margin: 0 auto;
+  border: 1px solid black; }
+
+.container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: -webkit-flex;

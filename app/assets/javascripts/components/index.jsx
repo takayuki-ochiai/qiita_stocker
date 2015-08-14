@@ -24,6 +24,7 @@ var Router = require('react-router'),
 var PER_PAGE = 20;
 
 var Index = React.createClass({
+  mixins: [Navigation],
   //ログインしているかを確認する。
   componentWillMount() {
     UserStore.addChangeListener(this._onUserChange);
@@ -56,8 +57,7 @@ var Index = React.createClass({
   },
   _onUserChange() {
     if(!UserStore.isSignin()) {
-      debugger;
-      Router.replaceWith('/signin');;
+      this.transitionTo('/signin');
     }
   },
   _onFilterChange() {
@@ -108,7 +108,7 @@ var Index = React.createClass({
     return(
       <div>
           <Header />
-          <div id="container">
+          <div className="container">
               <div className="c-side">
                   <StockIndexFilter following_tags={this.state.filterOptions.following_tags} followees={this.state.filterOptions.followees} />
               </div>

@@ -5,9 +5,11 @@ var Login = React.createClass({
   },
   render() {
     return (
-        <div>
-          QiitaStocker
-          <button onClick={this.authorizeOAuth}>hoge </button>
+        <div className="signin-container">
+          <h1>QiitaStocker</h1>
+          <div>
+              <button onClick={this.authorizeOAuth}>hoge </button>
+          </div>
         </div>
     );  }
 });
