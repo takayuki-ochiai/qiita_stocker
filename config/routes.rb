@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :sessions, :only => :new
   get 'signout' => 'sessions#delete'
   get 'signin' => 'sessions#create'
+  post 'sessions/confirm_signin' => 'sessions#signin?'
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 

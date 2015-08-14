@@ -14,6 +14,7 @@ var Router = require('react-router'),
       FilterStore = require('../stores/filter_store.jsx'),
       StockStore = require('../stores/stock_store.jsx'),
       QueryStore = require('../stores/query_store.jsx'),
+      UserStore = require('../stores/user_store.jsx'),
       //ActionCreator
       ActionCreator = require('../actions/action_creator.js'),
       Loader = require('react-loader'),
@@ -23,6 +24,11 @@ var Router = require('react-router'),
 var PER_PAGE = 20;
 
 var Index = React.createClass({
+  //ログインしているかを確認する。
+  componentWillMount() {
+    UserStore.addChangeListener(this._onUserChange);
+    ActionCreator.confirmSignin();
+  },
   getInitialState() {
     return {
       filterOptions: {
@@ -43,9 +49,16 @@ var Index = React.createClass({
     ActionCreator.fetchAll();
   },
   componentWillUnmount() {
+    UserStore.removeChangeListener(this._onUserChange);
     FilterStore.removeChangeListener(this._onFilterChange);
     StockStore.removeChangeListener(this._onStockChange);
     QueryStore.removeChangeListener(this._onQueryChange);
+  },
+  _onUserChange() {
+    if(!UserStore.isSignin()) {
+      debugger;
+      Router.replaceWith('/signin');;
+    }
   },
   _onFilterChange() {
     var filterOptions = FilterStore.getAll();

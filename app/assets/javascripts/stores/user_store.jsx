@@ -21,17 +21,27 @@ var UserStore = assign({}, EventEmitter.prototype, {
     this.removeListener(Constants.CHANGE_EVENT, callback);
   },
 
-  getAll() {
+  getUser() {
     return user;
+  },
+
+  isSignin() {
+    return !(user.UserID === null);
   }
 });
 
 UserStore.dispatchToken = AppDispatcher.register(function(payload) {
-  //入力されたキーワードクエリをStoreに保存する
-  if(payload.actionType === Constants.INITIALIZE_USER) {
-    user = payload.action.user;
+  //ログインしているかの状態をStoreに保存する。
+  if(payload.actionType === Constants.CONFIRM_SIGNIN) {
+    user = payload.action;
     UserStore.emitChange();
   }
+
+  //入力されたキーワードクエリをStoreに保存する
+  // if(payload.actionType === Constants.INITIALIZE_USER) {
+  //   user = payload.action.user;
+  //   UserStore.emitChange();
+  // }
 });
 
 module.exports = UserStore;

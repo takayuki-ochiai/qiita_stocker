@@ -81,6 +81,12 @@ var ActionCreator = {
         AppDispatcher.handleViewAction(Constants.EMIT_QUERY, res);
       }.bind(this)
     );
+  },
+
+  confirmSignin() {
+    $.post('sessions/confirm_signin.json', function(res) {
+      AppDispatcher.handleViewAction(Constants.CONFIRM_SIGNIN, res);
+    })
   }
 }
 

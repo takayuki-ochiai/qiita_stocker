@@ -1,6 +1,7 @@
 var Constants = {
   ERROR: "error",
   CHANGE_EVENT: 'change',
+  CONFIRM_SIGNIN: 'confirm-signin',
   INITIALIZE_STOCKS: 'initialize-stocks',
   INITIALIZE_FILTERS: 'initialize-filters',
   INITIALIZE_USER: 'initialize-user',
