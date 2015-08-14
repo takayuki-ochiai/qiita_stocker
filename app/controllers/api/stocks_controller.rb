@@ -8,6 +8,7 @@ module Api
     def index
       client = QiitaClient.new(session[:user_id], session[:token])
       @stocks = client.all_stocks
+      #stock用のjsonラッパークラスを作って、その中にフィルタリングメソッドとか閉じ込めるかー。
 
       #投稿にタグ付けされたタグの一部分を含んでいる
       #投稿者の名前の一部分を含んでいる
