@@ -6,22 +6,8 @@ module Api
     require 'json'
 
     def index
-      page_num =  params[:selectedPage] || 1
-      #qiitaのapiを叩く
-      uri = URI.parse('http://qiita.com/api/v2')
-      Net::HTTP.version_1_2
-      #すべてのデータを取ってくる
-      Net::HTTP.start(uri.host, uri.port) do |http|
-        page_num = 1
-        @stocks = []
-        while true do
-          stocks = JSON.parse(http.get("#{uri.request_uri}/users/#{session[:user_id]}/stocks?page=#{page_num}&per_page=100", header = {'Authorization' => "Bearer #{session[:token]}"}, dest = nil).body)
-          @stocks.concat(stocks)
-          page_num += 1
-          break if stocks.count < 100
-        end
-      end
-
+      client = ::QiitaClient.new(session[:user_id], session[:token])
+      @stocks = client.all_stocks
 
       #投稿にタグ付けされたタグの一部分を含んでいる
       #投稿者の名前の一部分を含んでいる
@@ -72,14 +58,10 @@ module Api
     end
 
     def filter_data
-      #qiitaのapiを叩いてフォロー中のタグとユーザーをとってくる
-      uri = URI.parse('http://qiita.com/api/v2')
-      Net::HTTP.version_1_2
-      Net::HTTP.start(uri.host, uri.port) do |http|
-        @followees = JSON.parse(http.get("#{uri.request_uri}/users/#{session[:user_id]}/followees", header = {'Authorization' => "Bearer #{session[:token]}"}, dest = nil).body)
-
-        @following_tags = JSON.parse(http.get("#{uri.request_uri}/users/#{session[:user_id]}/following_tags", header = {'Authorization' => "Bearer #{session[:token]}"}, dest = nil).body)
-      end
+      client = ::QiitaClient.new(session[:user_id], session[:token])
+      filter_data = client.filter_data
+      @followees = filter_data[:followees]
+      @following_tags = filter_data[:following_tags]
 
       render json: { followees: @followees, following_tags: @following_tags }
     end
