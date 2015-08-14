@@ -24,7 +24,6 @@ var StockSearchField = React.createClass({
   },
   _onQueryChange() {
     var keywordQuery = QueryStore.getAll().keywordQuery;
-    debugger;
     this.setState({
       keywordQuery : keywordQuery,
     });
