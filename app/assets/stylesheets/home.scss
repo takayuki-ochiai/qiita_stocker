@@ -5,7 +5,29 @@
 .signin-container {
   width: 1150px;
   margin: 0 auto;
-  border: 1px solid black;
+  h1 {
+    font-family: Consolas,"Liberation Mono",Menlo,Courier,monospace;
+  }
+  text-align: center;
+  padding-top: 80px;
+}
+
+.btn-signin {
+  background-color: #59bb0c;
+  border-color: #4ea30a;
+  border-radius: 3px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 20px;
+  height: 50px;
+  text-align: center;
+  vertical-align: middle;
+  width: 500px;
+}
+
+.btn-signin:hover {
+  background-color: #428b09;
+  border-color: #326a07;
 }
 
 .container {
@@ -15,40 +37,41 @@
   display: flex;
   width: 1150px;
   margin: 0 auto;
-  border: 1px solid black;
 }
 
 .header-container {
+  border-bottom: 1px solid #ebedef;
   height: 62px;
   width: 1150px;
-  margin:  0 auto;
+  margin:  0px auto 20px;
   .header-container__logo {
     font-family: "Lucida Grande";
     width: 20%;
     display: inline-block;
+    padding-left: 30px;
   }
 }
 
 //レイアウト
 .c-main {
   width: 850px;
-  border: 1px solid red;
   position: relative;
 }
 
 .c-side {
   width: 300px;
-  border: 1px solid red;
+  border-right: 1px solid #ebedef;
 }
 
 //ストック検索ボックス
 .stock-search-field {
+  margin-top: 0px;
   min-height: 65px;
 }
 
 .stock-search-field__wrap {
   width: 92%;
-  margin-top: 25px;
+  margin-top: 15px;
   margin-right: auto;
   margin-left: auto;
 }
@@ -62,7 +85,7 @@
 .stock-search-field__submit {
   border-radius: 3px;
   margin-top: -1px;
-  margin-left: 8px;
+  margin-left: 2%;
   height: 34px;
   width: 7%;
 }
@@ -159,7 +182,7 @@
 //検索フィルター全体
 .stock-filter-index {
   width: 80%;
-  margin: 30px auto 0px;
+  margin: 15px auto 0px;
   h5 {
     border-bottom: 1px #ddd solid;
     font-size: 13px;

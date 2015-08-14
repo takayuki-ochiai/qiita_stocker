@@ -4,7 +4,7 @@ var Header = React.createClass({
     return (
       <header>
           <div className="header-container">
-              <h1 className="header-container__logo">QiitaSearcher</h1>
+              <h1 className="header-container__logo">QiitaStocker</h1>
           </div>
       </header>
     )
