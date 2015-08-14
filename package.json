@@ -25,6 +25,7 @@
     "gulp-concat": "^2.6.0",
     "gulp-plumber": "^1.0.1",
     "gulp-sass": "^2.0.4",
+    "material-ui": "^0.10.4",
     "react-loader": "^1.4.0",
     "react-paginate": "^0.1.35",
     "reactify": "^1.1.1",

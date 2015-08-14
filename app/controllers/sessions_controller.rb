@@ -5,6 +5,12 @@ class SessionsController < ApplicationController
   require 'pry'
 
   def new
+    redirect_to 'https://qiita.com/api/v2/oauth/authorize?client_id=e267c8bb3c5d5ed131adc0510fc12f0d29abe0c4&scope=read_qiita'
+  end
+
+  def delete
+    reset_session
+    redirect_to "/#/signin"
   end
 
   def create
