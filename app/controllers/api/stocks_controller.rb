@@ -6,7 +6,7 @@ module Api
     require 'json'
 
     def index
-      client = ::QiitaClient.new(session[:user_id], session[:token])
+      client = QiitaClient.new(session[:user_id], session[:token])
       @stocks = client.all_stocks
 
       #投稿にタグ付けされたタグの一部分を含んでいる
@@ -58,7 +58,7 @@ module Api
     end
 
     def filter_data
-      client = ::QiitaClient.new(session[:user_id], session[:token])
+      client = QiitaClient.new(session[:user_id], session[:token])
       filter_data = client.filter_data
       @followees = filter_data[:followees]
       @following_tags = filter_data[:following_tags]
