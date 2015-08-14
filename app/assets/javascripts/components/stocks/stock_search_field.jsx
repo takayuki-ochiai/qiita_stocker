@@ -1,4 +1,5 @@
-var FontAwesome = require('react-fontawesome');
+var FontAwesome = require('react-fontawesome'),
+      QueryStore = require('../../stores/query_store.jsx');
 
 var StockSearchField = React.createClass({
   getInitialState() {
@@ -14,6 +15,19 @@ var StockSearchField = React.createClass({
     this.props.updateKeywordQuery(this.state.keywordQuery);
     //上層のCtrl-Viewのqueryのデータを更新までここでやる
     //実際のクエリの発行は更新後のCtrl-Viewに任せる
+  },
+  componentDidMount() {
+    QueryStore.addChangeListener(this._onQueryChange);
+  },
+  componentWillUnmount() {
+    QueryStore.removeChangeListener(this._onQueryChange);
+  },
+  _onQueryChange() {
+    var keywordQuery = QueryStore.getAll().keywordQuery;
+    debugger;
+    this.setState({
+      keywordQuery : keywordQuery,
+    });
   },
   render() {
     return(

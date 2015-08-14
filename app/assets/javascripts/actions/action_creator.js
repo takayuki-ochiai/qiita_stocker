@@ -38,7 +38,7 @@ var ActionCreator = {
   /**
   * フィルターオプションの初期化を行います。このアクションが発行されるとフィルター条件を全て解除します。
   */
-  initializeFilterOption() {
+  clearOption() {
     AppDispatcher.handleViewAction(Constants.CLEAR_OPTIONS, null);
   },
   /**

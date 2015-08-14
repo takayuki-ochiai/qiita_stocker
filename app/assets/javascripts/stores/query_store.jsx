@@ -32,6 +32,11 @@ QueryStore.dispatchToken = AppDispatcher.register(function(payload) {
     query.keywordQuery = payload.action;
     QueryStore.emitChange();
   }
+
+  if(payload.actionType === Constants.CLEAR_OPTIONS) {
+    query.keywordQuery = '';
+    QueryStore.emitChange();
+  }
 });
 
 module.exports = QueryStore;

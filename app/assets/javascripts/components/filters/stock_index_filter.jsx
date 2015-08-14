@@ -8,13 +8,13 @@ var Router = require('react-router'),
       ActionCreator = require('../../actions/action_creator.js');
 
 var StockIndexFilter = React.createClass({
-  initializeOption() {
-    ActionCreator.initializeFilterOption();
+  clearOption() {
+    ActionCreator.clearOption();
   },
   render() {
     return (
         <div className="stock-filter-index">
-            <div className="stock-filter-index__header" onClick={this.initializeOption} >
+            <div className="stock-filter-index__header" onClick={this.clearOption} >
                 絞り込む
                 <span className='stock-filter-index__filter-reset-button' >初期値に戻す <FontAwesome name='repeat' /></span>
             </div>
