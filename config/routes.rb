@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   post 'stocks/user_data' => 'stocks#user_data'
 
   resources :sessions, :only => :new
+  get 'signin' => 'sessions#create'
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 

@@ -5,6 +5,9 @@ class SessionsController < ApplicationController
   require 'pry'
 
   def new
+  end
+
+  def create
     uri = URI.parse('http://qiita.com/api/v2/access_tokens')
     Net::HTTP.version_1_2
     http = Net::HTTP.new(uri.host, uri.port)
