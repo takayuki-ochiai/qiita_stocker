@@ -18,11 +18,6 @@ var ActionCreator = {
       AppDispatcher.handleViewAction(Constants.INITIALIZE_STOCKS, res);
     }.bind(this));
   },
-  // fetchUser() {
-  //   $.post('/api/stocks/user_data.json', function(res) {
-  //     AppDispatcher.handleViewAction(Constants.INITIALIZE_USER, res);
-  //   })
-  // },
   //クエリ用のアクション
   //キーワードクエリを貯蔵する
   storeKeywordQuery(query) {
@@ -53,7 +48,7 @@ var ActionCreator = {
   //複数語句のOR検索
   //大小文字を問わない
   //できるならタグ名も検索かける
-  searchStocks(keywordQuery, filterOptions, selectedPage) {
+  searchStocks(keywordQuery, filterOptions) {
 
     var following_tags = filterOptions.following_tags
       .filter(
@@ -74,8 +69,7 @@ var ActionCreator = {
       {
         keyword: keywordQuery,
         following_tags: following_tags,
-        followees: followees,
-        selectedPage: selectedPage
+        followees: followees
       },
       function(res) {
         AppDispatcher.handleViewAction(Constants.EMIT_QUERY, res);

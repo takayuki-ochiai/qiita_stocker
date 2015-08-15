@@ -46,8 +46,8 @@ class StockQuery
   end
 
   def select_by_followees
-    if @followee.present?
-      followees_criteria = Array(@followee.try(:map) {|key, value| value["id"]})
+    if @followees.present?
+      followees_criteria = Array(@followees.try(:map) {|key, value| value["id"]})
 
       @result_stocks.select! do |stock|
         followees_criteria.include?(stock["user"]["id"])

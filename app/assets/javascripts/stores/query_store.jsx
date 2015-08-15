@@ -40,6 +40,16 @@ QueryStore.dispatchToken = AppDispatcher.register(function(payload) {
 
   if(payload.actionType === Constants.CLEAR_OPTIONS) {
     keyword.keywordQuery = '';
+
+    filters.following_tags
+      .map(function(filter) {
+        return filter.hasChecked = false;
+      });
+
+    filters.followees
+      .map(function(filter) {
+        return filter.hasChecked = false;
+      });
     QueryStore.emitChange();
   }
 
@@ -66,21 +76,6 @@ QueryStore.dispatchToken = AppDispatcher.register(function(payload) {
       })
     QueryStore.emitChange();
   }
-
-  if(payload.actionType === Constants.CLEAR_OPTIONS) {
-    filters.following_tags
-      .map(function(filter) {
-        return filter.hasChecked = false;
-      });
-
-    filters.followees
-      .map(function(filter) {
-        return filter.hasChecked = false;
-      });
-
-    QueryStore.emitChange();
-  }
-
 });
 
 module.exports = QueryStore;
