@@ -2,7 +2,8 @@ var assign           = require('object-assign'),
       EventEmitter = require('events').EventEmitter,
       AppDispatcher = require('../dispatcher/dispatcher.js'),
       Constants    = require('../constants/app_constants.js'),
-      query = { keywordQuery : '' };
+      keyword = { keywordQuery : '' },
+      filters = [];
 
 var QueryStore = assign({}, EventEmitter.prototype, {
   emitChange() {
@@ -21,22 +22,65 @@ var QueryStore = assign({}, EventEmitter.prototype, {
     this.removeListener(Constants.CHANGE_EVENT, callback);
   },
 
-  getAll() {
-    return query;
+  getKeyword() {
+    return keyword;
+  },
+
+  getFilterOptions() {
+    return filters;
   }
 });
 
 QueryStore.dispatchToken = AppDispatcher.register(function(payload) {
   //入力されたキーワードクエリをStoreに保存する
   if(payload.actionType === Constants.STORE_KEYWORD_QUERY) {
-    query.keywordQuery = payload.action;
+    keyword.keywordQuery = payload.action;
     QueryStore.emitChange();
   }
 
   if(payload.actionType === Constants.CLEAR_OPTIONS) {
-    query.keywordQuery = '';
+    keyword.keywordQuery = '';
     QueryStore.emitChange();
   }
+
+  if(payload.actionType === Constants.INITIALIZE_FILTERS) {
+    filters = payload.action;
+    QueryStore.emitChange();
+  }
+
+  if (payload.actionType === Constants.TOGGLE_FILTER_OPTION_QUERY) {
+    filters.following_tags
+      .filter(function(filter) {
+        return filter.id === payload.action.id;
+      })
+      .map(function(filter){
+        return filter.hasChecked = !filter.hasChecked;
+      })
+
+    filters.followees
+      .filter(function(filter) {
+        return filter.id === payload.action.id;
+      })
+      .map(function(filter){
+        return filter.hasChecked = !filter.hasChecked;
+      })
+    QueryStore.emitChange();
+  }
+
+  if(payload.actionType === Constants.CLEAR_OPTIONS) {
+    filters.following_tags
+      .map(function(filter) {
+        return filter.hasChecked = false;
+      });
+
+    filters.followees
+      .map(function(filter) {
+        return filter.hasChecked = false;
+      });
+
+    QueryStore.emitChange();
+  }
+
 });
 
 module.exports = QueryStore;

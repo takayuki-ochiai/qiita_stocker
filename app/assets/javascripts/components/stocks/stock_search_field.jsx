@@ -23,7 +23,7 @@ var StockSearchField = React.createClass({
     QueryStore.removeChangeListener(this._onQueryChange);
   },
   _onQueryChange() {
-    var keywordQuery = QueryStore.getAll().keywordQuery;
+    var keywordQuery = QueryStore.getKeyword().keywordQuery;
     this.setState({
       keywordQuery : keywordQuery,
     });

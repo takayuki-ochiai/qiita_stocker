@@ -11,7 +11,6 @@ var Router = require('react-router'),
       //Flux用
       AppDispatcher = require('../dispatcher/dispatcher.js'),
       //Store
-      FilterStore = require('../stores/filter_store.jsx'),
       StockStore = require('../stores/stock_store.jsx'),
       QueryStore = require('../stores/query_store.jsx'),
       UserStore = require('../stores/user_store.jsx'),
@@ -44,14 +43,12 @@ var Index = React.createClass({
     }
   },
   componentDidMount() {
-    FilterStore.addChangeListener(this._onFilterChange);
     StockStore.addChangeListener(this._onStockChange);
     QueryStore.addChangeListener(this._onQueryChange);
     ActionCreator.fetchAll();
   },
   componentWillUnmount() {
     UserStore.removeChangeListener(this._onUserChange);
-    FilterStore.removeChangeListener(this._onFilterChange);
     StockStore.removeChangeListener(this._onStockChange);
     QueryStore.removeChangeListener(this._onQueryChange);
   },
@@ -59,16 +56,6 @@ var Index = React.createClass({
     if(!UserStore.isSignin()) {
       this.transitionTo('/signin');
     }
-  },
-  _onFilterChange() {
-    var filterOptions = FilterStore.getAll();
-
-    this.setState({
-      filterOptions: filterOptions
-    });
-    this.setState({ isLoaded: false });
-    var keywordQuery = QueryStore.getAll().keywordQuery;
-    ActionCreator.searchStocks(keywordQuery, filterOptions);
   },
 
   _onStockNumberChange() {
@@ -83,29 +70,35 @@ var Index = React.createClass({
     }
     this.setState({ stocks: stocks, stockNumber: stockNumber, isLoaded: true });
   },
+
   _onQueryChange() {
-    var keywordQuery = QueryStore.getAll().keywordQuery;
+    var keywordQuery = QueryStore.getKeyword().keywordQuery;
+    var filterOptions = QueryStore.getFilterOptions();
     this.setState({
-      keywordQuery : keywordQuery,
+      keywordQuery : keywordQuery, filterOptions: filterOptions, isLoaded: false
     });
-    this.setState({ isLoaded: false });
     //ここから下でクエリ発行する。
-    ActionCreator.searchStocks(keywordQuery, this.state.filterOptions);
+    ActionCreator.searchStocks(keywordQuery, filterOptions);
   },
+
   updateKeywordQuery(keywordQuery) {
     ActionCreator.storeKeywordQuery(keywordQuery);
   },
+
   _loadStocks(selectedPage) {
     return StockStore.getStocks().slice((selectedPage - 1) * PER_PAGE, (selectedPage - 1) * PER_PAGE + PER_PAGE);
   },
+
   _changePage(selectedPage) {
     this.setState({ isLoaded: false });
     this.setState({ stocks: this._loadStocks(selectedPage), isLoaded: true });
   },
+
   handlePageClick(e) {
     $('body, html').scrollTop(0);
     this._changePage(e.selected + 1);
   },
+
   render() {
     return(
       <div>
