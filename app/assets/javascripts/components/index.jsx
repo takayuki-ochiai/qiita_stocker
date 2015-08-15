@@ -67,11 +67,14 @@ var Index = React.createClass({
       filterOptions: filterOptions
     });
     this.setState({ isLoaded: false });
-    ActionCreator.searchStocks(this.state.keywordQuery, filterOptions);
+    var keywordQuery = QueryStore.getAll().keywordQuery;
+    ActionCreator.searchStocks(keywordQuery, filterOptions);
   },
+
   _onStockNumberChange() {
     this.setState({ stockNumber: StockNumStore.getAll() });
   },
+
   _onStockChange() {
     var stocks = StockStore.getAll().stocks;
     var stockNumber = StockStore.getAll().stock_num;
@@ -85,7 +88,6 @@ var Index = React.createClass({
     this.setState({
       keywordQuery : keywordQuery,
     });
-
     this.setState({ isLoaded: false });
     //ここから下でクエリ発行する。
     ActionCreator.searchStocks(keywordQuery, this.state.filterOptions);
