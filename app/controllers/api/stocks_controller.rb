@@ -7,45 +7,11 @@ module Api
 
     def index
       client = QiitaClient.new(session[:user_id], session[:token])
-      @stocks = client.all_stocks
-      #stock用のjsonラッパークラスを作って、その中にフィルタリングメソッドとか閉じ込めるかー。
+      stocks = client.all_stocks
+      #stock用のjsonラッパークラスを作って、その中にフィルタリングメソッドとか閉じ込めるかー
 
-      #投稿にタグ付けされたタグの一部分を含んでいる
-      #投稿者の名前の一部分を含んでいる
-      #全て大文字小文字を問わない
-      if params[:keyword].present?
-        @stocks.select! do |stock|
-          keyword = Regexp.new(params[:keyword], Regexp::IGNORECASE)
-          stock["body"] =~ keyword || stock["title"] =~ keyword || stock["user"]["id"] =~ keyword || stock["tags"].any?{ |tag| tag["name"] =~ keyword }
-        end
-      end
-
-      #いずれかのfilterOptionが存在する時に入る。
-      #検索条件はORで
-
-      #タグとフォロイーの条件はAND条件である
-      #オプションに何も入力されていない時は・・・考えていなかった
-      #なにも付いていない場合は全部もらってくればいいじゃん？
-      if params[:following_tags].present?
-        following_tags_criteria = Array(
-          params[:following_tags].try(:map) do |key, value|
-            value["id"]
-          end
-        )
-
-        @stocks.select! do |stock|
-          (stock["tags"].map{ |tag| tag["name"] } & following_tags_criteria).count != 0
-        end
-      end
-
-      if params[:followees].present?
-        followees_criteria = Array(params[:followees].try(:map) {|key, value| value["id"]})
-
-        @stocks.select! do |stock|
-          followees_criteria.include?(stock["user"]["id"])
-        end
-      end
-
+      stock_query = StockQuery.new(stocks, params[:keyword], params[:following_tags], params[:followees])
+      @stocks = stock_query.select_stocks
       #stockの持つタグを集計する
       #TODO: なんかやぼったい書き方しているのどうにかしたい
       @stock_tags = @stocks.reduce([]) do |result, stock|
