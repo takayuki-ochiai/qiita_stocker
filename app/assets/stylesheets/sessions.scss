@@ -1,3 +1,31 @@
 // Place all the styles related to the sessions controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.signin-container {
+  width: 1150px;
+  margin: 0 auto;
+  h1 {
+    font-family: Consolas,"Liberation Mono",Menlo,Courier,monospace;
+  }
+  text-align: center;
+  padding-top: 80px;
+}
+
+.btn-signin {
+  background-color: #59bb0c;
+  border-color: #4ea30a;
+  border-radius: 3px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 20px;
+  height: 50px;
+  text-align: center;
+  vertical-align: middle;
+  width: 500px;
+}
+
+.btn-signin:hover {
+  background-color: #428b09;
+  border-color: #326a07;
+}

@@ -1,0 +1,110 @@
+//検索フィルター全体
+.stock-filter-index {
+  width: 80%;
+  margin: 15px auto 0px;
+  h5 {
+    border-bottom: 1px #ddd solid;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 11px 0px;
+    width: 90%;
+    margin: 0px auto -1px auto;
+  }
+  h5:hover{
+    cursor: pointer;
+  }
+  h5:hover > .fa-chevron-down {
+    color: #00a4bb;
+  }
+}
+
+.stock-filter-index__header {
+  margin-bottom: 15px;
+  font-size: 12px;
+}
+
+.stock-filter-index__filter-reset-button {
+  float: right;
+  color: #00a4bb;
+}
+
+.stock-filter-index__filter-reset-button:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.stock-filter-index__filter-reset-button:hover > .fa-repeat {
+  text-decoration: underline;
+}
+
+.stock-index-filter-option {
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  margin-bottom: 10px;
+}
+
+.stock-index-filter-option__item-wrapper {
+  width: 90%;
+}
+
+.ui-checkbox input {
+  display: none;
+}
+
+.stock-index-filter-option__check-icon {
+  position: absolute;
+  right: 0%;
+  top: 15%;
+  display: inline-block;
+  width: 13%;
+}
+
+.stock-index-filter-option__image {
+  position: relative;
+  left: 5%;
+  display: inline-block;
+  width: 13%;
+  img {
+    width:   100%;
+  }
+}
+
+.stock-index-filter-option__label {
+  border-radius: 3px;
+  position: absolute;
+  left: 40px;
+  top: 0;
+  display: inline-block;
+  width: 80%;
+  font-size: 14px;
+  padding: 0px 0px 0px 5px;
+  line-height: 26px;
+}
+
+.stock-index-filter-option__item:hover {
+  cursor: pointer;
+}
+
+.stock-index-filter-option__item:hover > .stock-index-filter-option__label {
+  background-color: lightgray;
+}
+
+.stock-index-filter-option__item {
+  position: relative;
+  width: 90%;
+  margin-left: 8%;
+  min-height: 20px;
+  padding-bottom: 10px;
+}
+
+.fa-times-circle {
+  color: gray;
+}
+
+.stock-index-filter-option .fa-chevron-down {
+  float: right;
+}
+
+.stock-index-filter-option ul {
+  display: none;
+}
