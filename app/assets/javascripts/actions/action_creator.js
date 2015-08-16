@@ -7,7 +7,7 @@ var AppDispatcher = require('../dispatcher/dispatcher.js'),
       Constants    = require('../constants/app_constants.js');
 
 var ActionCreator = {
-  fetchAll() {
+  fetchFilterOptions() {
     $.post('/api/stocks/filter_data.json', function(res) {
       res.followees.forEach(function(followee){
         followee.hasChecked = false;

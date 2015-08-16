@@ -45,7 +45,7 @@ var Index = React.createClass({
   componentDidMount() {
     StockStore.addChangeListener(this._onStockChange);
     QueryStore.addChangeListener(this._onQueryChange);
-    ActionCreator.fetchAll();
+    ActionCreator.fetchFilterOptions();
   },
   componentWillUnmount() {
     UserStore.removeChangeListener(this._onUserChange);
