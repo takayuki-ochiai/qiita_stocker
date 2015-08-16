@@ -1,3 +1,8 @@
+/**
+* @fileoverview QiitaStockerのdispatcherです。
+* @author takayuki-ochiai
+*/
+
 var AppDispatcher = require('../dispatcher/dispatcher.js'),
       Constants    = require('../constants/app_constants.js');
 
@@ -12,10 +17,6 @@ var ActionCreator = {
         tag.hasChecked = false;
       });
       AppDispatcher.handleViewAction(Constants.INITIALIZE_FILTERS, res);
-    }.bind(this));
-
-    $.post('/api/stocks.json', function(res) {
-      AppDispatcher.handleViewAction(Constants.INITIALIZE_STOCKS, res);
     }.bind(this));
   },
   //クエリ用のアクション
