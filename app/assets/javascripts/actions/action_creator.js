@@ -10,7 +10,7 @@ var AppDispatcher = require('../dispatcher/dispatcher.js'),
 var ActionCreator = {
   /**
   * 初期化作業として、すべてのフィルターオプションの情報を取得する
-  * ajaxを行うメソッドです。
+  * ajaxを行います。
   * ajaxで取得したデータに画面上でチェック済みかを判定する
   * booleanを追加してからAppDispatcherを用いてquery_storeへ
   * 配信します。
@@ -27,37 +27,39 @@ var ActionCreator = {
       AppDispatcher.handleViewAction(Constants.INITIALIZE_FILTERS, res);
     }.bind(this));
   },
-  /**クエリ用のアクション
-  * @params
+
+  /**
+  * 入力されたキーワードをQueryStoreに保存します。
+  * @params keyword 入力されたキーワード
   */
   storeKeyword(keyword) {
       AppDispatcher.handleViewAction(Constants.STORE_KEYWORD_QUERY, keyword);
   },
 
-  //フィルタークエリ用のアクション
-  //クリックされたときにcheckedをtoggleするためのアクションを発行する
+  /**
+  * フィルターオプションがクリックされた時、クリックされた
+  * オプションが選択状態を変更します。
+  * @params filterOption 選択されたフィルターオプションのデータ
+  */
   toggleFilterOption(fiiterOption) {
     AppDispatcher.handleViewAction(Constants.TOGGLE_FILTER_OPTION_QUERY, fiiterOption);
   },
 
   /**
-  * フィルターオプションの初期化を行います。このアクションが発行されるとフィルター条件を全て解除します。
+  * フィルターオプション, 検索キーワードの初期化を行います。
+  * このアクションが発行されるとフィルターと検索キーワード
+  * による絞り込みを全て解除します。
   */
   clearOption() {
     AppDispatcher.handleViewAction(Constants.CLEAR_OPTIONS, null);
   },
-  /**
-  * 検索条件がかかった時のストック検索で使います。
-  * @param keyword検索フィールドに入力されたキーワードです
-  * @param filterOptionQuery フォロイーやフォロー中のタグによるフィルターの選択情報です
-  */
 
-  //このメンバ関数は未完成です！
-  //今後やりたいこと
-  //一致した本文の部分については太字で何文字か表示する
-  //複数語句のOR検索
-  //大小文字を問わない
-  //できるならタグ名も検索かける
+  /**
+  * 与えられた検索条件に該当するストックをajaxで取得します。
+  * 取得したストックはDispatcherによってStockStoreへ保存されます。
+  * @param keyword検索キーワード
+  * @param filterOptionsフィルターオプション
+  */
   searchStocks(keyword, filterOptions) {
 
     var following_tags = filterOptions.following_tags
@@ -87,6 +89,11 @@ var ActionCreator = {
     );
   },
 
+  /**
+  * ユーザーがサインイン状態にあるかを確認します。
+  * session情報を取得し、UserStoreに保存します・
+  *
+  */
   confirmSignin() {
     $.post('/api/sessions/confirm_signin.json', function(res) {
       AppDispatcher.handleViewAction(Constants.CONFIRM_SIGNIN, res);
