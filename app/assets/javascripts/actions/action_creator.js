@@ -1,5 +1,6 @@
 /**
-* @fileoverview QiitaStockerのdispatcherです。
+* @fileoverview QiitaStockerのActionCreatorです。
+*   このアプリのすべてのアクションを発行します。
 * @author takayuki-ochiai
 */
 
@@ -7,6 +8,13 @@ var AppDispatcher = require('../dispatcher/dispatcher.js'),
       Constants    = require('../constants/app_constants.js');
 
 var ActionCreator = {
+  /**
+  * 初期化作業として、すべてのフィルターオプションの情報を取得する
+  * ajaxを行うメソッドです。
+  * ajaxで取得したデータに画面上でチェック済みかを判定する
+  * booleanを追加してからAppDispatcherを用いてquery_storeへ
+  * 配信します。
+  */
   fetchFilterOptions() {
     $.post('/api/stocks/filter_data.json', function(res) {
       res.followees.forEach(function(followee){
@@ -19,10 +27,11 @@ var ActionCreator = {
       AppDispatcher.handleViewAction(Constants.INITIALIZE_FILTERS, res);
     }.bind(this));
   },
-  //クエリ用のアクション
-  //キーワードクエリを貯蔵する
-  storeKeywordQuery(query) {
-      AppDispatcher.handleViewAction(Constants.STORE_KEYWORD_QUERY, query);
+  /**クエリ用のアクション
+  * @params
+  */
+  storeKeyword(keyword) {
+      AppDispatcher.handleViewAction(Constants.STORE_KEYWORD_QUERY, keyword);
   },
 
   //フィルタークエリ用のアクション
@@ -39,7 +48,7 @@ var ActionCreator = {
   },
   /**
   * 検索条件がかかった時のストック検索で使います。
-  * @param keywordQuery 検索フィールドに入力されたキーワードです
+  * @param keyword検索フィールドに入力されたキーワードです
   * @param filterOptionQuery フォロイーやフォロー中のタグによるフィルターの選択情報です
   */
 
@@ -49,7 +58,7 @@ var ActionCreator = {
   //複数語句のOR検索
   //大小文字を問わない
   //できるならタグ名も検索かける
-  searchStocks(keywordQuery, filterOptions) {
+  searchStocks(keyword, filterOptions) {
 
     var following_tags = filterOptions.following_tags
       .filter(
@@ -68,7 +77,7 @@ var ActionCreator = {
 
     $.post('/api/stocks.json',
       {
-        keyword: keywordQuery,
+        keyword: keyword,
         following_tags: following_tags,
         followees: followees
       },

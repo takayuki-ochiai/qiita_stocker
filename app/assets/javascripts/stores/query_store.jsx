@@ -2,7 +2,7 @@ var assign           = require('object-assign'),
       EventEmitter = require('events').EventEmitter,
       AppDispatcher = require('../dispatcher/dispatcher.js'),
       Constants    = require('../constants/app_constants.js'),
-      keyword = { keywordQuery : '' },
+      keyword = '',
       filters = [];
 
 var QueryStore = assign({}, EventEmitter.prototype, {
@@ -34,12 +34,12 @@ var QueryStore = assign({}, EventEmitter.prototype, {
 QueryStore.dispatchToken = AppDispatcher.register(function(payload) {
   //入力されたキーワードクエリをStoreに保存する
   if(payload.actionType === Constants.STORE_KEYWORD_QUERY) {
-    keyword.keywordQuery = payload.action;
+    keyword = payload.action;
     QueryStore.emitChange();
   }
 
   if(payload.actionType === Constants.CLEAR_OPTIONS) {
-    keyword.keywordQuery = '';
+    keyword = '';
 
     filters.following_tags
       .map(function(filter) {

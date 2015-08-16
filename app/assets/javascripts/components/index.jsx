@@ -38,7 +38,7 @@ var Index = React.createClass({
       stockNumber: 0,
       stocks: [],
       //検索用クエリ
-      keywordQuery : '',
+      keyword : '',
       isLoaded: false
     }
   },
@@ -72,17 +72,17 @@ var Index = React.createClass({
   },
 
   _onQueryChange() {
-    var keywordQuery = QueryStore.getKeyword().keywordQuery;
+    var keyword = QueryStore.getKeyword();
     var filterOptions = QueryStore.getFilterOptions();
     this.setState({
-      keywordQuery : keywordQuery, filterOptions: filterOptions, isLoaded: false
+      keyword : keyword, filterOptions: filterOptions, isLoaded: false
     });
     //ここから下でクエリ発行する。
-    ActionCreator.searchStocks(keywordQuery, filterOptions);
+    ActionCreator.searchStocks(keyword, filterOptions);
   },
 
-  updateKeywordQuery(keywordQuery) {
-    ActionCreator.storeKeywordQuery(keywordQuery);
+  updateKeyword(keyword) {
+    ActionCreator.storeKeyword(keyword);
   },
 
   _loadStocks(selectedPage) {
@@ -108,7 +108,7 @@ var Index = React.createClass({
                   <StockIndexFilter following_tags={this.state.filterOptions.following_tags} followees={this.state.filterOptions.followees} />
               </div>
               <div className="c-main">
-                  <StockSearchField updateKeywordQuery={this.updateKeywordQuery}/>
+                  <StockSearchField updateKeyword={this.updateKeyword}/>
                   <Loader loaded={this.state.isLoaded} color="#BFBFBF" left="50%" top="20%">
                     <StockIndex stocks={this.state.stocks} loadStocks={this.loadStocks} stockNumber={this.state.stockNumber} />
 
