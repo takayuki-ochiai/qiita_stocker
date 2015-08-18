@@ -1,4 +1,7 @@
-
+/**
+ * @fileoverview ヘッダーのComponentのファイルです。
+ * @author takayuki-ochiai
+ */
 var Header = React.createClass({
   render() {
     return (

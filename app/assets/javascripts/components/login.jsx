@@ -1,8 +1,16 @@
+/**
+ * @fileoverview ログイン画面のComponentのファイルです。
+ * @author takayuki-ochiai
+ */
 
 var Login = React.createClass({
+  /**
+   * ログイン確認画面へ遷移します。
+   */
   authorizeOAuth() {
     document.location = "/sessions/new";
   },
+
   render() {
     return (
         <div className="signin-container">

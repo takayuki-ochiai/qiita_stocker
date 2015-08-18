@@ -1,3 +1,7 @@
+/**
+ * @fileoverview ストックした投稿が持つタグを表すComponentのファイルです。
+ * @author takayuki-ochiai
+ */
 var TagListItem = React.createClass({
   render() {
     return(

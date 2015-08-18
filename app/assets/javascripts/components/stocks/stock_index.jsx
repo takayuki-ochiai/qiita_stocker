@@ -1,3 +1,7 @@
+/**
+ * @fileoverview ストックした投稿一覧のComponentのファイルです。
+ * @author takayuki-ochiai
+ */
 var Router = require('react-router'),
       StockListItem = require('./stock_list_item.jsx');
 

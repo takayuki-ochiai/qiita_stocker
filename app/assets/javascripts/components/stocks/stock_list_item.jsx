@@ -1,3 +1,7 @@
+/**
+ * @fileoverview ストックした投稿の明細のComponentのファイルです。
+ * @author takayuki-ochiai
+ */
 var TagListItem = require('./tag_list_item.jsx');
 
 var StockListItem = React.createClass({
