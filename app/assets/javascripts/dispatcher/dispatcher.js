@@ -1,3 +1,8 @@
+/**
+* @fileoverview QiitaStockerのDispatcherです。
+* @author takayuki-ochiai
+*/
+
 var React            = require('react'),
       Dispatcher    = require('flux').Dispatcher,
       assign = require('object-assign');
