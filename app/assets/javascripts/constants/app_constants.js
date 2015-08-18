@@ -29,9 +29,6 @@ var Constants = {
   /** クエリ発行 */
   EMIT_QUERY: 'emit-query',
 
-  /** ストックした投稿を読み込み時に発行する*/
-  LOAD_STOCKS: 'load-stocks',
-
   /** filter-optionの種類を表す定数 */
   FOLLOWEE_FILTER: 'followee-filter',
   FOLLOWING_TAG_FILTER: 'following-tag-filter',
