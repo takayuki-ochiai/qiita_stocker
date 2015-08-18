@@ -1,3 +1,7 @@
+/**
+ * @fileoverview フィルターオプションの各オプション要素のComponentのファイルです。
+ * @author takayuki-ochiai
+ */
 var FontAwesome = require('react-fontawesome'),
       ActionCreator = require('../../actions/action_creator.js');
 
@@ -8,8 +12,13 @@ var FilterOptionListItem = React.createClass({
     }
   },
 
+  /**
+   * フィルターオプションが選択された時、画面の一番上にスクロールし、選択されたオプションの選択状態を変更します。
+   * @author takayuki-ochiai
+   */
   toggleFilterOption() {
-    $('body, html').scrollTop(0);
+    // $('body, html').scrollTop(0);
+    $("html,body").animate({scrollTop:$('html').offset().top});
     ActionCreator.toggleFilterOption(this.props);
   },
 

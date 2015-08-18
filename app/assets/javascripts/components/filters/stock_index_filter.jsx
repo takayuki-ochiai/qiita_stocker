@@ -1,7 +1,9 @@
-var Router = require('react-router'),
-      Link = Router.Link,
-      Navigation = Router.Navigation,
-      FollowTags  = require('./follow_tag.jsx'),
+/**
+ * @fileoverview フィルタオプション全体のコンポーネントです。
+ * @author takayuki-ochiai
+ */
+
+var FollowTags  = require('./follow_tag.jsx'),
       Followees  = require('./followees.jsx'),
       FontAwesome = require('react-fontawesome'),
       //ActionCreator

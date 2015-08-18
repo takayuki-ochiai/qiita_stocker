@@ -1,10 +1,11 @@
-var Router = require('react-router');
-var Link = Router.Link;
-var Navigation = Router.Navigation;
-var FilterOptionListItem = require('./filter_option_list_item.jsx');
-var Constants = require('../../constants/app_constants.js');
-var FontAwesome = require('react-fontawesome');
-var ToggleFilterOption = require('../../mixins/toggle_filter_option_mixin.jsx');
+/**
+ * @fileoverview フォロー中のタグのフィルタオプションのコンポーネントです。
+ * @author takayuki-ochiai
+ */
+var FilterOptionListItem = require('./filter_option_list_item.jsx'),
+      Constants = require('../../constants/app_constants.js'),
+      FontAwesome = require('react-fontawesome'),
+      ToggleFilterOption = require('../../mixins/toggle_filter_option_mixin.jsx');
 
 var FollowTags = React.createClass({
   mixins: [ToggleFilterOption],

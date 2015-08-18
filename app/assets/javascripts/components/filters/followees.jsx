@@ -1,7 +1,9 @@
-var Router = require('react-router'),
-      Link = Router.Link,
-      Navigation = Router.Navigation,
-      FilterOptionListItem = require('./filter_option_list_item.jsx'),
+/**
+ * @fileoverview フォロー中のユーザーのフィルタオプションのコンポーネントです。
+ * @author takayuki-ochiai
+ */
+
+var FilterOptionListItem = require('./filter_option_list_item.jsx'),
       Constants = require('../../constants/app_constants.js'),
       FontAwesome = require('react-fontawesome'),
       ToggleFilterOption = require('../../mixins/toggle_filter_option_mixin.jsx');
