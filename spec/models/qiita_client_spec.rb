@@ -10,4 +10,11 @@ describe QiitaClient do
       expect(@client.all_stocks.count).to be >= 168
     end
   end
+
+  describe "#filter_data" do
+    it "すべてのフィルターオプション用データを取得する" do
+      filter_data = @client.filter_data
+      expect(filter_data[:followees].last["permanent_id"]).to eq 7465
+    end
+  end
 end
