@@ -31,8 +31,8 @@ class QiitaClient
     #qiitaのapiを叩いてフォロー中のタグとユーザーをとってくる
     Net::HTTP.version_1_2
     Net::HTTP.start(API_URI.host, API_URI.port) do |http|
-      @followees = get_json(http, "followees")
-      @following_tags = get_json(http, "following_tags")
+      @followees = get_json(http, "followees?page=1&per_page=100")
+      @following_tags = get_json(http, "following_tags?page=1&per_page=100")
     end
     return { followees: @followees, following_tags: @following_tags }
   end

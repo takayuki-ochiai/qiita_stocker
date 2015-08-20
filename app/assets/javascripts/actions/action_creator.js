@@ -24,6 +24,7 @@ var ActionCreator = {
       res.following_tags.forEach(function(tag){
         tag.hasChecked = false;
       });
+
       AppDispatcher.handleViewAction(Constants.INITIALIZE_FILTERS, res);
     }.bind(this));
   },
