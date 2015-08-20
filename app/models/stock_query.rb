@@ -1,4 +1,5 @@
 class StockQuery
+  attr_writer :keyword
   def initialize(stocks, keyword, following_tags, followees)
     @all_stocks = stocks
     @result_stocks = stocks

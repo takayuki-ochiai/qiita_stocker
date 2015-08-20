@@ -10,7 +10,6 @@ describe StockQuery do
     context "キーワードのみの場合" do
       before do
         @query = StockQuery.new(@stocks, "Ruby", nil, nil)
-        @keyword = Regexp.new("Ruby", Regexp::IGNORECASE)
       end
 
       it "キーワードが含まれるタイトルのものが選択される" do
@@ -29,6 +28,16 @@ describe StockQuery do
           end
 
         expect(ids).to include("ec8e928f69d099b25764", "42193d066bd61c740612", "3d23aa154b483ef611d3", "f2ae316dc8e98b4ff82a", "c5b2aeaf7d67a9ef310a", "bb60ee62c3ee770de2fc", "8121615d4634500a331c")
+      end
+
+      it "キーワードが含まれる投稿者名の投稿が選択される" do
+        @query.keyword = "jnchito"
+        ids = @query.select_stocks
+          .map do |stock|
+            stock["id"]
+          end
+
+        expect(ids).to include("459d58ba652bf4763820", "dedb3b889ab226933ccf", "a7d3005aaa9401480a47", "42193d066bd61c740612")
       end
     end
   end
