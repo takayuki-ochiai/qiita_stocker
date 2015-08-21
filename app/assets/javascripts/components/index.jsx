@@ -144,8 +144,8 @@ var Index = React.createClass({
                             pageRangeDisplayed={3}
                             clickCallback={this.handlePageClick}
                             containerClassName={"pagination"}
-                            subContainerClassName={"pages"}
-                            activeClass={"active"} />
+                            subContainerClassName={"pagination__pages"}
+                            activeClass={"pagination_active"} />
                     </div>
                   </Loader>
               </div>

@@ -5,11 +5,12 @@
 .signin-container {
   width: 1150px;
   margin: 0 auto;
-  h1 {
-    font-family: Consolas,"Liberation Mono",Menlo,Courier,monospace;
-  }
   text-align: center;
   padding-top: 80px;
+}
+
+.signin-container__header {
+  font-family: Consolas,"Liberation Mono",Menlo,Courier,monospace;
 }
 
 .btn-signin {
