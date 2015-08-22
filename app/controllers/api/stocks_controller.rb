@@ -8,7 +8,6 @@ module Api
     def index
       client = QiitaClient.new(session[:user_id], session[:token])
       stocks = client.all_stocks
-      #stock用のjsonラッパークラスを作って、その中にフィルタリングメソッドとか閉じ込めるかー
 
       stock_query = StockQuery.new(stocks, params[:keyword], params[:following_tags], params[:followees])
       @stocks = stock_query.select_stocks

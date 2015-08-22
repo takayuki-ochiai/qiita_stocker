@@ -38,19 +38,13 @@ class QiitaClient
   end
 
   def self.client_id
-    if Rails.env == 'development' || Rails.env == 'test'
-     "e267c8bb3c5d5ed131adc0510fc12f0d29abe0c4"
-    else
+    return "e267c8bb3c5d5ed131adc0510fc12f0d29abe0c4" if Rails.env == 'development' || Rails.env == 'test'
       "d0df24581cc04d5ea465018dc873c88830939ef1"
-    end
   end
 
   def self.client_secret
-    if Rails.env == 'development' || Rails.env == 'test'
-     "a3ac51f199dc83f0631e12b3c33f9645866d638f"
-    else
+    return "a3ac51f199dc83f0631e12b3c33f9645866d638f" if Rails.env == 'development' || Rails.env == 'test'
       "4f5190a3e74f5b95b2780a7e2c5a818a76ddcde3"
-    end
   end
 
   private
