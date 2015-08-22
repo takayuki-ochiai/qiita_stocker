@@ -5,7 +5,8 @@ class SessionsController < ApplicationController
   require 'pry'
 
   def new
-    redirect_to 'https://qiita.com/api/v2/oauth/authorize?client_id=e267c8bb3c5d5ed131adc0510fc12f0d29abe0c4&scope=read_qiita'
+    client_id = QiitaClient.client_id
+    redirect_to "https://qiita.com/api/v2/oauth/authorize?client_id=#{client_id}&scope=read_qiita"
   end
 
   def delete
@@ -20,8 +21,8 @@ class SessionsController < ApplicationController
     req = Net::HTTP::Post.new(uri.request_uri)
     req["Content-Type"] = "application/json"
     payload = {
-      'client_id' => "e267c8bb3c5d5ed131adc0510fc12f0d29abe0c4",
-      'client_secret' => "a3ac51f199dc83f0631e12b3c33f9645866d638f",
+      'client_id' => QiitaClient.client_id,
+      'client_secret' => QiitaClient.client_secret,
       'code' => params[:code]
     }.to_json
 
