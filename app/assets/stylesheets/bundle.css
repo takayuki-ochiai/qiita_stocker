@@ -26,17 +26,6 @@ ul li {
 .stock-filter-index {
   width: 80%;
   margin: 15px auto 0px; }
-  .stock-filter-index h5 {
-    border-bottom: 1px #ddd solid;
-    font-size: 13px;
-    font-weight: bold;
-    padding: 11px 0px;
-    width: 90%;
-    margin: 0px auto -1px auto; }
-  .stock-filter-index h5:hover {
-    cursor: pointer; }
-  .stock-filter-index h5:hover > .fa-chevron-down {
-    color: #00a4bb; }
 
 .stock-filter-index__header {
   margin-bottom: 15px;
@@ -57,6 +46,17 @@ ul li {
   border: 1px solid #ddd;
   border-radius: 3px;
   margin-bottom: 10px; }
+  .stock-index-filter-option h5 {
+    border-bottom: 1px #ddd solid;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 11px 0px;
+    width: 90%;
+    margin: 0px auto -1px auto; }
+  .stock-index-filter-option h5:hover {
+    cursor: pointer; }
+  .stock-index-filter-option h5:hover > .fa-chevron-down {
+    color: #00a4bb; }
 
 .stock-index-filter-option__item-wrapper {
   width: 90%; }

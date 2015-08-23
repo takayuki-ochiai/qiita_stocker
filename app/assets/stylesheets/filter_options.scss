@@ -2,20 +2,6 @@
 .stock-filter-index {
   width: 80%;
   margin: 15px auto 0px;
-  h5 {
-    border-bottom: 1px #ddd solid;
-    font-size: 13px;
-    font-weight: bold;
-    padding: 11px 0px;
-    width: 90%;
-    margin: 0px auto -1px auto;
-  }
-  h5:hover{
-    cursor: pointer;
-  }
-  h5:hover > .fa-chevron-down {
-    color: #00a4bb;
-  }
 }
 
 .stock-filter-index__header {
@@ -41,6 +27,20 @@
   border: 1px solid #ddd;
   border-radius: 3px;
   margin-bottom: 10px;
+  h5 {
+    border-bottom: 1px #ddd solid;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 11px 0px;
+    width: 90%;
+    margin: 0px auto -1px auto;
+  }
+  h5:hover{
+    cursor: pointer;
+  }
+  h5:hover > .fa-chevron-down {
+    color: #00a4bb;
+  }
 }
 
 .stock-index-filter-option__item-wrapper {
