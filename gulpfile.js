@@ -14,7 +14,7 @@ var browserSync = require('browser-sync');
 gulp.task('bs', function() {
   browserSync.init({
     proxy: '0.0.0.0:3000',
-    port: 8080
+    port: 9080
   });
 });
 
