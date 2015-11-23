@@ -1,9 +1,9 @@
+import React from 'react';
 /**
  * @fileoverview ストックした投稿一覧のComponentのファイルです。
  * @author takayuki-ochiai
  */
-var Router = require('react-router'),
-      StockListItem = require('./stock_list_item.jsx');
+import StockListItem from './stock_list_item.jsx';
 
 var StockIndex = React.createClass({
   render() {

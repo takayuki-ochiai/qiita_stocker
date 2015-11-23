@@ -1,11 +1,12 @@
+import React from 'react';
 /**
  * @fileoverview フォロー中のタグのフィルタオプションのコンポーネントです。
  * @author takayuki-ochiai
  */
-var FilterOptionListItem = require('./filter_option_list_item.jsx'),
-      Constants = require('../../constants/app_constants.js'),
-      FontAwesome = require('react-fontawesome'),
-      ToggleFilterOption = require('../../mixins/toggle_filter_option_mixin.jsx');
+import FilterOptionListItem from './filter_option_list_item.jsx';
+import Constants from '../../constants/app_constants.js';
+import FontAwesome from 'react-fontawesome';
+import ToggleFilterOption from '../../mixins/toggle_filter_option_mixin.jsx';
 
 var FollowTags = React.createClass({
   mixins: [ToggleFilterOption],

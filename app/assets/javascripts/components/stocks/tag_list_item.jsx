@@ -1,3 +1,4 @@
+import React from 'react';
 /**
  * @fileoverview ストックした投稿が持つタグを表すComponentのファイルです。
  * @author takayuki-ochiai

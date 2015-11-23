@@ -4,12 +4,12 @@
  * @author takayuki-ochiai
  */
 
-var assign           = require('object-assign'),
-      EventEmitter = require('events').EventEmitter,
-      AppDispatcher = require('../dispatcher/dispatcher.js'),
-      Constants    = require('../constants/app_constants.js'),
-      /** ストック情報 */
-      stocks = [];
+import assign from 'object-assign';
+import { EventEmitter } from 'events';
+import AppDispatcher from '../dispatcher/dispatcher.js';
+import Constants from '../constants/app_constants.js';
+/** ストック情報 */
+var stocks = [];
 
 var StockStore = assign({}, EventEmitter.prototype, {
   /**

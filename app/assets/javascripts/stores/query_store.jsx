@@ -5,14 +5,14 @@
  * @author takayuki-ochiai
  */
 
-var assign           = require('object-assign'),
-      EventEmitter = require('events').EventEmitter,
-      AppDispatcher = require('../dispatcher/dispatcher.js'),
-      Constants    = require('../constants/app_constants.js'),
-      /** 検索キーワード */
-      keyword = '',
-      /** フィルターオプション情報 */
-      filters = [];
+import assign from 'object-assign';
+import { EventEmitter } from 'events';
+import AppDispatcher from '../dispatcher/dispatcher.js';
+import Constants from '../constants/app_constants.js';
+/** 検索キーワード */
+var keyword = '';
+/** フィルターオプション情報 */
+var filters = [];
 
 var QueryStore = assign({}, EventEmitter.prototype, {
 

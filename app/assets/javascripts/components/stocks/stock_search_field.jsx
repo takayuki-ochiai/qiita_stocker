@@ -1,9 +1,10 @@
+import React from 'react';
 /**
  * @fileoverview ストックした投稿の検索フィールドを表すComponentのファイルです。
  * @author takayuki-ochiai
  */
-var FontAwesome = require('react-fontawesome'),
-      QueryStore = require('../../stores/query_store.jsx');
+import FontAwesome from 'react-fontawesome';
+import QueryStore from '../../stores/query_store.jsx';
 
 var StockSearchField = React.createClass({
   getInitialState() {

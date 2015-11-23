@@ -1,13 +1,14 @@
+import React from 'react';
 /**
  * @fileoverview フィルタオプション全体のコンポーネントです。
  * @author takayuki-ochiai
  */
 
-var FollowTags  = require('./follow_tag.jsx'),
-      Followees  = require('./followees.jsx'),
-      FontAwesome = require('react-fontawesome'),
-      //ActionCreator
-      ActionCreator = require('../../actions/action_creator.js');
+import FollowTags from './follow_tag.jsx';
+import Followees from './followees.jsx';
+import FontAwesome from 'react-fontawesome';
+//ActionCreator
+import ActionCreator from '../../actions/action_creator.js';
 
 var StockIndexFilter = React.createClass({
   clearOption() {

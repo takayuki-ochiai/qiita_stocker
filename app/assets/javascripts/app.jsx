@@ -1,12 +1,11 @@
+import React from 'react';
+import injectTapEventPlugin from "react-tap-event-plugin";
+import Router from 'react-router';
+import AppRoutes from './app-routes.jsx';
+
 (function() {
-  var React = require('react');
   window.React = React; // Reactオブジェクトだけは外に出しておく
-
-  var injectTapEventPlugin = require("react-tap-event-plugin");
   injectTapEventPlugin();
-
-  var Router = require('react-router');
-  var AppRoutes = require('./app-routes.jsx');
 
   $(function() {
     Router.run(AppRoutes, function (Handler) {

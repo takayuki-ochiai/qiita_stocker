@@ -1,30 +1,31 @@
+import React from 'react';
 /**
  * @fileoverview メインページのControllerViewのComponentのファイルです。
  * @author takayuki-ochiai
  */
 
-var Router = require('react-router'),
-      Navigation = Router.Navigation,
-      Header = require('./header.jsx'),
-      /** ストックした投稿のリスト */
-      StockIndex = require('./stocks/stock_index.jsx'),
-      /** ストックしたフィルターのリスト */
-      StockIndexFilter  = require('./filters/stock_index_filter.jsx'),
-      /** 検索フィールド */
-      StockSearchField = require('./stocks/stock_search_field.jsx'),
-      /** Flux用 */
-      AppDispatcher = require('../dispatcher/dispatcher.js'),
-      /** Store */
-      StockStore = require('../stores/stock_store.jsx'),
-      QueryStore = require('../stores/query_store.jsx'),
-      UserStore = require('../stores/user_store.jsx'),
-      /** ActionCreator */
-      ActionCreator = require('../actions/action_creator.js'),
-      Loader = require('react-loader'),
-      ReactPaginate = require('react-paginate');
+import Router from 'react-router';
+var Navigation = Router.Navigation;
+import Header from './header.jsx';
+/** ストックした投稿のリスト */
+import StockIndex from './stocks/stock_index.jsx';
+/** ストックしたフィルターのリスト */
+import StockIndexFilter from './filters/stock_index_filter.jsx';
+/** 検索フィールド */
+import StockSearchField from './stocks/stock_search_field.jsx';
+/** Flux用 */
+import AppDispatcher from '../dispatcher/dispatcher.js';
+/** Store */
+import StockStore from '../stores/stock_store.jsx';
+import QueryStore from '../stores/query_store.jsx';
+import UserStore from '../stores/user_store.jsx';
+/** ActionCreator */
+import ActionCreator from '../actions/action_creator.js';
+import Loader from 'react-loader';
+import ReactPaginate from 'react-paginate';
 
 /** ページあたりのストック数の定数 */
-var PER_PAGE = 20;
+const PER_PAGE = 20;
 
 var Index = React.createClass({
   mixins: [Navigation],

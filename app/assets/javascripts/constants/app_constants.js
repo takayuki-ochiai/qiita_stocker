@@ -4,7 +4,7 @@
 * @author takayuki-ochiai
 */
 
-var Constants = {
+const Constants = {
   /** エラー時 */
   ERROR: "error",
 

@@ -3,9 +3,9 @@
 * @author takayuki-ochiai
 */
 
-var React            = require('react'),
-      Dispatcher    = require('flux').Dispatcher,
-      assign = require('object-assign');
+import React from 'react';
+import { Dispatcher } from 'flux';
+import assign from 'object-assign';
 
 var AppDispatcher = assign(new Dispatcher(), {
 

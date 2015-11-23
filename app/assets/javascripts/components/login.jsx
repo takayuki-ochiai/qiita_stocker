@@ -1,3 +1,4 @@
+import React from 'react';
 /**
  * @fileoverview ログイン画面のComponentのファイルです。
  * @author takayuki-ochiai

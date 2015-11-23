@@ -1,9 +1,10 @@
+import React from 'react';
 /**
  * @fileoverview フィルターオプションの各オプション要素のComponentのファイルです。
  * @author takayuki-ochiai
  */
-var FontAwesome = require('react-fontawesome'),
-      ActionCreator = require('../../actions/action_creator.js');
+import FontAwesome from 'react-fontawesome';
+import ActionCreator from '../../actions/action_creator.js';
 
 var FilterOptionListItem = React.createClass({
   getInitialState() {

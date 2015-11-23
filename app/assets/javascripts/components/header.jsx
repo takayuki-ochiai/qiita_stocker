@@ -1,3 +1,4 @@
+import React from 'react';
 /**
  * @fileoverview ヘッダーのComponentのファイルです。
  * @author takayuki-ochiai

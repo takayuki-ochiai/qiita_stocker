@@ -1,8 +1,9 @@
+import React from 'react';
 /**
  * @fileoverview ストックした投稿の明細のComponentのファイルです。
  * @author takayuki-ochiai
  */
-var TagListItem = require('./tag_list_item.jsx');
+import TagListItem from './tag_list_item.jsx';
 
 var StockListItem = React.createClass({
   render() {

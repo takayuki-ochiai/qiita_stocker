@@ -4,8 +4,8 @@
 * @author takayuki-ochiai
 */
 
-var AppDispatcher = require('../dispatcher/dispatcher.js'),
-      Constants    = require('../constants/app_constants.js');
+import AppDispatcher from '../dispatcher/dispatcher.js';
+import Constants from '../constants/app_constants.js';
 
 var ActionCreator = {
   /**
