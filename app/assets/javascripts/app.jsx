@@ -10,13 +10,14 @@ import thunk from 'redux-thunk';
 import { createStore, applyMiddleware} from 'redux';
 import qiitaStockerApp from './reducers/reducer.js';
 
+import Index from './components/index.jsx';
+
 /** ミドルウェア */
 const logger = createLogger();
 const createStoreWithMiddleware = applyMiddleware(thunk, logger)(createStore);
 
 /** redux store */
 let store = createStoreWithMiddleware(qiitaStockerApp);
-
 
 (function() {
   window.React = React; // Reactオブジェクトだけは外に出しておく
@@ -25,7 +26,7 @@ let store = createStoreWithMiddleware(qiitaStockerApp);
   $(function() {
     ReactDOM.render(
       <Provider store={store} >
-        <Router>{AppRoutes}</Router>
+        <Router >{AppRoutes}</Router>
       </Provider>,
       document.getElementById("container")
     );

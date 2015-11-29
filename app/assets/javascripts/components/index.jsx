@@ -3,6 +3,7 @@ import React from 'react';
 import createLogger from 'redux-logger';
 import thunk from 'redux-thunk';
 import { createStore, applyMiddleware} from 'redux';
+import { connect } from 'react-redux';
 import qiitaStockerApp from '../reducers/reducer.js';
 
 /**
@@ -26,33 +27,23 @@ import QueryStore from '../stores/query_store.jsx';
 import UserStore from '../stores/user_store.jsx';
 /** ActionCreator */
 import ActionCreator from '../actions/action_creator.js';
-import { getFilterItemsIfNeeded } from '../actions/action_creator.js';
 import { getStocksIfNeeded } from '../actions/action_creator.js';
+import { getFilterItemsIfNeeded } from '../actions/action_creator.js';
 import { getUser } from '../actions/action_creator.js';
 import Loader from 'react-loader';
 import ReactPaginate from 'react-paginate';
 
-
-
-
-/** ミドルウェア */
-const logger = createLogger();
-const createStoreWithMiddleware = applyMiddleware(thunk, logger)(createStore);
-
-
-/** redux store */
-let store = createStoreWithMiddleware(qiitaStockerApp);
-
-
 /** ページあたりのストック数の定数 */
 const PER_PAGE = 20;
+
+
 
 var Index = React.createClass({
   mixins: [Navigation],
 
   componentWillMount() {
-    UserStore.addChangeListener(this._onUserChange);
-    ActionCreator.confirmSignin();
+    this.props.dispatch(getFilterItemsIfNeeded());
+    this.props.dispatch(getStocksIfNeeded());
   },
 
   getInitialState() {
@@ -65,20 +56,21 @@ var Index = React.createClass({
       stocks: [],
       //検索用クエリ
       keyword : '',
-      isLoaded: false
+      isLoaded: true
     }
   },
 
   componentDidMount() {
-    StockStore.addChangeListener(this._onStockChange);
-    QueryStore.addChangeListener(this._onQueryChange);
-    ActionCreator.fetchFilterOptions();
+
+    // StockStore.addChangeListener(this._onStockChange);
+    // QueryStore.addChangeListener(this._onQueryChange);
+    // ActionCreator.fetchFilterOptions();
   },
 
   componentWillUnmount() {
-    UserStore.removeChangeListener(this._onUserChange);
-    StockStore.removeChangeListener(this._onStockChange);
-    QueryStore.removeChangeListener(this._onQueryChange);
+    // UserStore.removeChangeListener(this._onUserChange);
+    // StockStore.removeChangeListener(this._onStockChange);
+    // QueryStore.removeChangeListener(this._onQueryChange);
   },
 
   /** ログインしているかを確認する。*/
@@ -90,23 +82,23 @@ var Index = React.createClass({
 
   /** StockStore変更時にStoreから情報を取得する */
   _onStockChange() {
-    var stocks = StockStore.getAll().stocks;
-    var stockNumber = StockStore.getAll().stock_num;
-    if ( stockNumber > PER_PAGE ) {
-      stocks = stocks.slice(0, PER_PAGE);
-    }
-    this.setState({ stocks: stocks, stockNumber: stockNumber, isLoaded: true });
+    // var stocks = StockStore.getAll().stocks;
+    // var stockNumber = StockStore.getAll().stock_num;
+    // if ( stockNumber > PER_PAGE ) {
+    //   stocks = stocks.slice(0, PER_PAGE);
+    // }
+    // this.setState({ stocks: stocks, stockNumber: stockNumber, isLoaded: true });
   },
 
   /** QueryStore変更時にStoreから情報を取得する */
   _onQueryChange() {
-    var keyword = QueryStore.getKeyword();
-    var filterOptions = QueryStore.getFilterOptions();
-    this.setState({
-      keyword : keyword, filterOptions: filterOptions, isLoaded: false
-    });
-    //さらにクエリ発行してストック情報をサーバーに問い合わせる。
-    ActionCreator.searchStocks(keyword, filterOptions);
+    // var keyword = QueryStore.getKeyword();
+    // var filterOptions = QueryStore.getFilterOptions();
+    // this.setState({
+    //   keyword : keyword, filterOptions: filterOptions, isLoaded: false
+    // });
+    // //さらにクエリ発行してストック情報をサーバーに問い合わせる。
+    // ActionCreator.searchStocks(keyword, filterOptions);
   },
 
   /**
@@ -130,8 +122,8 @@ var Index = React.createClass({
    * @params pageNum 選択されたページ番号
    */
   _changePage(pageNum) {
-    this.setState({ isLoaded: false });
-    this.setState({ stocks: this._loadStocks(pageNum), isLoaded: true });
+    //this.setState({ isLoaded: false });
+    //this.setState({ stocks: this._loadStocks(pageNum), isLoaded: true });
   },
 
   /**
@@ -149,18 +141,18 @@ var Index = React.createClass({
           <Header />
           <div className="container">
               <div className="c-side">
-                  <StockIndexFilter following_tags={this.state.filterOptions.following_tags} followees={this.state.filterOptions.followees} />
+                  <StockIndexFilter />
               </div>
               <div className="c-main">
                   <StockSearchField updateKeyword={this.updateKeyword}/>
                   <Loader loaded={this.state.isLoaded} color="#BFBFBF" left="50%" top="20%">
-                    <StockIndex stocks={this.state.stocks} loadStocks={this.loadStocks} stockNumber={this.state.stockNumber} />
+                    <StockIndex stocks={this.props.stocks} loadStocks={this.loadStocks} stockNumber={this.props.stockNumber} />
 
                     <div className="text-center">
                         <ReactPaginate previousLabel={"<"}
                             nextLabel={">"}
                             breakLabel={<li className="break"><a href="">...</a></li>}
-                            pageNum={Math.ceil(this.state.stockNumber / PER_PAGE)}
+                            pageNum={Math.ceil(this.props.stockNum / PER_PAGE)}
                             marginPagesDisplayed={2}
                             pageRangeDisplayed={3}
                             clickCallback={this.handlePageClick}
@@ -176,4 +168,10 @@ var Index = React.createClass({
   }
 })
 
-module.exports = Index;
+module.exports = connect(function(state) {
+  return {
+    stocks: state.stockIndex.stocks,
+    stockNum: state.stockIndex.stockNum,
+    user: state.confirmUser.user
+  }
+})(Index);

@@ -43,16 +43,16 @@ export function getFilterItems() {
   return dispatch => {
     // とりにいくよを宣言
     dispatch(fetchFilterItems());
+
     return $.post('/api/stocks/filter_data.json', function(res) {
       res.followees.forEach(function(followee){
         followee.hasChecked = false;
       });
 
-      res.following_tags.forEach(function(tag){
+      res.followingTags.forEach(function(tag){
         tag.hasChecked = false;
       });
 
-      //AppDispatcher.handleViewAction(Constants.INITIALIZE_FILTERS, res);
     }).then(res => dispatch(receiveFilterItems(res)));
 
   }
@@ -70,23 +70,23 @@ export function getFilterItemsIfNeeded() {
 
 
 
-export function fetchStocks() {
+export function fetchStocks(keyword, filterOptions) {
   return {
     type: FETCH_STOCKS,
-    keywords: keywords,
+    keyword: keyword,
     filterOptions: filterOptions
   }
 }
 
 export function getStocks(
-    keywords = [],
-    filterOptions = { following_tags: {}, followees: {}}
+    keyword = null,
+    filterOptions = { followingTags: [], followees: [] }
   ) {
     return dispatch => {
     // とりにいくよを宣言
-    dispatch(fetchStocks(keywords, filterOptions));
+    dispatch(fetchStocks(keyword, filterOptions));
 
-    let following_tags = filterOptions.following_tags
+    let followingTags = filterOptions.followingTags
       .filter(
         function(filter) {
           return filter.hasChecked === true
@@ -100,17 +100,16 @@ export function getStocks(
           return filter.hasChecked === true
         }
       );
-
     return $.post('/api/stocks.json',
       {
         keyword: keyword,
-        following_tags: following_tags,
+        followingTags: followingTags,
         followees: followees
       },
       function(res) {
-        //AppDispatcher.handleViewAction(Constants.EMIT_QUERY, res);
-      }).then(res => dispatch(receiveStocks(res)));
-
+      }).then(function(res) {
+        dispatch(receiveStocks(res))
+      });
   }
 }
 
@@ -126,8 +125,10 @@ export function getStocksIfNeeded() {
 
 export function receiveStocks(stocks) {
   return {
-    type: RECEIVE_FILTER_ITEMS,
-    stocks: stocks
+    type: RECEIVE_STOCKS,
+    stocks: stocks.stocks,
+    // TODO キャメルケースにする
+    stockNum: stocks.stock_num
   }
 }
 

@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { connect } from 'react-redux';
 
 // TODO ここの定数はいつか統一する
 export const ERROR = 'ERROR'
@@ -10,45 +11,55 @@ export const FETCH_USER = 'FETCH_USER';
 export const RECEIVE_USER = 'RECEIVE_USER';
 export const FETCH_STOCKS = 'FETCH_STOCKS'
 export const RECEIVE_STOCKS = 'RECEIVE_STOCKS';
-export const CLEAR_CRITERIA = 'CLEAR_CRITERIA'
-export const FETCH_FILTER_ITEMS = 'FETCH_FILTER_ITEMS'
+export const CLEAR_CRITERIA = 'CLEAR_CRITERIA';
+export const FETCH_FILTER_ITEMS = 'FETCH_FILTER_ITEMS';
 export const RECEIVE_FILTER_ITEMS = 'RECEIVE_FILTER_ITEMS';
 
 /**
  * 初期データ取得用
  */
 
+ const initialFilterState = {
+   isFetching: false,
+   filterItems: {
+     followingTags: [],
+     followees: []
+   }
+ }
+
 const initialStockState = {
   isFetching: false,
-  stocks: []
-}
-
-const initialFilterState = {
-  isFetching: false,
-  filterItems: {
-    // TODO 要キャメルケース化
-    following_tags: [],
-    followees: []
-  }
+  stocks: [],
+  stockNum: 0
 }
 
 const initialUserState = {
   userID: null
 }
 
+const State = {
+  filterState: initialFilterState,
+  stockState: initialStockState,
+  userState: initialUserState
+}
+
 // TODO 初期化時だけうごかす。要検討
 function filterLists(state = initialFilterState, action) {
   switch (action.type) {
     case FETCH_FILTER_ITEMS:
+      debugger;
       return Object.assign({}, state, {
-        isFetching: true
+        isFetching: true,
+        filterItems: state.filterItems
       });
     case RECEIVE_FILTER_ITEMS:
+      debugger;
       return Object.assign({}, state, {
         isFetching: false,
         filterItems: action.filterItems
       });
     default:
+      debugger;
       return state;
   }
 }
@@ -56,11 +67,12 @@ function filterLists(state = initialFilterState, action) {
 function stockIndex(state = initialStockState, action) {
   switch (action.type) {
     case FETCH_STOCKS:
-      return Object.assign({}, {
-        isFetching: true
+      return Object.assign({}, state, {
+        isFetching: true,
+        stocks: state.stocks
       });
     case RECEIVE_STOCKS:
-        return Object.assign({}, {
+        return Object.assign({}, state, {
           isFetching: false,
           stocks: action.stocks
         });
@@ -72,11 +84,12 @@ function stockIndex(state = initialStockState, action) {
 function confirmUser(state = initialUserState, action) {
   switch (action.type) {
     case FETCH_USER:
-      return Object.assign({}, {
-        isFetching: true
+      return Object.assign({}, state, {
+        isFetching: true,
+        user: state.user
       });
     case RECEIVE_USER:
-        return Object.assign({}, {
+        return Object.assign({}, state, {
           isFetching: false,
           user: action.user
         });

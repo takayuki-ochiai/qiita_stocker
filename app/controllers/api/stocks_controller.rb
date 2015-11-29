@@ -29,7 +29,7 @@ module Api
       @followees = filter_data[:followees]
       @following_tags = filter_data[:following_tags]
 
-      render json: { followees: @followees, following_tags: @following_tags }
+      render json: { followees: @followees, followingTags: @following_tags }
     end
   end
 end

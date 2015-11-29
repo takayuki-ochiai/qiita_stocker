@@ -5,16 +5,6 @@ import Header from './components/header.jsx';
 import Login from './components/login.jsx';
 import FontAwesome from 'react-fontawesome';
 
-var Root = React.createClass({
-  render() {
-    return (
-        <div>
-          {this.props.children}
-        </div>
-    );
-  }
-});
-
 
 var AppRoutes = (
   <Route path="/" component={Index}>
