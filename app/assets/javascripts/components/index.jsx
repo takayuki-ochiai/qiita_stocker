@@ -1,11 +1,13 @@
 import React from 'react';
+import { createStore } from 'redux';
+import qiitaStockerApp from '../reducers/reducer.js';
+
 /**
  * @fileoverview メインページのControllerViewのComponentのファイルです。
  * @author takayuki-ochiai
  */
 
-import Router from 'react-router';
-var Navigation = Router.Navigation;
+import { Router, Navigation } from 'react-router';
 import Header from './header.jsx';
 /** ストックした投稿のリスト */
 import StockIndex from './stocks/stock_index.jsx';
@@ -23,6 +25,9 @@ import UserStore from '../stores/user_store.jsx';
 import ActionCreator from '../actions/action_creator.js';
 import Loader from 'react-loader';
 import ReactPaginate from 'react-paginate';
+
+/** redux store */
+let store = createStore(qiitaStockerApp);
 
 /** ページあたりのストック数の定数 */
 const PER_PAGE = 20;

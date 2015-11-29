@@ -1,6 +1,7 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import injectTapEventPlugin from "react-tap-event-plugin";
-import Router from 'react-router';
+import { Router } from 'react-router';
 import AppRoutes from './app-routes.jsx';
 
 (function() {
@@ -8,8 +9,9 @@ import AppRoutes from './app-routes.jsx';
   injectTapEventPlugin();
 
   $(function() {
-    Router.run(AppRoutes, function (Handler) {
-      React.render(<Handler/>, document.body);
-    });
+    ReactDOM.render(
+      <Router>{AppRoutes}</Router>,
+      document.getElementById("container")
+    );
   });
 }) ();

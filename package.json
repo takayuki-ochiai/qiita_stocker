@@ -25,19 +25,23 @@
     "gulp-concat": "^2.6.0",
     "gulp-plumber": "^1.0.1",
     "gulp-sass": "^2.0.4",
-    "react-loader": "^1.4.0",
-    "react-paginate": "^0.1.35",
+    "react-loader": "^2.0.0",
+    "react-paginate": "^0.4.1",
     "reactify": "^1.1.1",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.2.2"
   },
   "dependencies": {
     "flux": "^2.0.3",
+    "history": "^1.13.1",
     "object-assign": "^3.0.0",
-    "react": "^0.13.3",
+    "react": "^0.14.3",
+    "react-dom": "^0.14.3",
     "react-fontawesome": "^0.2.5",
-    "react-router": "^0.13.3",
-    "react-tap-event-plugin": "^0.1.7",
+    "react-redux": "^4.0.0",
+    "react-router": "^1.0.0",
+    "react-tap-event-plugin": "^0.2.1",
+    "redux": "^3.0.4",
     "superagent": "^1.2.0"
   },
   "bugs": {

@@ -4,6 +4,9 @@
 * @author takayuki-ochiai
 */
 
+
+
+
 const Constants = {
   /** エラー時 */
   ERROR: "error",

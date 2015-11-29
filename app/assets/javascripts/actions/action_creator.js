@@ -3,9 +3,40 @@
 *   このアプリのすべてのアクションを発行します。
 * @author takayuki-ochiai
 */
-
 import AppDispatcher from '../dispatcher/dispatcher.js';
 import Constants from '../constants/app_constants.js';
+
+export const ERROR = 'ERROR'
+export const CONFIRM_SIGNIN = 'CONFIRM_SIGNIN'
+export const FIND_BY_KEYWORD = 'FIND_BY_KEYWORD'
+export const FIND_BY_FOLLOWEE = 'FIND_BY_FOLLOWEE'
+export const FIND_BY_FOLLOWING_TAG = 'FIND_BY_FOLLOWING_TAG'
+export const SEARCH_STOCKS = 'SEARCH_STOCKS'
+export const CLEAR_CRITERIA = 'CLEAR_CRITERIA'
+
+/**
+ * 初期データ取得用
+ */
+export const FETCH_FILTER_ITEMS = 'FETCH_FILTER_ITEMS'
+
+/*
+ * action creators
+ */
+
+export function fetchFilterItems() {
+  return { type: FETCH_FILTER_ITEMS }
+};
+
+export function searchStocks(keywords = [], filterOptions = []) {
+  return { type: SEARCH_STOCKS, keywords: keywords, filterOptions: filterOptions }
+};
+
+export function initializeUser(user) {
+  return { type: INITIALIZE_USER, user }
+};
+
+// しっかり設計しなおさないとまずいパターンだなこれ
+
 
 var ActionCreator = {
   /**
@@ -100,6 +131,6 @@ var ActionCreator = {
       AppDispatcher.handleViewAction(Constants.CONFIRM_SIGNIN, res);
     })
   }
-}
+};
 
-module.exports = ActionCreator;
+export default ActionCreator;
