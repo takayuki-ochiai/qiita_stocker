@@ -1,5 +1,8 @@
 import React from 'react';
-import { createStore } from 'redux';
+
+import createLogger from 'redux-logger';
+import thunk from 'redux-thunk';
+import { createStore, applyMiddleware} from 'redux';
 import qiitaStockerApp from '../reducers/reducer.js';
 
 /**
@@ -23,11 +26,23 @@ import QueryStore from '../stores/query_store.jsx';
 import UserStore from '../stores/user_store.jsx';
 /** ActionCreator */
 import ActionCreator from '../actions/action_creator.js';
+import { getFilterItemsIfNeeded } from '../actions/action_creator.js';
+import { getStocksIfNeeded } from '../actions/action_creator.js';
+import { getUser } from '../actions/action_creator.js';
 import Loader from 'react-loader';
 import ReactPaginate from 'react-paginate';
 
+
+
+
+/** ミドルウェア */
+const logger = createLogger();
+const createStoreWithMiddleware = applyMiddleware(thunk, logger)(createStore);
+
+
 /** redux store */
-let store = createStore(qiitaStockerApp);
+let store = createStoreWithMiddleware(qiitaStockerApp);
+
 
 /** ページあたりのストック数の定数 */
 const PER_PAGE = 20;

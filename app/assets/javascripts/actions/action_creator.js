@@ -6,18 +6,23 @@
 import AppDispatcher from '../dispatcher/dispatcher.js';
 import Constants from '../constants/app_constants.js';
 
-export const ERROR = 'ERROR'
-export const CONFIRM_SIGNIN = 'CONFIRM_SIGNIN'
-export const FIND_BY_KEYWORD = 'FIND_BY_KEYWORD'
-export const FIND_BY_FOLLOWEE = 'FIND_BY_FOLLOWEE'
-export const FIND_BY_FOLLOWING_TAG = 'FIND_BY_FOLLOWING_TAG'
-export const SEARCH_STOCKS = 'SEARCH_STOCKS'
-export const CLEAR_CRITERIA = 'CLEAR_CRITERIA'
+export const ERROR = 'ERROR';
+export const CONFIRM_SIGNIN = 'CONFIRM_SIGNIN';
+export const FIND_BY_KEYWORD = 'FIND_BY_KEYWORD';
+export const FIND_BY_FOLLOWEE = 'FIND_BY_FOLLOWEE';
+export const FIND_BY_FOLLOWING_TAG = 'FIND_BY_FOLLOWING_TAG';
+export const FETCH_STOCKS = 'FETCH_STOCKS';
+export const RECEIVE_STOCKS = 'RECEIVE_STOCKS';
+export const CLEAR_CRITERIA = 'CLEAR_CRITERIA';
+
+export const FETCH_USER = 'FETCH_USER';
+export const RECEIVE_USER = 'RECEIVE_USER';
 
 /**
  * 初期データ取得用
  */
-export const FETCH_FILTER_ITEMS = 'FETCH_FILTER_ITEMS'
+export const FETCH_FILTER_ITEMS = 'FETCH_FILTER_ITEMS';
+export const RECEIVE_FILTER_ITEMS = 'RECEIVE_FILTER_ITEMS';
 
 /*
  * action creators
@@ -25,15 +30,127 @@ export const FETCH_FILTER_ITEMS = 'FETCH_FILTER_ITEMS'
 
 export function fetchFilterItems() {
   return { type: FETCH_FILTER_ITEMS }
-};
+}
 
-export function searchStocks(keywords = [], filterOptions = []) {
-  return { type: SEARCH_STOCKS, keywords: keywords, filterOptions: filterOptions }
-};
+export function receiveFilterItems(filterItems) {
+  return {
+    type: RECEIVE_FILTER_ITEMS,
+    filterItems: filterItems
+  }
+}
 
-export function initializeUser(user) {
-  return { type: INITIALIZE_USER, user }
-};
+export function getFilterItems() {
+  return dispatch => {
+    // とりにいくよを宣言
+    dispatch(fetchFilterItems());
+    return $.post('/api/stocks/filter_data.json', function(res) {
+      res.followees.forEach(function(followee){
+        followee.hasChecked = false;
+      });
+
+      res.following_tags.forEach(function(tag){
+        tag.hasChecked = false;
+      });
+
+      //AppDispatcher.handleViewAction(Constants.INITIALIZE_FILTERS, res);
+    }).then(res => dispatch(receiveFilterItems(res)));
+
+  }
+}
+
+export function getFilterItemsIfNeeded() {
+  return (dispatch, getState) => {
+    if (getState.isFetching) {
+      return Promise.resolve();
+    } else {
+      return dispatch(getFilterItems())
+    }
+  };
+}
+
+
+
+export function fetchStocks() {
+  return {
+    type: FETCH_STOCKS,
+    keywords: keywords,
+    filterOptions: filterOptions
+  }
+}
+
+export function getStocks(
+    keywords = [],
+    filterOptions = { following_tags: {}, followees: {}}
+  ) {
+    return dispatch => {
+    // とりにいくよを宣言
+    dispatch(fetchStocks(keywords, filterOptions));
+
+    let following_tags = filterOptions.following_tags
+      .filter(
+        function(filter) {
+          return filter.hasChecked === true
+        }
+      );
+
+
+    let followees = filterOptions.followees
+      .filter(
+        function(filter) {
+          return filter.hasChecked === true
+        }
+      );
+
+    return $.post('/api/stocks.json',
+      {
+        keyword: keyword,
+        following_tags: following_tags,
+        followees: followees
+      },
+      function(res) {
+        //AppDispatcher.handleViewAction(Constants.EMIT_QUERY, res);
+      }).then(res => dispatch(receiveStocks(res)));
+
+  }
+}
+
+export function getStocksIfNeeded() {
+  return (dispatch, getState) => {
+    if (getState.isFetching) {
+      return Promise.resolve();
+    } else {
+      return dispatch(getStocks())
+    }
+  };
+}
+
+export function receiveStocks(stocks) {
+  return {
+    type: RECEIVE_FILTER_ITEMS,
+    stocks: stocks
+  }
+}
+
+
+export function fetchUser() {
+  return { type: FETCH_USER }
+}
+
+export function getUser() {
+  return dispatch => {
+    dispatch(fetchUser());
+    return $.post('/api/sessions/confirm_signin.json', function(res) {
+      AppDispatcher.handleViewAction(Constants.CONFIRM_SIGNIN, res);
+    }).then(res => dispatch(receiveUser(res)));
+  }
+}
+
+export function receiveUser(user) {
+  return {
+    type: RECEIVE_USER,
+    user: user
+  }
+}
 
 // しっかり設計しなおさないとまずいパターンだなこれ
 
@@ -65,7 +182,7 @@ var ActionCreator = {
   * @params keyword 入力されたキーワード
   */
   storeKeyword(keyword) {
-      AppDispatcher.handleViewAction(Constants.STORE_KEYWORD_QUERY, keyword);
+    AppDispatcher.handleViewAction(Constants.STORE_KEYWORD_QUERY, keyword);
   },
 
   /**
