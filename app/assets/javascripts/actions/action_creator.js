@@ -24,6 +24,15 @@ export const RECEIVE_USER = 'RECEIVE_USER';
 export const FETCH_FILTER_ITEMS = 'FETCH_FILTER_ITEMS';
 export const RECEIVE_FILTER_ITEMS = 'RECEIVE_FILTER_ITEMS';
 
+/**
+ * ページング用
+ */
+export const SELECT_PAGE = 'SELECT_PAGE';
+
+export function selectPage(pageNum) {
+  return { type: SELECT_PAGE, pageNum: pageNum }
+}
+
 /*
  * action creators
  */
@@ -109,6 +118,8 @@ export function getStocks(
       function(res) {
       }).then(function(res) {
         dispatch(receiveStocks(res))
+      }).then(function() {
+        dispatch(selectPage(1))
       });
   }
 }

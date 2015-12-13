@@ -16,6 +16,10 @@ var _createHistory = require('./createHistory');
 
 var _createHistory2 = _interopRequireDefault(_createHistory);
 
+var _parsePath = require('./parsePath');
+
+var _parsePath2 = _interopRequireDefault(_parsePath);
+
 function createStateStorage(entries) {
   return entries.filter(function (entry) {
     return entry.state;
@@ -95,7 +99,9 @@ function createMemoryHistory() {
       entry.key = key;
     }
 
-    return history.createLocation(path, state, undefined, key);
+    var location = _parsePath2['default'](path);
+
+    return history.createLocation(_extends({}, location, { state: state }), undefined, key);
   }
 
   function canGo(n) {

@@ -29,6 +29,7 @@ import UserStore from '../stores/user_store.jsx';
 import ActionCreator from '../actions/action_creator.js';
 import { getStocksIfNeeded } from '../actions/action_creator.js';
 import { getFilterItemsIfNeeded } from '../actions/action_creator.js';
+import { selectPage } from '../actions/action_creator.js';
 import { getUser } from '../actions/action_creator.js';
 import Loader from 'react-loader';
 import ReactPaginate from 'react-paginate';
@@ -60,45 +61,11 @@ var Index = React.createClass({
     }
   },
 
-  componentDidMount() {
-
-    // StockStore.addChangeListener(this._onStockChange);
-    // QueryStore.addChangeListener(this._onQueryChange);
-    // ActionCreator.fetchFilterOptions();
-  },
-
-  componentWillUnmount() {
-    // UserStore.removeChangeListener(this._onUserChange);
-    // StockStore.removeChangeListener(this._onStockChange);
-    // QueryStore.removeChangeListener(this._onQueryChange);
-  },
-
   /** ログインしているかを確認する。*/
   _onUserChange() {
     if(!UserStore.isSignin()) {
       this.transitionTo('/signin');
     }
-  },
-
-  /** StockStore変更時にStoreから情報を取得する */
-  _onStockChange() {
-    // var stocks = StockStore.getAll().stocks;
-    // var stockNumber = StockStore.getAll().stock_num;
-    // if ( stockNumber > PER_PAGE ) {
-    //   stocks = stocks.slice(0, PER_PAGE);
-    // }
-    // this.setState({ stocks: stocks, stockNumber: stockNumber, isLoaded: true });
-  },
-
-  /** QueryStore変更時にStoreから情報を取得する */
-  _onQueryChange() {
-    // var keyword = QueryStore.getKeyword();
-    // var filterOptions = QueryStore.getFilterOptions();
-    // this.setState({
-    //   keyword : keyword, filterOptions: filterOptions, isLoaded: false
-    // });
-    // //さらにクエリ発行してストック情報をサーバーに問い合わせる。
-    // ActionCreator.searchStocks(keyword, filterOptions);
   },
 
   /**
@@ -110,29 +77,12 @@ var Index = React.createClass({
   },
 
   /**
-   * 選択されたページのストックを取得する。
-   * @params pageNum 選択されたページ番号
-   */
-  _loadStocks(pageNum) {
-    return StockStore.getStocks().slice((pageNum - 1) * PER_PAGE, (pageNum - 1) * PER_PAGE + PER_PAGE);
-  },
-
-  /**
-   * ページを変更する。
-   * @params pageNum 選択されたページ番号
-   */
-  _changePage(pageNum) {
-    //this.setState({ isLoaded: false });
-    //this.setState({ stocks: this._loadStocks(pageNum), isLoaded: true });
-  },
-
-  /**
    * ページ番号がクリックされた時に実行されるメソッドです。
    * @params pageNum 選択されたページ番号
    */
   handlePageClick(e) {
     $('body, html').scrollTop(0);
-    this._changePage(e.selected + 1);
+    this.props.dispatch(selectPage(e.selected + 1));
   },
 
   render() {
@@ -146,7 +96,7 @@ var Index = React.createClass({
               <div className="c-main">
                   <StockSearchField updateKeyword={this.updateKeyword}/>
                   <Loader loaded={this.state.isLoaded} color="#BFBFBF" left="50%" top="20%">
-                    <StockIndex stocks={this.props.stocks} loadStocks={this.loadStocks} stockNumber={this.props.stockNumber} />
+                    <StockIndex stocks={this.props.displayingStocks} loadStocks={this.loadStocks} stockNumber={this.props.stockNumber} />
 
                     <div className="text-center">
                         <ReactPaginate previousLabel={"<"}
@@ -172,6 +122,7 @@ module.exports = connect(function(state) {
   return {
     stocks: state.stockIndex.stocks,
     stockNum: state.stockIndex.stockNum,
+    displayingStocks: state.stockIndex.displayingStocks,
     user: state.confirmUser.user
   }
 })(Index);

@@ -14,6 +14,8 @@ export const RECEIVE_STOCKS = 'RECEIVE_STOCKS';
 export const CLEAR_CRITERIA = 'CLEAR_CRITERIA';
 export const FETCH_FILTER_ITEMS = 'FETCH_FILTER_ITEMS';
 export const RECEIVE_FILTER_ITEMS = 'RECEIVE_FILTER_ITEMS';
+export const SELECT_PAGE = 'SELECT_PAGE';
+export const PER_PAGE = 20;
 
 /**
  * 初期データ取得用
@@ -30,6 +32,7 @@ export const RECEIVE_FILTER_ITEMS = 'RECEIVE_FILTER_ITEMS';
 const initialStockState = {
   isFetching: false,
   stocks: [],
+  displayingStocks: [],
   stockNum: 0
 }
 
@@ -37,29 +40,20 @@ const initialUserState = {
   userID: null
 }
 
-const State = {
-  filterState: initialFilterState,
-  stockState: initialStockState,
-  userState: initialUserState
-}
-
 // TODO 初期化時だけうごかす。要検討
 function filterLists(state = initialFilterState, action) {
   switch (action.type) {
     case FETCH_FILTER_ITEMS:
-      debugger;
       return Object.assign({}, state, {
         isFetching: true,
         filterItems: state.filterItems
       });
     case RECEIVE_FILTER_ITEMS:
-      debugger;
       return Object.assign({}, state, {
         isFetching: false,
         filterItems: action.filterItems
       });
     default:
-      debugger;
       return state;
   }
 }
@@ -69,13 +63,17 @@ function stockIndex(state = initialStockState, action) {
     case FETCH_STOCKS:
       return Object.assign({}, state, {
         isFetching: true,
-        stocks: state.stocks
       });
     case RECEIVE_STOCKS:
-        return Object.assign({}, state, {
-          isFetching: false,
-          stocks: action.stocks
-        });
+      return Object.assign({}, state, {
+        isFetching: false,
+        stocks: action.stocks,
+        stockNum: action.stockNum
+      });
+    case SELECT_PAGE:
+      return Object.assign({}, state, {
+        displayingStocks: state.stocks.slice((action.pageNum - 1) * PER_PAGE, (action.pageNum - 1) * PER_PAGE + PER_PAGE)
+      })
     default:
       return state;
   }
@@ -89,10 +87,10 @@ function confirmUser(state = initialUserState, action) {
         user: state.user
       });
     case RECEIVE_USER:
-        return Object.assign({}, state, {
-          isFetching: false,
-          user: action.user
-        });
+      return Object.assign({}, state, {
+        isFetching: false,
+        user: action.user
+      });
     default:
       return state;
   }
