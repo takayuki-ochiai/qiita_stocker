@@ -1,25 +1,23 @@
 import { combineReducers } from 'redux';
 import { connect } from 'react-redux';
-
-// TODO ここの定数はいつか統一する
-export const ERROR = 'ERROR'
-export const CONFIRM_SIGNIN = 'CONFIRM_SIGNIN'
-export const FIND_BY_KEYWORD = 'FIND_BY_KEYWORD'
-export const FIND_BY_FOLLOWEE = 'FIND_BY_FOLLOWEE'
-export const FIND_BY_FOLLOWING_TAG = 'FIND_BY_FOLLOWING_TAG';
-export const FETCH_USER = 'FETCH_USER';
-export const RECEIVE_USER = 'RECEIVE_USER';
-export const FETCH_STOCKS = 'FETCH_STOCKS'
-export const RECEIVE_STOCKS = 'RECEIVE_STOCKS';
-export const CLEAR_CRITERIA = 'CLEAR_CRITERIA';
-export const FETCH_FILTER_ITEMS = 'FETCH_FILTER_ITEMS';
-export const RECEIVE_FILTER_ITEMS = 'RECEIVE_FILTER_ITEMS';
-export const SELECT_PAGE = 'SELECT_PAGE';
-export const CHANGE_KEYWORD = 'CHANGE_KEYWORD';
-export const TOGGLE_FILTER_ITEM = 'TOGGLE_FILTER_ITEM';
+import
+  {
+    ERROR,
+    CONFIRM_SIGNIN,
+    FETCH_USER,
+    RECEIVE_USER,
+    FETCH_STOCKS,
+    RECEIVE_STOCKS,
+    CLEAR_CRITERIA,
+    FETCH_FILTER_ITEMS,
+    RECEIVE_FILTER_ITEMS,
+    SELECT_PAGE,
+    CHANGE_KEYWORD,
+    TOGGLE_FILTER_ITEM,
+    FOLLOWEES,
+    FOLLOWING_TAG
+   } from '../actions/action_creator.js'
 export const PER_PAGE = 20;
-export const FOLLOWEES = 'followees';
-export const FOLLOWING_TAG = 'followingTags';
 
 /**
  * 初期データ取得用
@@ -60,7 +58,7 @@ function filterLists(state = initialFilterState, action) {
         filterItems: action.filterItems
       });
     case TOGGLE_FILTER_ITEM:
-      // deepコピーしないとStateの情報をreducerで書き換えてしまうためObject#assignではなく$.extend
+      // deepコピーしないとStateの情報をreducerで書き換えてしまうためObject#assignではなく$#extend
       var newState = $.extend(true, {}, state);
       var targetItem = newState.filterItems[action.filterType][action.index];
       targetItem.hasChecked = !targetItem.hasChecked;
