@@ -44,7 +44,8 @@ const initialStockState = {
 }
 
 const initialUserState = {
-  userID: null
+  user: null,
+  signIn: false
 }
 
 // TODO 初期化時だけうごかす。要検討
@@ -126,8 +127,10 @@ function confirmUser(state = initialUserState, action) {
         user: state.user
       });
     case RECEIVE_USER:
+      var signIn = action.user.UserID !== null;
       return Object.assign({}, state, {
-        user: action.user
+        user: action.user,
+        signIn: signIn
       });
     default:
       return state;

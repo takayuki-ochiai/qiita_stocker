@@ -172,8 +172,8 @@ export function getUser() {
   return dispatch => {
     dispatch(fetchUser());
     return $.post('/api/sessions/confirm_signin.json', function(res) {
-      AppDispatcher.handleViewAction(Constants.CONFIRM_SIGNIN, res);
-    }).then(res => dispatch(receiveUser(res)));
+      dispatch(receiveUser(res));
+    });
   }
 }
 
