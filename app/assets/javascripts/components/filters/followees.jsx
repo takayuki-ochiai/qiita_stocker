@@ -5,7 +5,6 @@ import React from 'react';
  */
 
 import FilterOptionListItem from './filter_option_list_item.jsx';
-import Constants from '../../constants/app_constants.js';
 import FontAwesome from 'react-fontawesome';
 import { FOLLOWEES } from '../../actions/action_creator.js';
 import ToggleFilterOption from '../../mixins/toggle_filter_option_mixin.jsx';
@@ -18,7 +17,7 @@ var Followees = React.createClass({
       rows.push(
         <FilterOptionListItem key={followee.id} id={followee.id} index={followee.index} imageUrl={followee.profile_image_url} filterType={FOLLOWEES} hasChecked={followee.hasChecked} />
       )
-    }.bind(this));
+    });
 
     return(
       <div className="stock-index-filter-option">

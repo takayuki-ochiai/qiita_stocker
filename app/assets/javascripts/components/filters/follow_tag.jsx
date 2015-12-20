@@ -4,7 +4,6 @@ import React from 'react';
  * @author takayuki-ochiai
  */
 import FilterOptionListItem from './filter_option_list_item.jsx';
-import Constants from '../../constants/app_constants.js';
 import { FOLLOWING_TAG } from '../../actions/action_creator.js';
 import FontAwesome from 'react-fontawesome';
 import ToggleFilterOption from '../../mixins/toggle_filter_option_mixin.jsx';
@@ -17,7 +16,7 @@ var FollowTags = React.createClass({
       rows.push(
         <FilterOptionListItem key={tag.id} id={tag.id} index={tag.index} imageUrl={tag.icon_url} filterType={FOLLOWING_TAG} hasChecked={tag.hasChecked} />
       )
-    }.bind(this));
+    });
 
     return(
       <div className="stock-index-filter-option">

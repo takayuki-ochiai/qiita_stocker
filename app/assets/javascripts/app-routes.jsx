@@ -1,7 +1,6 @@
 import React from 'react';
-import { Router, IndexRoute, DefaultRoute, Route, RouteHandler } from 'react-router';
+import { Router, IndexRoute, Route } from 'react-router';
 import Index from './components/index.jsx';
-import Header from './components/header.jsx';
 import Login from './components/login.jsx';
 import UserOnly from './components/authentics/user_only.jsx';
 import GuestOnly from './components/authentics/guest_only.jsx';

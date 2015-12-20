@@ -7,9 +7,6 @@ import React from 'react';
 import FollowTags from './follow_tag.jsx';
 import Followees from './followees.jsx';
 import FontAwesome from 'react-fontawesome';
-//ActionCreator
-import ActionCreator from '../../actions/action_creator.js';
-
 import { getFilterItemsIfNeeded } from '../../actions/action_creator.js';
 import { clearCriteria } from '../../actions/action_creator.js';
 import { connect } from 'react-redux';

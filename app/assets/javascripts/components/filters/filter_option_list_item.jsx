@@ -4,7 +4,6 @@ import React from 'react';
  * @author takayuki-ochiai
  */
 import FontAwesome from 'react-fontawesome';
-import ActionCreator from '../../actions/action_creator.js';
 import { selectFilterItem } from '../../actions/action_creator.js';
 import { connect } from 'react-redux';
 

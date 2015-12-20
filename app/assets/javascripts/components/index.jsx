@@ -1,17 +1,17 @@
-import React from 'react';
-
-import createLogger from 'redux-logger';
-import thunk from 'redux-thunk';
-import { createStore, applyMiddleware} from 'redux';
-import { connect } from 'react-redux';
-import qiitaStockerApp from '../reducers/reducer.js';
-
 /**
  * @fileoverview メインページのControllerViewのComponentのファイルです。
  * @author takayuki-ochiai
  */
 
-import { Router, Navigation } from 'react-router';
+import React from 'react';
+
+import createLogger from 'redux-logger';
+import thunk from 'redux-thunk';
+import { createStore, applyMiddleware } from 'redux';
+import { connect } from 'react-redux';
+
+
+
 import Header from './header.jsx';
 /** ストックした投稿のリスト */
 import StockIndex from './stocks/stock_index.jsx';
@@ -19,14 +19,7 @@ import StockIndex from './stocks/stock_index.jsx';
 import StockIndexFilter from './filters/stock_index_filter.jsx';
 /** 検索フィールド */
 import StockSearchField from './stocks/stock_search_field.jsx';
-/** Flux用 */
-import AppDispatcher from '../dispatcher/dispatcher.js';
-/** Store */
-import StockStore from '../stores/stock_store.jsx';
-import QueryStore from '../stores/query_store.jsx';
-import UserStore from '../stores/user_store.jsx';
 /** ActionCreator */
-import ActionCreator from '../actions/action_creator.js';
 import { getStocksIfNeeded } from '../actions/action_creator.js';
 import { getFilterItemsIfNeeded } from '../actions/action_creator.js';
 import { selectPage } from '../actions/action_creator.js';
@@ -40,26 +33,10 @@ const PER_PAGE = 20;
 
 
 var Index = React.createClass({
-  mixins: [Navigation],
 
   componentWillMount() {
     this.props.dispatch(getFilterItemsIfNeeded());
     this.props.dispatch(getStocksIfNeeded());
-  },
-
-  /** ログインしているかを確認する。*/
-  _onUserChange() {
-    if(!UserStore.isSignin()) {
-      this.transitionTo('/signin');
-    }
-  },
-
-  /**
-   * QueryStoreに入力された検索キーワードを格納する
-   * @params keyword 検索キーワード
-   */
-  updateKeyword(keyword) {
-    ActionCreator.storeKeyword(keyword);
   },
 
   /**
