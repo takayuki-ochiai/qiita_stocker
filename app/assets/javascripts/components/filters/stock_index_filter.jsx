@@ -11,7 +11,7 @@ import FontAwesome from 'react-fontawesome';
 import ActionCreator from '../../actions/action_creator.js';
 
 import { getFilterItemsIfNeeded } from '../../actions/action_creator.js';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 
 var StockIndexFilter = React.createClass({
   clearOption() {
@@ -24,16 +24,18 @@ var StockIndexFilter = React.createClass({
                 絞り込む
                 <span className='stock-filter-index__filter-reset-button' >初期値に戻す <FontAwesome name='repeat' /></span>
             </div>
-            <FollowTags following_tags={this.props.followingTags} />
+            <FollowTags followingTags={this.props.followingTags} />
             <Followees followees={this.props.followees} />
         </div>
     )
   }
 });
 
-module.exports = connect(function(state) {
-  return {
-    followingTags: state.filterLists.filterItems.followingTags,
-    followees: state.filterLists.filterItems.followees
-  }
-})(StockIndexFilter);
+
+module.exports = StockIndexFilter;
+// module.exports = connect(function(state) {
+//   return {
+//     followingTags: state.filterLists.filterItems.followingTags,
+//     followees: state.filterLists.filterItems.followees
+//   }
+// })(StockIndexFilter);

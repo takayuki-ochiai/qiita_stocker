@@ -5,6 +5,8 @@ import React from 'react';
  */
 import FontAwesome from 'react-fontawesome';
 import ActionCreator from '../../actions/action_creator.js';
+import { toggleFilterItem } from '../../actions/action_creator.js';
+import { connect } from 'react-redux';
 
 var FilterOptionListItem = React.createClass({
   getInitialState() {
@@ -20,7 +22,7 @@ var FilterOptionListItem = React.createClass({
   toggleFilterOption() {
     // $('body, html').scrollTop(0);
     $("html,body").animate({scrollTop:$('html').offset().top});
-    ActionCreator.toggleFilterOption(this.props);
+    this.props.dispatch(toggleFilterItem(this.props));
   },
 
   setIconVisibility() {
@@ -55,7 +57,7 @@ var FilterOptionListItem = React.createClass({
     return(
       <li className={"stock-index-filter-option__item-wrapper " + this.setTextColor()}>
           <div className="stock-index-filter-option__item ui-checkbox" onClick={this.toggleFilterOption} onMouseOver={this.toggleIconStyle} onMouseOut={this.toggleIconStyle} >
-              <div className="stock-index-filter-option__image"><img src={this.props.image_url} /></div>
+              <div className="stock-index-filter-option__image"><img src={this.props.imageUrl} /></div>
               <div className="stock-index-filter-option__label">{this.props.id}</div>
               <FontAwesome className={"stock-index-filter-option__check-icon " + this.setIconVisibility() } name={this.getIconStyle()} size='lg' />
           </div>
@@ -65,4 +67,4 @@ var FilterOptionListItem = React.createClass({
 
 });
 
-module.exports =FilterOptionListItem;
+module.exports = connect()(FilterOptionListItem);

@@ -47,20 +47,6 @@ var Index = React.createClass({
     this.props.dispatch(getStocksIfNeeded());
   },
 
-  getInitialState() {
-    return {
-      filterOptions: {
-        following_tags: [],
-        followees: [],
-      },
-      stockNumber: 0,
-      stocks: [],
-      //検索用クエリ
-      keyword : '',
-      isLoaded: true
-    }
-  },
-
   /** ログインしているかを確認する。*/
   _onUserChange() {
     if(!UserStore.isSignin()) {
@@ -91,11 +77,11 @@ var Index = React.createClass({
           <Header />
           <div className="container">
               <div className="c-side">
-                  <StockIndexFilter />
+                  <StockIndexFilter followingTags={this.props.followingTags} followees={this.props.followees} />
               </div>
               <div className="c-main">
                   <StockSearchField updateKeyword={this.updateKeyword}/>
-                  <Loader loaded={this.state.isLoaded} color="#BFBFBF" left="50%" top="20%">
+                  <Loader loaded={this.props.isLoaded} color="#BFBFBF" left="50%" top="20%">
                     <StockIndex stocks={this.props.displayingStocks} loadStocks={this.loadStocks} stockNumber={this.props.stockNumber} />
 
                     <div className="text-center">
@@ -123,6 +109,9 @@ module.exports = connect(function(state) {
     stocks: state.stockIndex.stocks,
     stockNum: state.stockIndex.stockNum,
     displayingStocks: state.stockIndex.displayingStocks,
-    user: state.confirmUser.user
+    user: state.confirmUser.user,
+    isLoaded: state.stockIndex.isLoaded,
+    followingTags: state.filterLists.filterItems.followingTags,
+    followees: state.filterLists.filterItems.followees
   }
 })(Index);

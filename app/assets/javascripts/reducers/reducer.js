@@ -15,25 +15,32 @@ export const CLEAR_CRITERIA = 'CLEAR_CRITERIA';
 export const FETCH_FILTER_ITEMS = 'FETCH_FILTER_ITEMS';
 export const RECEIVE_FILTER_ITEMS = 'RECEIVE_FILTER_ITEMS';
 export const SELECT_PAGE = 'SELECT_PAGE';
+export const CHANGE_KEYWORD = 'CHANGE_KEYWORD';
+export const TOGGLE_FILTER_ITEM = 'TOGGLE_FILTER_ITEM';
 export const PER_PAGE = 20;
+export const FOLLOWEES = 'followees';
+export const FOLLOWING_TAG = 'followingTags';
 
 /**
  * 初期データ取得用
  */
 
  const initialFilterState = {
-   isFetching: false,
    filterItems: {
      followingTags: [],
      followees: []
    }
  }
 
+const initialKeyword = {
+  keyword: ''
+}
+
 const initialStockState = {
-  isFetching: false,
   stocks: [],
   displayingStocks: [],
-  stockNum: 0
+  stockNum: 0,
+  isLoaded: true
 }
 
 const initialUserState = {
@@ -45,14 +52,29 @@ function filterLists(state = initialFilterState, action) {
   switch (action.type) {
     case FETCH_FILTER_ITEMS:
       return Object.assign({}, state, {
-        isFetching: true,
         filterItems: state.filterItems
       });
     case RECEIVE_FILTER_ITEMS:
       return Object.assign({}, state, {
-        isFetching: false,
         filterItems: action.filterItems
       });
+    case TOGGLE_FILTER_ITEM:
+      // deepコピーしないとStateの情報をreducerで書き換えてしまうためObject#assignではなく$.extend
+      let newState = $.extend(true, {}, state);
+      let targetItem = newState.filterItems[action.filterItem.filterType][action.filterItem.index];
+      targetItem.hasChecked = !targetItem.hasChecked;
+      return Object.assign({}, newState);
+    default:
+      return state;
+  }
+}
+
+function keyword(state = initialKeyword, action) {
+  switch (action.type) {
+    case CHANGE_KEYWORD:
+      return Object.assign({}, state, {
+        keyword: action.keyword
+      })
     default:
       return state;
   }
@@ -62,18 +84,18 @@ function stockIndex(state = initialStockState, action) {
   switch (action.type) {
     case FETCH_STOCKS:
       return Object.assign({}, state, {
-        isFetching: true,
+        isLoaded: false,
       });
     case RECEIVE_STOCKS:
       return Object.assign({}, state, {
-        isFetching: false,
+        isLoaded: true,
         stocks: action.stocks,
         stockNum: action.stockNum
       });
     case SELECT_PAGE:
       return Object.assign({}, state, {
         displayingStocks: state.stocks.slice((action.pageNum - 1) * PER_PAGE, (action.pageNum - 1) * PER_PAGE + PER_PAGE)
-      })
+      });
     default:
       return state;
   }
@@ -83,12 +105,10 @@ function confirmUser(state = initialUserState, action) {
   switch (action.type) {
     case FETCH_USER:
       return Object.assign({}, state, {
-        isFetching: true,
         user: state.user
       });
     case RECEIVE_USER:
       return Object.assign({}, state, {
-        isFetching: false,
         user: action.user
       });
     default:
@@ -99,7 +119,8 @@ function confirmUser(state = initialUserState, action) {
 const qiitaStockerApp = combineReducers({
   filterLists,
   stockIndex,
-  confirmUser
+  confirmUser,
+  keyword
 })
 
 export default qiitaStockerApp;

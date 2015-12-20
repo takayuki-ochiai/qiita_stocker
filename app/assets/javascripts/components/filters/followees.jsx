@@ -7,6 +7,7 @@ import React from 'react';
 import FilterOptionListItem from './filter_option_list_item.jsx';
 import Constants from '../../constants/app_constants.js';
 import FontAwesome from 'react-fontawesome';
+import { FOLLOWEES } from '../../actions/action_creator.js';
 import ToggleFilterOption from '../../mixins/toggle_filter_option_mixin.jsx';
 
 var Followees = React.createClass({
@@ -15,7 +16,7 @@ var Followees = React.createClass({
     var rows = [];
     this.props.followees.forEach(function(followee) {
       rows.push(
-        <FilterOptionListItem key={followee.id} id={followee.id} image_url={followee.profile_image_url} filter_category={Constants.FOLLOWEE_FILTER} hasChecked={followee.hasChecked} />
+        <FilterOptionListItem key={followee.id} id={followee.id} index={followee.index} imageUrl={followee.profile_image_url} filterType={FOLLOWEES} hasChecked={followee.hasChecked} />
       )
     }.bind(this));
 

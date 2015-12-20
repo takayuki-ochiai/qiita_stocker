@@ -18,6 +18,13 @@ export const CLEAR_CRITERIA = 'CLEAR_CRITERIA';
 export const FETCH_USER = 'FETCH_USER';
 export const RECEIVE_USER = 'RECEIVE_USER';
 
+export const CHANGE_KEYWORD = 'CHANGE_KEYWORD';
+export const TOGGLE_FILTER_ITEM = 'TOGGLE_FILTER_ITEM';
+
+/** filter-optionの種類を表す定数 */
+export const FOLLOWEES = 'followees';
+export const FOLLOWING_TAG = 'followingTags';
+
 /**
  * 初期データ取得用
  */
@@ -77,7 +84,12 @@ export function getFilterItemsIfNeeded() {
   };
 }
 
-
+export function toggleFilterItem(fiiterItem) {
+  return {
+    type: TOGGLE_FILTER_ITEM,
+    filterItem: fiiterItem
+  }
+}
 
 export function fetchStocks(keyword, filterOptions) {
   return {
@@ -161,6 +173,13 @@ export function receiveUser(user) {
   return {
     type: RECEIVE_USER,
     user: user
+  }
+}
+
+export function changeKeyword(keyword) {
+  return {
+    type: CHANGE_KEYWORD,
+    keyword: keyword
   }
 }
 
