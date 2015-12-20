@@ -20,6 +20,7 @@ export const RECEIVE_USER = 'RECEIVE_USER';
 
 export const CHANGE_KEYWORD = 'CHANGE_KEYWORD';
 export const TOGGLE_FILTER_ITEM = 'TOGGLE_FILTER_ITEM';
+export const CLEAR_OPTIONS = 'CLEAR_OPTIONS';
 
 /** filter-optionの種類を表す定数 */
 export const FOLLOWEES = 'followees';
@@ -187,6 +188,13 @@ export function changeKeyword(keyword) {
   return {
     type: CHANGE_KEYWORD,
     keyword: keyword
+  }
+}
+
+export function clearCriteria() {
+  return dispatch => {
+    dispatch({ type: CLEAR_CRITERIA });
+    dispatch(getStocksIfNeeded());
   }
 }
 

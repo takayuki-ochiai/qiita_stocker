@@ -60,9 +60,23 @@ function filterLists(state = initialFilterState, action) {
       });
     case TOGGLE_FILTER_ITEM:
       // deepコピーしないとStateの情報をreducerで書き換えてしまうためObject#assignではなく$.extend
-      let newState = $.extend(true, {}, state);
-      let targetItem = newState.filterItems[action.filterType][action.index];
+      var newState = $.extend(true, {}, state);
+      var targetItem = newState.filterItems[action.filterType][action.index];
       targetItem.hasChecked = !targetItem.hasChecked;
+      return Object.assign({}, newState);
+    case CLEAR_CRITERIA:
+      var newState = $.extend(true, {}, state);
+
+      newState.filterItems.followingTags
+        .forEach(function(filter) {
+          return filter.hasChecked = false;
+        });
+
+      newState.filterItems.followees
+        .forEach(function(filter) {
+          return filter.hasChecked = false;
+        });
+
       return Object.assign({}, newState);
     default:
       return state;
@@ -74,6 +88,10 @@ function keyword(state = initialKeyword, action) {
     case CHANGE_KEYWORD:
       return Object.assign({}, state, {
         keyword: action.keyword
+      })
+    case CLEAR_CRITERIA:
+      return Object.assign({}, {
+        keyword: ''
       })
     default:
       return state;

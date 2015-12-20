@@ -11,11 +11,12 @@ import FontAwesome from 'react-fontawesome';
 import ActionCreator from '../../actions/action_creator.js';
 
 import { getFilterItemsIfNeeded } from '../../actions/action_creator.js';
-// import { connect } from 'react-redux';
+import { clearCriteria } from '../../actions/action_creator.js';
+import { connect } from 'react-redux';
 
 var StockIndexFilter = React.createClass({
   clearOption() {
-    ActionCreator.clearOption();
+    this.props.dispatch(clearCriteria());
   },
   render() {
     return (
@@ -32,10 +33,4 @@ var StockIndexFilter = React.createClass({
 });
 
 
-module.exports = StockIndexFilter;
-// module.exports = connect(function(state) {
-//   return {
-//     followingTags: state.filterLists.filterItems.followingTags,
-//     followees: state.filterLists.filterItems.followees
-//   }
-// })(StockIndexFilter);
+module.exports = connect()(StockIndexFilter);
