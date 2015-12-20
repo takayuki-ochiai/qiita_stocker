@@ -61,7 +61,7 @@ function filterLists(state = initialFilterState, action) {
     case TOGGLE_FILTER_ITEM:
       // deepコピーしないとStateの情報をreducerで書き換えてしまうためObject#assignではなく$.extend
       let newState = $.extend(true, {}, state);
-      let targetItem = newState.filterItems[action.filterItem.filterType][action.filterItem.index];
+      let targetItem = newState.filterItems[action.filterType][action.index];
       targetItem.hasChecked = !targetItem.hasChecked;
       return Object.assign({}, newState);
     default:

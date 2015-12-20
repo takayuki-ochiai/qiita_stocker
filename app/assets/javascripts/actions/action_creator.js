@@ -76,6 +76,7 @@ export function getFilterItems() {
 
 export function getFilterItemsIfNeeded() {
   return (dispatch, getState) => {
+    // TODO: ここの条件は修正する
     if (getState.isFetching) {
       return Promise.resolve();
     } else {
@@ -84,10 +85,20 @@ export function getFilterItemsIfNeeded() {
   };
 }
 
-export function toggleFilterItem(fiiterItem) {
+export function selectFilterItem(filterType, index) {
+  return dispatch => {
+    // とりにいくよを宣言
+    dispatch(toggleFilterItem(filterType, index));
+
+    dispatch(getStocksIfNeeded())
+  }
+}
+
+export function toggleFilterItem(filterType, index) {
   return {
     type: TOGGLE_FILTER_ITEM,
-    filterItem: fiiterItem
+    filterType: filterType,
+    index: index
   }
 }
 
@@ -100,7 +111,7 @@ export function fetchStocks(keyword, filterOptions) {
 }
 
 export function getStocks(
-    keyword = null,
+    keyword = '',
     filterOptions = { followingTags: [], followees: [] }
   ) {
     return dispatch => {
@@ -126,8 +137,6 @@ export function getStocks(
         keyword: keyword,
         followingTags: followingTags,
         followees: followees
-      },
-      function(res) {
       }).then(function(res) {
         dispatch(receiveStocks(res))
       }).then(function() {
@@ -138,10 +147,8 @@ export function getStocks(
 
 export function getStocksIfNeeded() {
   return (dispatch, getState) => {
-    if (getState.isFetching) {
-      return Promise.resolve();
-    } else {
-      return dispatch(getStocks())
+    if (getState().stockIndex.isLoaded) {
+      return dispatch(getStocks(getState().keyword.keyword, getState().filterLists.filterItems));
     }
   };
 }

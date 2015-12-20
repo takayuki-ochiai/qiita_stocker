@@ -9,7 +9,7 @@ module Api
       client = QiitaClient.new(session[:user_id], session[:token])
       stocks = client.all_stocks
 
-      stock_query = StockQuery.new(stocks, params[:keyword], params[:following_tags], params[:followees])
+      stock_query = StockQuery.new(stocks, params[:keyword], params[:followingTags], params[:followees])
       @stocks = stock_query.select_stocks
       #stockの持つタグを集計する
       #TODO: なんかやぼったい書き方しているのどうにかしたい

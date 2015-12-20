@@ -5,7 +5,7 @@ import React from 'react';
  */
 import FontAwesome from 'react-fontawesome';
 import ActionCreator from '../../actions/action_creator.js';
-import { toggleFilterItem } from '../../actions/action_creator.js';
+import { selectFilterItem } from '../../actions/action_creator.js';
 import { connect } from 'react-redux';
 
 var FilterOptionListItem = React.createClass({
@@ -22,7 +22,7 @@ var FilterOptionListItem = React.createClass({
   toggleFilterOption() {
     // $('body, html').scrollTop(0);
     $("html,body").animate({scrollTop:$('html').offset().top});
-    this.props.dispatch(toggleFilterItem(this.props));
+    this.props.dispatch(selectFilterItem(this.props.filterType, this.props.index));
   },
 
   setIconVisibility() {
