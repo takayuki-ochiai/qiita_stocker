@@ -46,7 +46,6 @@ const initialUserState = {
   signIn: false
 }
 
-// TODO 初期化時だけうごかす。要検討
 function filterLists(state = initialFilterState, action) {
   switch (action.type) {
     case FETCH_FILTER_ITEMS:
