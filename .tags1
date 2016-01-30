@@ -4,9 +4,3 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
-development	/Users/TakayukiOchiai/railsproject/qiita_stocker/config/secrets.yml	/^development:$/;"	function	line:13
-secret_key_base	/Users/TakayukiOchiai/railsproject/qiita_stocker/config/secrets.yml	/^  secret_key_base: 055df2e4736e70a7be614ff7165c5b6ae764aa1ec4ca1b9e764a977eedab5b85c355aa1c18a5926ab2fbece6e8f7b704208ae39cbc14e4e39d60709d52057527$/;"	function	line:14
-test	/Users/TakayukiOchiai/railsproject/qiita_stocker/config/secrets.yml	/^test:$/;"	function	line:16
-secret_key_base	/Users/TakayukiOchiai/railsproject/qiita_stocker/config/secrets.yml	/^  secret_key_base: 5e429e7a15afa19a36f170ff92e4aaf9a48dd8554b0927b3d4ae7e3fe4b8444185bd2a635a2cacb2e9d1eb416ced61c2dc4e2366dc10077a9271c1f308a7d46e$/;"	function	line:17
-production	/Users/TakayukiOchiai/railsproject/qiita_stocker/config/secrets.yml	/^production:$/;"	function	line:21
-secret_key_base	/Users/TakayukiOchiai/railsproject/qiita_stocker/config/secrets.yml	/^  secret_key_base: <%= ENV["SECRET_KEY_BASE"] %>$/;"	function	line:22

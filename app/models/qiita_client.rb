@@ -34,7 +34,6 @@ class QiitaClient
       @followees = get_json(http, "followees?page=1&per_page=100")
       @following_tags = get_json(http, "following_tags?page=1&per_page=100")
     end
-
     @followees.each_with_index { |followee, index| followee['index'] = index }
     @following_tags.each_with_index { |following_tag, index| following_tag['index'] = index }
 

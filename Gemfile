@@ -33,6 +33,7 @@ gem "font-awesome-rails"
 # Use Unicorn as the app server
 gem 'unicorn'
 
+gem 'therubyracer'
 
 group :test do
   gem "faker", "~> 1.4.3"
@@ -63,4 +64,3 @@ group :development, :test do
   gem "rspec-rails", "~> 3.1.0"
   gem "factory_girl_rails", "~> 4.4.1"
 end
-

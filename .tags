@@ -4,3 +4,10 @@ test	/Users/TakayukiOchiai/railsproject/qiita_stocker/config/secrets.yml	/^test:
 secret_key_base	/Users/TakayukiOchiai/railsproject/qiita_stocker/config/secrets.yml	/^  secret_key_base: 5e429e7a15afa19a36f170ff92e4aaf9a48dd8554b0927b3d4ae7e3fe4b8444185bd2a635a2cacb2e9d1eb416ced61c2dc4e2366dc10077a9271c1f308a7d46e$/;"	function	line:17
 production	/Users/TakayukiOchiai/railsproject/qiita_stocker/config/secrets.yml	/^production:$/;"	function	line:21
 secret_key_base	/Users/TakayukiOchiai/railsproject/qiita_stocker/config/secrets.yml	/^  secret_key_base: <%= ENV["SECRET_KEY_BASE"] %>$/;"	function	line:22
+QiitaClient	/Users/TakayukiOchiai/railsproject/qiita_stocker/app/models/qiita_client.rb	/^class QiitaClient$/;"	class	line:1
+initialize	/Users/TakayukiOchiai/railsproject/qiita_stocker/app/models/qiita_client.rb	/^  def initialize(user_id, token)$/;"	method	line:9	class:QiitaClient
+all_stocks	/Users/TakayukiOchiai/railsproject/qiita_stocker/app/models/qiita_client.rb	/^  def all_stocks$/;"	method	line:14	class:QiitaClient
+filter_data	/Users/TakayukiOchiai/railsproject/qiita_stocker/app/models/qiita_client.rb	/^  def filter_data$/;"	method	line:30	class:QiitaClient.all_stocks
+client_id	/Users/TakayukiOchiai/railsproject/qiita_stocker/app/models/qiita_client.rb	/^  def self.client_id$/;"	singleton method	line:43	class:QiitaClient.all_stocks
+client_secret	/Users/TakayukiOchiai/railsproject/qiita_stocker/app/models/qiita_client.rb	/^  def self.client_secret$/;"	singleton method	line:48	class:QiitaClient.all_stocks
+get_json	/Users/TakayukiOchiai/railsproject/qiita_stocker/app/models/qiita_client.rb	/^    def get_json(http, last_uri)$/;"	method	line:54	class:QiitaClient.all_stocks
